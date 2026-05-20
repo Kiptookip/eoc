@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Incident Detail View - Emergency Operations Centre</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "tertiary-fixed": "#92f1ff",
+            "primary": "#3f6900",
+            "outline-variant": "#c2c9b3",
+            "primary-fixed-dim": "#9cd854",
+            "surface-tint": "#3f6900",
+            "surface-container-lowest": "#ffffff",
+            "tertiary": "#006973",
+            "surface-variant": "#d9e4ea",
+            "surface-container": "#e4f0f5",
+            "inverse-on-surface": "#e7f2f8",
+            "secondary-fixed-dim": "#b0cbd7",
+            "primary-fixed": "#b7f56d",
+            "secondary-container": "#c9e4f1",
+            "on-error-container": "#93000a",
+            "background": "#f2fbff",
+            "on-tertiary-fixed": "#001f23",
+            "on-primary-fixed": "#102000",
+            "surface-container-high": "#dfeaf0",
+            "tertiary-fixed-dim": "#4dd8ea",
+            "on-surface-variant": "#424938",
+            "error-container": "#ffdad6",
+            "on-primary": "#ffffff",
+            "surface-container-highest": "#d9e4ea",
+            "on-surface": "#131d21",
+            "on-secondary-fixed": "#031f28",
+            "surface-bright": "#f2fbff",
+            "on-primary-fixed-variant": "#2f4f00",
+            "inverse-primary": "#9cd854",
+            "secondary": "#49626d",
+            "inverse-surface": "#273236",
+            "on-secondary-container": "#4d6671",
+            "primary-container": "#88c241",
+            "on-error": "#ffffff",
+            "on-tertiary-container": "#004c54",
+            "error": "#ba1a1a",
+            "tertiary-container": "#2dc3d4",
+            "secondary-fixed": "#cce7f3",
+            "on-tertiary": "#ffffff",
+            "on-secondary": "#ffffff",
+            "outline": "#737a67",
+            "surface-container-low": "#eaf5fb",
+            "on-tertiary-fixed-variant": "#004f57",
+            "surface": "#f2fbff",
+            "on-primary-container": "#2d4c00",
+            "surface-dim": "#d1dce1",
+            "on-background": "#131d21",
+            "on-secondary-fixed-variant": "#314a55"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "xs": "4px",
+            "margin-page": "24px",
+            "lg": "24px",
+            "sm": "8px",
+            "gutter": "20px",
+            "base": "4px",
+            "md": "16px",
+            "xl": "32px"
+          },
+          "fontFamily": {
+            "body-lg": ["Nunito"],
+            "h3": ["Nunito"],
+            "h2": ["Nunito"],
+            "h1": ["Nunito"],
+            "body-sm": ["Nunito"],
+            "label-caps": ["Nunito"],
+            "body-md": ["Nunito"],
+            "button": ["Nunito"]
+          },
+          "fontSize": {
+            "body-lg": ["16px", {"lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400"}],
+            "h3": ["20px", {"lineHeight": "1.4", "letterSpacing": "0", "fontWeight": "600"}],
+            "h2": ["24px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+            "h1": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+            "body-sm": ["12px", {"lineHeight": "1.4", "letterSpacing": "0.01em", "fontWeight": "400"}],
+            "label-caps": ["11px", {"lineHeight": "1", "letterSpacing": "0.06em", "fontWeight": "700"}],
+            "body-md": ["14px", {"lineHeight": "1.5", "letterSpacing": "0", "fontWeight": "400"}],
+            "button": ["14px", {"lineHeight": "1", "letterSpacing": "0.02em", "fontWeight": "600"}]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    body { font-family: 'Nunito', sans-serif; background-color: #acb0b1; }
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: #c2c9b3; border-radius: 10px; }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="flex flex-col min-h-screen">
+<!-- Navigation Drawer (Shell) -->
+<aside class="flex flex-col h-screen fixed left-0 top-0 z-50 w-[240px] bg-secondary dark:bg-on-secondary-fixed-variant shadow-sm border-r border-outline-variant dark:border-on-surface-variant">
+<div class="px-lg py-xl flex flex-col gap-xs">
+<div class="flex items-center gap-sm mb-md">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined">shield</span>
+</div>
+<div>
+<p class="font-label-caps text-label-caps uppercase tracking-widest text-secondary-fixed">NMS Dispatcher</p>
+<p class="font-body-sm text-body-sm text-secondary-fixed-dim">EOC Unit 4 • Active</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 px-2">
+<div class="flex items-center px-4 py-3 mx-2 my-1 transition-all text-secondary-fixed hover:text-white hover:bg-secondary-container/20 cursor-pointer">
+<span class="material-symbols-outlined mr-md" data-icon="dashboard">dashboard</span>
+<span class="font-body-md text-body-md">Dashboard</span>
+</div>
+<div class="bg-primary text-on-primary font-bold rounded-lg mx-2 my-1 flex items-center px-4 py-3 cursor-pointer scale-95 active:scale-100 transition-transform">
+<span class="material-symbols-outlined mr-md" data-icon="emergency">emergency</span>
+<span class="font-body-md text-body-md">Incident Feed</span>
+</div>
+<div class="flex items-center px-4 py-3 mx-2 my-1 transition-all text-secondary-fixed hover:text-white hover:bg-secondary-container/20 cursor-pointer">
+<span class="material-symbols-outlined mr-md" data-icon="map">map</span>
+<span class="font-body-md text-body-md">Resource Map</span>
+</div>
+<div class="flex items-center px-4 py-3 mx-2 my-1 transition-all text-secondary-fixed hover:text-white hover:bg-secondary-container/20 cursor-pointer">
+<span class="material-symbols-outlined mr-md" data-icon="hub">hub</span>
+<span class="font-body-md text-body-md">Dispatch Queue</span>
+</div>
+<div class="flex items-center px-4 py-3 mx-2 my-1 transition-all text-secondary-fixed hover:text-white hover:bg-secondary-container/20 cursor-pointer">
+<span class="material-symbols-outlined mr-md" data-icon="group">group</span>
+<span class="font-body-md text-body-md">Personnel</span>
+</div>
+<div class="flex items-center px-4 py-3 mx-2 my-1 transition-all text-secondary-fixed hover:text-white hover:bg-secondary-container/20 cursor-pointer">
+<span class="material-symbols-outlined mr-md" data-icon="settings">settings</span>
+<span class="font-body-md text-body-md">System Settings</span>
+</div>
+</nav>
+</aside>
+<!-- Main Canvas -->
+<main class="ml-[240px] flex-1 flex flex-col min-h-screen bg-[#acb0b1]">
+<!-- Top App Bar -->
+<header class="flex justify-between items-center w-full px-lg h-16 sticky top-0 z-40 bg-surface dark:bg-surface-dim border-b border-outline-variant dark:border-outline">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-primary cursor-pointer" data-icon="arrow_back">arrow_back</span>
+<h1 class="font-h3 text-h3 font-bold text-on-surface">Incident Detail: INC-88241-ALPHA</h1>
+</div>
+<div class="flex items-center gap-md">
+<div class="flex flex-col items-end mr-md">
+<span class="font-label-caps text-label-caps text-outline uppercase">Assigned Unit</span>
+<span class="font-body-md text-body-md font-bold text-primary">PARAMEDIC-72</span>
+</div>
+<span class="material-symbols-outlined text-secondary hover:bg-surface-container-high p-2 rounded-full transition-colors cursor-pointer" data-icon="notifications">notifications</span>
+<div class="w-8 h-8 rounded-full bg-secondary-container border border-outline-variant"></div>
+</div>
+</header>
+<!-- Content Area -->
+<div class="p-lg grid grid-cols-12 gap-gutter">
+<!-- Left Column: Critical Info & Timeline -->
+<div class="col-span-12 lg:col-span-8 flex flex-col gap-gutter">
+<!-- Header Actions Card -->
+<div class="bg-white border border-[#d1d5d6] p-md rounded-none flex items-center justify-between">
+<div class="flex items-center gap-md">
+<div class="px-md py-1 bg-error-container text-on-error-container rounded-full font-label-caps text-label-caps flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span> PRIORITY 1
+            </div>
+<div class="px-md py-1 bg-tertiary-container/15 text-on-tertiary-container rounded-full font-label-caps text-label-caps">
+              PENDING HANDOFF
+            </div>
+</div>
+<div class="flex gap-sm">
+<button class="px-lg py-2 bg-primary hover:bg-primary-container text-white font-button text-button rounded-lg transition-colors flex items-center gap-sm shadow-sm">
+<span class="material-symbols-outlined text-[18px]">check_circle</span> Accept Case
+            </button>
+<div class="relative">
+<button class="px-lg py-2 border border-secondary text-secondary font-button text-button rounded-lg hover:bg-surface-container transition-colors flex items-center gap-sm">
+                Status: Pending <span class="material-symbols-outlined text-[18px]">expand_more</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Incident Summary Bento -->
+<div class="grid grid-cols-2 gap-gutter">
+<!-- Chief Complaint Card -->
+<div class="col-span-2 md:col-span-1 bg-white border border-[#d1d5d6] p-lg flex flex-col gap-sm">
+<span class="font-label-caps text-label-caps text-outline uppercase">Chief Complaint</span>
+<h2 class="font-h2 text-h2 text-[#273238]">Acute Respiratory Distress</h2>
+<p class="font-body-md text-body-md text-secondary">Patient presenting with severe shortness of breath, audible wheezing, and peripheral cyanosis. Onset 15 minutes prior to dispatch.</p>
+</div>
+<!-- Reason for Handoff Card -->
+<div class="col-span-2 md:col-span-1 bg-surface-container-low border border-[#d1d5d6] p-lg flex flex-col gap-sm">
+<span class="font-label-caps text-label-caps text-primary uppercase">Reason for Handoff</span>
+<div class="flex items-start gap-md">
+<span class="material-symbols-outlined text-primary-container" data-icon="swap_horiz">swap_horiz</span>
+<div>
+<p class="font-body-md text-body-md text-on-surface font-semibold">Specialized Resource Required</p>
+<p class="font-body-sm text-body-sm text-secondary">Original unit (EOC-Unit-2) redirected to higher-priority trauma. Case transferred to Advanced Life Support (ALS) for ventilatory support.</p>
+</div>
+</div>
+</div>
+<!-- Location Details Card -->
+<div class="col-span-2 bg-white border border-[#d1d5d6] p-0 overflow-hidden flex flex-col md:flex-row h-64 md:h-72">
+<div class="flex-1 p-lg flex flex-col justify-between">
+<div>
+<span class="font-label-caps text-label-caps text-outline uppercase">Primary Location</span>
+<p class="font-h3 text-h3 mt-xs">Central Transit Hub - Platform 4B</p>
+<p class="font-body-md text-body-md text-secondary">1200 Terminal Way, North District</p>
+</div>
+<div class="p-md bg-surface-container rounded flex items-center gap-md">
+<span class="material-symbols-outlined text-primary" data-icon="info">info</span>
+<p class="font-body-sm text-body-sm">Access via North Entrance. Secure perimeter established by Transit Security.</p>
+</div>
+</div>
+<div class="w-full md:w-[400px] bg-surface-variant relative">
+<img alt="Location Map" class="w-full h-full object-cover" data-alt="A professional satellite view map showing a complex urban transit hub with several interconnected rail platforms and high-density buildings surrounding the area. The map includes crisp, digital overlays such as blue and red heat zones and a bright green incident marker icon precisely at the center of the terminal. The lighting is bright and clear, emphasizing clean architectural lines and professional GIS data visualization." data-location="Metropolis Central" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBgOA7Z6a-y04Kplz_y1X9lQX1R3CJtIbP8sPUap65JIVq-xu6tvBMCUjWPOfqm_fgcSiN2gRePX6_xMp72-e0ZUHZVRz0it3m9HeBYBfCjYcWfiWSAHJVqtKWSgg-s6aA0-SrTsJVLA8hH5HRXzMrSYxF9zTGmLaBJWCvhp9mRPW7fZIYX70ilN-nfuq9Jdhm-nfBme1Kj-eZpuOzRfwkoZ2eP05sd-DJkQHguPb_nug0xjSqjBtvSAayoXAtjrIDNNwNpplHvCPg"/>
+<div class="absolute inset-0 bg-primary/5 pointer-events-none"></div>
+</div>
+</div>
+</div>
+<!-- Live Status Timeline -->
+<div class="bg-white border border-[#d1d5d6] p-lg flex flex-col gap-lg">
+<div class="flex justify-between items-center">
+<span class="font-label-caps text-label-caps text-outline uppercase">Live Incident Timeline</span>
+<span class="font-body-sm text-body-sm text-secondary">Last updated: 2m ago</span>
+</div>
+<div class="relative flex flex-col gap-xl ml-4">
+<!-- Timeline Line -->
+<div class="absolute left-[7px] top-2 bottom-2 w-[2px] bg-outline-variant"></div>
+<!-- Timeline Item: Active -->
+<div class="relative flex items-start gap-lg">
+<div class="z-10 w-4 h-4 rounded-full bg-primary ring-4 ring-primary-container/30 mt-1"></div>
+<div class="flex-1">
+<div class="flex justify-between">
+<p class="font-body-md text-body-md font-bold text-on-surface">Handoff Requested</p>
+<span class="font-body-sm text-body-sm text-outline">14:22:04</span>
+</div>
+<p class="font-body-sm text-body-sm text-secondary">Incident controller requested ALS unit transfer due to complex airway management requirements.</p>
+</div>
+</div>
+<!-- Timeline Item: Past -->
+<div class="relative flex items-start gap-lg opacity-60">
+<div class="z-10 w-4 h-4 rounded-full bg-secondary mt-1"></div>
+<div class="flex-1">
+<div class="flex justify-between">
+<p class="font-body-md text-body-md font-bold text-on-surface">Unit On-Site (BLS)</p>
+<span class="font-body-sm text-body-sm text-outline">14:18:12</span>
+</div>
+<p class="font-body-sm text-body-sm text-secondary">Unit AMB-12 arrived at North Entrance. Initial assessment initiated.</p>
+</div>
+</div>
+<!-- Timeline Item: Past -->
+<div class="relative flex items-start gap-lg opacity-60">
+<div class="z-10 w-4 h-4 rounded-full bg-secondary mt-1"></div>
+<div class="flex-1">
+<div class="flex justify-between">
+<p class="font-body-md text-body-md font-bold text-on-surface">Call Dispatched</p>
+<span class="font-body-sm text-body-sm text-outline">14:12:45</span>
+</div>
+<p class="font-body-sm text-body-sm text-secondary">Incident logged via 911 emergency line. Initial priority assigned: 2.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Patient Details & Attachments -->
+<div class="col-span-12 lg:col-span-4 flex flex-col gap-gutter">
+<!-- Patient Details Card -->
+<div class="bg-white border border-[#d1d5d6] rounded-none flex flex-col">
+<div class="p-md border-b border-outline-variant bg-surface-container-low">
+<h3 class="font-h3 text-h3 text-[#273238] flex items-center gap-sm">
+<span class="material-symbols-outlined text-secondary" data-icon="person">person</span> Patient Information
+            </h3>
+</div>
+<div class="p-lg flex flex-col gap-md">
+<div class="grid grid-cols-2 gap-md">
+<div>
+<span class="font-label-caps text-label-caps text-outline uppercase block mb-1">Name</span>
+<p class="font-body-md text-body-md font-bold">Doe, Jonathan</p>
+</div>
+<div>
+<span class="font-label-caps text-label-caps text-outline uppercase block mb-1">Age / Sex</span>
+<p class="font-body-md text-body-md font-bold">58 / Male</p>
+</div>
+<div>
+<span class="font-label-caps text-label-caps text-outline uppercase block mb-1">ID Number</span>
+<p class="font-body-md text-body-md font-bold">MRN-992-10</p>
+</div>
+<div>
+<span class="font-label-caps text-label-caps text-outline uppercase block mb-1">Blood Type</span>
+<p class="font-body-md text-body-md font-bold">A Positive</p>
+</div>
+</div>
+<div class="mt-md p-md bg-error-container/10 border-l-4 border-error">
+<span class="font-label-caps text-label-caps text-error uppercase block mb-1">Critical Allergies</span>
+<p class="font-body-md text-body-md font-bold text-on-error-container">PENICILLIN, LATEX</p>
+</div>
+<div class="mt-xs">
+<span class="font-label-caps text-label-caps text-outline uppercase block mb-1">Medical History</span>
+<ul class="list-disc ml-4 font-body-sm text-body-sm text-secondary space-y-1">
+<li>Chronic Obstructive Pulmonary Disease (COPD)</li>
+<li>Hypertension</li>
+<li>Type 2 Diabetes Mellitus</li>
+</ul>
+</div>
+</div>
+</div>
+<!-- Vital Signs Monitor (Simulation) -->
+<div class="bg-[#233c46] border border-[#233c46] text-white p-lg flex flex-col gap-md">
+<div class="flex justify-between items-center">
+<span class="font-label-caps text-label-caps text-primary-fixed uppercase tracking-wider">Field Vitals (T+10m)</span>
+<span class="material-symbols-outlined text-primary-fixed animate-pulse" data-icon="vital_signs" data-weight="fill" style="font-variation-settings: 'FILL' 1;">vital_signs</span>
+</div>
+<div class="grid grid-cols-2 gap-gutter">
+<div class="flex flex-col">
+<span class="text-[10px] text-secondary-fixed uppercase">Heart Rate</span>
+<div class="flex items-baseline gap-1">
+<span class="text-3xl font-bold">112</span>
+<span class="text-xs text-secondary-fixed">BPM</span>
+</div>
+</div>
+<div class="flex flex-col">
+<span class="text-[10px] text-secondary-fixed uppercase">SpO2</span>
+<div class="flex items-baseline gap-1">
+<span class="text-3xl font-bold text-error-container">88</span>
+<span class="text-xs text-secondary-fixed">%</span>
+</div>
+</div>
+<div class="flex flex-col">
+<span class="text-[10px] text-secondary-fixed uppercase">BP</span>
+<div class="flex items-baseline gap-1">
+<span class="text-2xl font-bold">145 / 92</span>
+</div>
+</div>
+<div class="flex flex-col">
+<span class="text-[10px] text-secondary-fixed uppercase">Resp</span>
+<div class="flex items-baseline gap-1">
+<span class="text-3xl font-bold">28</span>
+<span class="text-xs text-secondary-fixed">/min</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Field Attachments Card -->
+<div class="bg-white border border-[#d1d5d6] p-lg flex flex-col gap-md">
+<span class="font-label-caps text-label-caps text-outline uppercase">Field Attachments</span>
+<div class="grid grid-cols-2 gap-sm">
+<div class="aspect-square bg-surface-container relative group cursor-pointer overflow-hidden rounded-lg">
+<img alt="Field Photo 1" class="w-full h-full object-cover transition-transform group-hover:scale-105" data-alt="A high-fidelity close-up photograph of a medical ECG monitor displaying a complex heart rate waveform in bright green against a dark black screen. The scene is set in the dimly lit interior of a modern emergency vehicle with soft blue ambient lighting. The atmosphere is professional and urgent, capturing the precise details of life-saving medical technology during a critical emergency operation." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5sKWgOBeqVuceoYFk5PK4q4-TGwUGaZ9nex_NK3C6gflbZo2NQjzSb32mqhx62COn3GcaGkHbnAxsZB_23b9ChdHO_ByDBeNbSOJLkH-N7hCt3CYjOIwSTxTFndlkCC8v5pNYroHj2f5sVY6TK66oZpJrxQMIFi9QDNnOq5V3iTuCCrnrVae9GT9Bu44bkRsdoqlOJgj04wes1fcD6lHhtYI80WMzrfrp1xNAPQ4E240kuarqe-XP67wYrhbMRpc_W41bSU0EiV8"/>
+<div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<span class="material-symbols-outlined text-white" data-icon="zoom_in">zoom_in</span>
+</div>
+</div>
+<div class="aspect-square bg-surface-container relative group cursor-pointer overflow-hidden rounded-lg">
+<img alt="Field Photo 2" class="w-full h-full object-cover transition-transform group-hover:scale-105" data-alt="A professional medical document or field report resting on a sterile white surface, partially illuminated by cool, focused surgical-style lighting. The document features structured tables and high-contrast text, representing a patient incident report with clear headings and data points. The overall aesthetic is clinical and precise, utilizing a palette of greys, whites, and subtle professional greens to signify authority and reliability." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8O3P9JIIvvCvntOHhlfkOT_qrsb_iF1k4D023TCCuQ-lIkGG_IhzHmNcCGqd1XE44DLZh9Q56My7-4YPGGFQuhK5BiGBy3-TZhdfmNzpEzJb2GoNCzeJUYR5nYaARhzc890CfDt6pVtr-y4rqpRzHoaSTjAy2xtuQalqsJUnBms4nF0AxbpO8v7TAbWL2FT1IcH6KmUvaZxIvgQX8OMFyar9TWOPqnz533xxKxmWa8LVy3kDHd4FhE3NO07eNP58KmVzw10HyuVU"/>
+<div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<span class="material-symbols-outlined text-white" data-icon="zoom_in">zoom_in</span>
+</div>
+</div>
+</div>
+<button class="w-full py-2 border border-outline-variant hover:bg-surface-container text-secondary font-button text-button rounded-lg transition-colors flex items-center justify-center gap-sm mt-sm">
+<span class="material-symbols-outlined text-[18px]">download</span> Download All Assets
+          </button>
+</div>
+</div>
+</div>
+</main>
+<!-- Mobile Bottom Nav (Suppressed for Desktop/Focused Task as per rules, but shown here for layout completeness if screen were smaller) -->
+<footer class="md:hidden fixed bottom-0 left-0 right-0 h-16 bg-surface border-t border-outline-variant flex items-center justify-around z-50">
+<div class="flex flex-col items-center text-primary">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-[10px]">Dashboard</span>
+</div>
+<div class="flex flex-col items-center text-secondary">
+<span class="material-symbols-outlined">emergency</span>
+<span class="text-[10px]">Incidents</span>
+</div>
+<div class="flex flex-col items-center text-secondary">
+<span class="material-symbols-outlined">map</span>
+<span class="text-[10px]">Map</span>
+</div>
+</footer>
+</body></html>

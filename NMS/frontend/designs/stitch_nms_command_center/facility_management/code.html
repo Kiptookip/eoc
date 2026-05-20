@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Facilities Management - Emergency Operations Centre</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "tertiary-fixed-dim": "#4dd8ea",
+            "on-tertiary-container": "#004c54",
+            "surface-bright": "#f2fbff",
+            "secondary": "#49626d",
+            "background": "#f2fbff",
+            "tertiary-fixed": "#92f1ff",
+            "inverse-surface": "#273236",
+            "secondary-fixed-dim": "#b0cbd7",
+            "on-primary": "#ffffff",
+            "surface-variant": "#d9e4ea",
+            "on-secondary-fixed-variant": "#314a55",
+            "on-error": "#ffffff",
+            "inverse-primary": "#9cd854",
+            "tertiary-container": "#2dc3d4",
+            "on-surface": "#131d21",
+            "on-error-container": "#93000a",
+            "outline": "#737a67",
+            "surface-container-lowest": "#ffffff",
+            "tertiary": "#006973",
+            "surface-container-low": "#eaf5fb",
+            "on-background": "#131d21",
+            "on-tertiary": "#ffffff",
+            "primary": "#3f6900",
+            "surface-tint": "#3f6900",
+            "on-tertiary-fixed-variant": "#004f57",
+            "on-primary-fixed": "#102000",
+            "secondary-fixed": "#cce7f3",
+            "on-secondary": "#ffffff",
+            "secondary-container": "#c9e4f1",
+            "primary-container": "#88c241",
+            "surface": "#f2fbff",
+            "error": "#ba1a1a",
+            "on-primary-container": "#2d4c00",
+            "inverse-on-surface": "#e7f2f8",
+            "surface-container-highest": "#d9e4ea",
+            "surface-dim": "#d1dce1",
+            "surface-container-high": "#dfeaf0",
+            "on-tertiary-fixed": "#001f23",
+            "on-primary-fixed-variant": "#2f4f00",
+            "error-container": "#ffdad6",
+            "on-secondary-container": "#4d6671",
+            "on-secondary-fixed": "#031f28",
+            "surface-container": "#e4f0f5",
+            "primary-fixed-dim": "#9cd854",
+            "on-surface-variant": "#424938",
+            "primary-fixed": "#b7f56d",
+            "outline-variant": "#c2c9b3"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "margin-page": "24px",
+            "xl": "32px",
+            "gutter": "20px",
+            "xs": "4px",
+            "base": "4px",
+            "lg": "24px",
+            "sm": "8px",
+            "md": "16px"
+          },
+          "fontFamily": {
+            "h1": ["Nunito"],
+            "h2": ["Nunito"],
+            "body-sm": ["Nunito"],
+            "body-md": ["Nunito"],
+            "label-caps": ["Nunito"],
+            "body-lg": ["Nunito"],
+            "h3": ["Nunito"],
+            "button": ["Nunito"]
+          },
+          "fontSize": {
+            "h1": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+            "h2": ["24px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+            "body-sm": ["12px", {"lineHeight": "1.4", "letterSpacing": "0.01em", "fontWeight": "400"}],
+            "body-md": ["14px", {"lineHeight": "1.5", "letterSpacing": "0", "fontWeight": "400"}],
+            "label-caps": ["11px", {"lineHeight": "1", "letterSpacing": "0.06em", "fontWeight": "700"}],
+            "body-lg": ["16px", {"lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400"}],
+            "h3": ["20px", {"lineHeight": "1.4", "letterSpacing": "0", "fontWeight": "600"}],
+            "button": ["14px", {"lineHeight": "1", "letterSpacing": "0.02em", "fontWeight": "600"}]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    body { font-family: 'Nunito', sans-serif; }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen flex overflow-hidden">
+<!-- NavigationDrawer -->
+<aside class="flex flex-col h-screen fixed left-0 top-0 z-50 w-[240px] bg-secondary dark:bg-on-secondary-fixed-variant shadow-sm border-r border-outline-variant dark:border-on-surface-variant">
+<div class="px-lg py-xl">
+<h1 class="font-label-caps text-label-caps uppercase tracking-widest text-secondary-fixed">EOC Operations</h1>
+</div>
+<div class="flex items-center px-4 py-md mb-md border-b border-white/10 mx-2">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center mr-md overflow-hidden border border-white/20">
+<img alt="Dispatcher Avatar" class="w-full h-full object-cover" data-alt="A professional headshot of a medical emergency dispatcher in a sleek, dark uniform. The setting is a high-tech command center with blurred glowing monitors in the background. The lighting is crisp and cinematic, emphasizing a focused and vigilant atmosphere. The overall style is corporate modern with high contrast and sharp details." src="https://lh3.googleusercontent.com/aida-public/AB6AXuALbCYDA7fd0LuH33A5oHcaA76_11ozHfH0DFjgqwRygA3Fw9WN1YPd8sgF22JY8gdXIh3XVIgz3YtZLOdUeVHKQz-GoSNWA2KrXTNEOXwIsmX4D7LfbGpb6E0aW2s11jwAvGdaSIXSaGry9SiBabgGPITe2JbdV_wcBNWTu0hgbdJROWmKuLPIXcProFEKNDzMAKgY2noPLZvvcpFK9az6YsjhWCvdZAHa3-nFEsWg3GUrGSnarWHaL17kyfyZuZXVDYdvNaI8N50"/>
+</div>
+<div class="flex flex-col">
+<span class="text-on-primary font-bold font-body-md text-body-md leading-tight">NMS Dispatcher</span>
+<span class="text-secondary-fixed text-body-sm font-body-sm opacity-80">EOC Unit 4</span>
+</div>
+</div>
+<nav class="flex-1 overflow-y-auto">
+<a class="text-secondary-fixed hover:text-white flex items-center px-4 py-3 mx-2 my-1 transition-all scale-95 active:scale-100 hover:bg-secondary-container/20" href="#">
+<span class="material-symbols-outlined mr-md" data-icon="dashboard">dashboard</span>
+<span class="font-body-md text-body-md">Dashboard</span>
+</a>
+<a class="text-secondary-fixed hover:text-white flex items-center px-4 py-3 mx-2 my-1 transition-all scale-95 active:scale-100 hover:bg-secondary-container/20" href="#">
+<span class="material-symbols-outlined mr-md" data-icon="emergency">emergency</span>
+<span class="font-body-md text-body-md">Incident Feed</span>
+</a>
+<a class="text-secondary-fixed hover:text-white flex items-center px-4 py-3 mx-2 my-1 transition-all scale-95 active:scale-100 hover:bg-secondary-container/20" href="#">
+<span class="material-symbols-outlined mr-md" data-icon="map">map</span>
+<span class="font-body-md text-body-md">Resource Map</span>
+</a>
+<a class="text-secondary-fixed hover:text-white flex items-center px-4 py-3 mx-2 my-1 transition-all scale-95 active:scale-100 hover:bg-secondary-container/20" href="#">
+<span class="material-symbols-outlined mr-md" data-icon="hub">hub</span>
+<span class="font-body-md text-body-md">Dispatch Queue</span>
+</a>
+<a class="bg-primary text-on-primary font-bold rounded-lg mx-2 my-1 flex items-center px-4 py-3 transition-all scale-95 active:scale-100" href="#">
+<span class="material-symbols-outlined mr-md" data-icon="group">group</span>
+<span class="font-body-md text-body-md">Personnel</span>
+</a>
+<a class="text-secondary-fixed hover:text-white flex items-center px-4 py-3 mx-2 my-1 transition-all scale-95 active:scale-100 hover:bg-secondary-container/20" href="#">
+<span class="material-symbols-outlined mr-md" data-icon="settings">settings</span>
+<span class="font-body-md text-body-md">System Settings</span>
+</a>
+</nav>
+<div class="p-4 bg-black/10">
+<div class="flex items-center space-x-2 text-primary-fixed text-body-sm font-bold">
+<div class="w-2 h-2 rounded-full bg-primary-container animate-pulse"></div>
+<span>SYSTEM ACTIVE</span>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-[240px] flex-1 flex flex-col h-screen overflow-hidden">
+<!-- TopAppBar -->
+<header class="flex justify-between items-center w-full px-lg h-16 sticky top-0 z-40 bg-surface dark:bg-surface-dim border-b border-outline-variant dark:border-outline">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-primary" data-icon="shield">shield</span>
+<h2 class="font-h3 text-h3 font-bold text-primary">Emergency Operations Centre</h2>
+</div>
+<div class="flex items-center gap-lg">
+<div class="flex items-center gap-xs px-md py-sm bg-surface-container-high rounded-full">
+<span class="material-symbols-outlined text-secondary text-[18px]" data-icon="search">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-sm w-48 font-body-sm" placeholder="Search facilities..." type="text"/>
+</div>
+<div class="relative cursor-pointer transition-colors duration-200 hover:bg-surface-container-high p-sm rounded-full">
+<span class="material-symbols-outlined text-primary" data-icon="notifications">notifications</span>
+<span class="absolute top-1 right-1 w-2 h-2 bg-error rounded-full"></span>
+</div>
+</div>
+</header>
+<!-- Scrollable Content Area -->
+<div class="flex-1 overflow-y-auto p-margin-page bg-[#acb0b1]">
+<!-- Page Header with Actions -->
+<div class="flex justify-between items-end mb-lg">
+<div>
+<h1 class="font-h1 text-h1 text-inverse-surface mb-xs">Facilities Management</h1>
+<p class="font-body-md text-body-md text-secondary">Registry of certified healthcare infrastructure and response centers.</p>
+</div>
+<div class="flex gap-md">
+<div class="flex p-1 bg-surface-container-highest rounded-lg border border-outline-variant">
+<button class="flex items-center gap-sm px-md py-sm bg-white shadow-sm rounded-md text-primary font-bold transition-all">
+<span class="material-symbols-outlined text-[18px]" data-icon="list">list</span>
+<span class="font-button text-button">Table View</span>
+</button>
+<button class="flex items-center gap-sm px-md py-sm text-secondary hover:bg-white/50 rounded-md transition-all">
+<span class="material-symbols-outlined text-[18px]" data-icon="map">map</span>
+<span class="font-button text-button">Map View</span>
+</button>
+</div>
+<button class="bg-primary text-on-primary font-button text-button px-lg py-sm rounded-lg flex items-center gap-sm shadow-sm transition-transform active:scale-95">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+            Add Facility
+          </button>
+</div>
+</div>
+<!-- Bento Grid / Statistics Section -->
+<div class="grid grid-cols-12 gap-gutter mb-lg">
+<div class="col-span-12 md:col-span-3 bg-white border border-outline-variant p-md rounded-xl shadow-sm flex items-center gap-md">
+<div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" data-icon="local_hospital">local_hospital</span>
+</div>
+<div>
+<div class="font-label-caps text-label-caps text-secondary mb-xs uppercase">TOTAL HOSPITALS</div>
+<div class="font-h2 text-h2 text-inverse-surface">142</div>
+</div>
+</div>
+<div class="col-span-12 md:col-span-3 bg-white border border-outline-variant p-md rounded-xl shadow-sm flex items-center gap-md">
+<div class="w-12 h-12 rounded-lg bg-tertiary/10 flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined" data-icon="health_and_safety">health_and_safety</span>
+</div>
+<div>
+<div class="font-label-caps text-label-caps text-secondary mb-xs uppercase">ACTIVE CLINICS</div>
+<div class="font-h2 text-h2 text-inverse-surface">84</div>
+</div>
+</div>
+<div class="col-span-12 md:col-span-6 bg-inverse-surface text-white p-md rounded-xl shadow-sm flex justify-between items-center overflow-hidden relative">
+<div class="z-10">
+<div class="font-label-caps text-label-caps text-primary-fixed mb-xs uppercase">CRITICAL CAPACITY</div>
+<div class="font-h2 text-h2 mb-xs">92% Operational</div>
+<div class="flex gap-sm">
+<span class="text-body-sm px-sm py-xs bg-primary/20 rounded border border-primary/30">12 High Load</span>
+<span class="text-body-sm px-sm py-xs bg-error/20 rounded border border-error/30">2 Maintenance</span>
+</div>
+</div>
+<div class="absolute right-[-20px] top-[-20px] opacity-10">
+<span class="material-symbols-outlined text-[120px]" data-icon="analytics">analytics</span>
+</div>
+</div>
+</div>
+<!-- Main Data Table Container -->
+<div class="bg-white border border-outline-variant rounded-xl shadow-sm overflow-hidden flex flex-col">
+<div class="p-md border-b border-outline-variant flex justify-between items-center bg-surface-container-low">
+<div class="flex items-center gap-md">
+<span class="font-h3 text-h3 text-inverse-surface">Facility Registry</span>
+<span class="bg-secondary-container text-on-secondary-container text-label-caps px-sm py-xs rounded-full">Live Status</span>
+</div>
+<div class="flex gap-sm">
+<button class="p-sm text-secondary hover:bg-surface-container-high rounded transition-colors border border-outline-variant">
+<span class="material-symbols-outlined text-[20px]" data-icon="filter_list">filter_list</span>
+</button>
+<button class="p-sm text-secondary hover:bg-surface-container-high rounded transition-colors border border-outline-variant">
+<span class="material-symbols-outlined text-[20px]" data-icon="download">download</span>
+</button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-highest border-b border-outline-variant">
+<th class="px-md py-md font-label-caps text-label-caps text-secondary uppercase tracking-wider">Facility Name</th>
+<th class="px-md py-md font-label-caps text-label-caps text-secondary uppercase tracking-wider">Type</th>
+<th class="px-md py-md font-label-caps text-label-caps text-secondary uppercase tracking-wider text-center">KEPH Level</th>
+<th class="px-md py-md font-label-caps text-label-caps text-secondary uppercase tracking-wider">Sub-County</th>
+<th class="px-md py-md font-label-caps text-label-caps text-secondary uppercase tracking-wider">Status</th>
+<th class="px-md py-md font-label-caps text-label-caps text-secondary uppercase tracking-wider text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container transition-colors group">
+<td class="px-md py-md">
+<div class="flex items-center gap-md">
+<div class="w-8 h-8 rounded bg-primary-container/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]" data-icon="apartment">apartment</span>
+</div>
+<span class="font-body-md text-body-md font-bold text-inverse-surface">Kenyatta National Hospital</span>
+</div>
+</td>
+<td class="px-md py-md text-body-md font-body-md text-secondary">Teaching &amp; Referral</td>
+<td class="px-md py-md text-center">
+<span class="font-body-md text-body-md px-md py-xs bg-on-tertiary-fixed-variant/10 text-on-tertiary-fixed-variant rounded-full font-bold">Level 6</span>
+</td>
+<td class="px-md py-md text-body-md font-body-md text-secondary">Dagoretti North</td>
+<td class="px-md py-md">
+<div class="flex items-center gap-xs text-primary font-bold text-body-sm uppercase">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+                    Operational
+                  </div>
+</td>
+<td class="px-md py-md text-right">
+<button class="text-secondary hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="more_vert">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container transition-colors group">
+<td class="px-md py-md">
+<div class="flex items-center gap-md">
+<div class="w-8 h-8 rounded bg-primary-container/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]" data-icon="medical_services">medical_services</span>
+</div>
+<span class="font-body-md text-body-md font-bold text-inverse-surface">Mbagathi County Hospital</span>
+</div>
+</td>
+<td class="px-md py-md text-body-md font-body-md text-secondary">Public General</td>
+<td class="px-md py-md text-center">
+<span class="font-body-md text-body-md px-md py-xs bg-on-tertiary-fixed-variant/10 text-on-tertiary-fixed-variant rounded-full font-bold">Level 5</span>
+</td>
+<td class="px-md py-md text-body-md font-body-md text-secondary">Kibra</td>
+<td class="px-md py-md">
+<div class="flex items-center gap-xs text-primary font-bold text-body-sm uppercase">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+                    Operational
+                  </div>
+</td>
+<td class="px-md py-md text-right">
+<button class="text-secondary hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="more_vert">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container transition-colors group">
+<td class="px-md py-md">
+<div class="flex items-center gap-md">
+<div class="w-8 h-8 rounded bg-primary-container/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]" data-icon="stethascope">emergency</span>
+</div>
+<span class="font-body-md text-body-md font-bold text-inverse-surface">Pumwani Maternity Hospital</span>
+</div>
+</td>
+<td class="px-md py-md text-body-md font-body-md text-secondary">Specialized</td>
+<td class="px-md py-md text-center">
+<span class="font-body-md text-body-md px-md py-xs bg-on-tertiary-fixed-variant/10 text-on-tertiary-fixed-variant rounded-full font-bold">Level 4</span>
+</td>
+<td class="px-md py-md text-body-md font-body-md text-secondary">Kamukunji</td>
+<td class="px-md py-md">
+<div class="flex items-center gap-xs text-error font-bold text-body-sm uppercase">
+<span class="w-2 h-2 rounded-full bg-error"></span>
+                    Busy
+                  </div>
+</td>
+<td class="px-md py-md text-right">
+<button class="text-secondary hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="more_vert">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-container transition-colors group">
+<td class="px-md py-md">
+<div class="flex items-center gap-md">
+<div class="w-8 h-8 rounded bg-primary-container/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]" data-icon="home_health">home_health</span>
+</div>
+<span class="font-body-md text-body-md font-bold text-inverse-surface">Karen Health Centre</span>
+</div>
+</td>
+<td class="px-md py-md text-body-md font-body-md text-secondary">Primary Clinic</td>
+<td class="px-md py-md text-center">
+<span class="font-body-md text-body-md px-md py-xs bg-on-tertiary-fixed-variant/10 text-on-tertiary-fixed-variant rounded-full font-bold">Level 3</span>
+</td>
+<td class="px-md py-md text-body-md font-body-md text-secondary">Lang'ata</td>
+<td class="px-md py-md">
+<div class="flex items-center gap-xs text-on-secondary-fixed-variant font-bold text-body-sm uppercase">
+<span class="w-2 h-2 rounded-full bg-on-secondary-fixed-variant"></span>
+                    Maintenance
+                  </div>
+</td>
+<td class="px-md py-md text-right">
+<button class="text-secondary hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="more_vert">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="hover:bg-surface-container transition-colors group">
+<td class="px-md py-md">
+<div class="flex items-center gap-md">
+<div class="w-8 h-8 rounded bg-primary-container/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]" data-icon="vaccines">vaccines</span>
+</div>
+<span class="font-body-md text-body-md font-bold text-inverse-surface">Westlands Dispensary</span>
+</div>
+</td>
+<td class="px-md py-md text-body-md font-body-md text-secondary">Dispensary</td>
+<td class="px-md py-md text-center">
+<span class="font-body-md text-body-md px-md py-xs bg-on-tertiary-fixed-variant/10 text-on-tertiary-fixed-variant rounded-full font-bold">Level 2</span>
+</td>
+<td class="px-md py-md text-body-md font-body-md text-secondary">Westlands</td>
+<td class="px-md py-md">
+<div class="flex items-center gap-xs text-primary font-bold text-body-sm uppercase">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+                    Operational
+                  </div>
+</td>
+<td class="px-md py-md text-right">
+<button class="text-secondary hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="more_vert">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="px-md py-sm bg-surface-container-low border-t border-outline-variant flex justify-between items-center">
+<span class="text-body-sm font-body-sm text-secondary">Showing 5 of 142 facilities</span>
+<div class="flex items-center gap-sm">
+<button class="p-xs text-secondary hover:text-primary disabled:opacity-30" disabled="">
+<span class="material-symbols-outlined" data-icon="chevron_left">chevron_left</span>
+</button>
+<div class="flex gap-xs">
+<button class="w-8 h-8 flex items-center justify-center bg-primary text-on-primary rounded font-bold text-body-sm">1</button>
+<button class="w-8 h-8 flex items-center justify-center hover:bg-surface-container-high rounded text-secondary font-bold text-body-sm">2</button>
+<button class="w-8 h-8 flex items-center justify-center hover:bg-surface-container-high rounded text-secondary font-bold text-body-sm">3</button>
+</div>
+<button class="p-xs text-secondary hover:text-primary">
+<span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Quick Actions Sidebar / Floating Section -->
+<div class="mt-lg grid grid-cols-12 gap-gutter">
+<div class="col-span-12 md:col-span-8 bg-white border border-outline-variant rounded-xl p-md overflow-hidden relative min-h-[200px]">
+<div class="absolute inset-0 z-0 opacity-40">
+<img alt="Aerial Map View" class="w-full h-full object-cover" data-alt="An aerial view of a sophisticated city map with clean, minimalist vector-style streets and green urban zones. Overlaid are glowing digital icons representing hospital locations in a professional emerald green and dark teal color palette. The aesthetic is futuristic and data-driven, perfect for a command center display." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAAuT9_YN0_HZm7i7WVwAM7LbTi0xt_dwey4hEA0qUwjaQiQNKF5eSGmFae1onWIPr-cl0cNg1Fi8Ni_RQcvbi6GIz02dhdlN9vn-Qu2XkW15KRlmEyUrTv-wlWNn6G4G-Bvpucaj8u1qwH5GzW6jQZ1qn4IJ6zDXDUrhln1zrOWI2b0CmUqyVEO0u1S-NFOxMVPe-VVx6uz1GfKRXzYJtXKSAphTS3jILc9PevI64DaXJTa7zU-hj9URpuG4Gt8glxMM7kjm8M--0"/>
+</div>
+<div class="relative z-10">
+<h3 class="font-h3 text-h3 text-inverse-surface mb-sm">Proximity Analysis</h3>
+<p class="font-body-md text-body-md text-secondary max-w-md">Real-time geospatial distribution of resources across the Metropolitan area.</p>
+<button class="mt-md px-md py-sm border border-primary text-primary font-button text-button rounded hover:bg-primary/5 transition-colors">
+              Open Full Map Explorer
+            </button>
+</div>
+</div>
+<div class="col-span-12 md:col-span-4 bg-primary-container text-on-primary-container rounded-xl p-md flex flex-col justify-between">
+<div>
+<h3 class="font-h3 text-h3 font-bold mb-xs">Need Assistance?</h3>
+<p class="font-body-md text-body-md opacity-90">Contact the EOC Technical support for registry updates or integration issues.</p>
+</div>
+<div class="mt-md space-y-sm">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined" data-icon="call">call</span>
+<span class="font-bold">+254 700 000 000</span>
+</div>
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined" data-icon="mail">mail</span>
+<span class="font-bold">support@eoc.go.ke</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Notification Toast (Fixed) -->
+<div class="fixed bottom-lg right-lg z-50 bg-inverse-surface text-white p-md rounded-lg shadow-xl flex items-center gap-md border-l-4 border-primary max-w-xs transition-all transform hover:translate-y-[-4px]">
+<div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]" data-icon="sync">sync</span>
+</div>
+<div>
+<div class="font-bold text-body-md">Registry Synchronized</div>
+<div class="text-body-sm opacity-80">Last updated: 2 mins ago</div>
+</div>
+<button class="ml-auto opacity-50 hover:opacity-100">
+<span class="material-symbols-outlined text-[18px]" data-icon="close">close</span>
+</button>
+</div>
+</body></html>

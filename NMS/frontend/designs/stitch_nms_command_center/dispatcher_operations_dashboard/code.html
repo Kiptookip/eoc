@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>EOC Dispatcher Operations Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary": "#3f6900",
+                        "outline": "#737a67",
+                        "on-tertiary-fixed": "#001f23",
+                        "on-tertiary": "#ffffff",
+                        "on-background": "#131d21",
+                        "tertiary-fixed": "#92f1ff",
+                        "on-tertiary-container": "#004c54",
+                        "primary-fixed-dim": "#9cd854",
+                        "secondary": "#49626d",
+                        "surface-container-high": "#dfeaf0",
+                        "secondary-fixed": "#cce7f3",
+                        "surface-tint": "#3f6900",
+                        "secondary-fixed-dim": "#b0cbd7",
+                        "surface-container-low": "#eaf5fb",
+                        "surface-container-highest": "#d9e4ea",
+                        "inverse-surface": "#273236",
+                        "on-surface-variant": "#424938",
+                        "surface-variant": "#d9e4ea",
+                        "secondary-container": "#c9e4f1",
+                        "on-secondary-fixed-variant": "#314a55",
+                        "on-primary-fixed": "#102000",
+                        "on-error-container": "#93000a",
+                        "surface": "#f2fbff",
+                        "surface-dim": "#d1dce1",
+                        "on-primary-fixed-variant": "#2f4f00",
+                        "primary-fixed": "#b7f56d",
+                        "tertiary-fixed-dim": "#4dd8ea",
+                        "error": "#ba1a1a",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-fixed-variant": "#004f57",
+                        "inverse-on-surface": "#e7f2f8",
+                        "on-surface": "#131d21",
+                        "on-primary": "#ffffff",
+                        "tertiary-container": "#2dc3d4",
+                        "on-primary-container": "#2d4c00",
+                        "surface-container": "#e4f0f5",
+                        "surface-bright": "#f2fbff",
+                        "tertiary": "#006973",
+                        "on-error": "#ffffff",
+                        "on-secondary-fixed": "#031f28",
+                        "outline-variant": "#c2c9b3",
+                        "on-secondary-container": "#4d6671",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-primary": "#9cd854",
+                        "background": "#f2fbff",
+                        "on-secondary": "#ffffff",
+                        "primary-container": "#88c241"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "xs": "4px",
+                        "xl": "32px",
+                        "base": "4px",
+                        "sm": "8px",
+                        "lg": "24px",
+                        "gutter": "20px",
+                        "md": "16px",
+                        "margin-page": "24px"
+                    },
+                    "fontFamily": {
+                        "h2": ["Nunito"],
+                        "button": ["Nunito"],
+                        "h3": ["Nunito"],
+                        "body-lg": ["Nunito"],
+                        "body-md": ["Nunito"],
+                        "label-caps": ["Nunito"],
+                        "h1": ["Nunito"],
+                        "body-sm": ["Nunito"]
+                    },
+                    "fontSize": {
+                        "h2": ["24px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "button": ["14px", {"lineHeight": "1", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                        "h3": ["20px", {"lineHeight": "1.4", "letterSpacing": "0", "fontWeight": "600"}],
+                        "body-lg": ["16px", {"lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400"}],
+                        "body-md": ["14px", {"lineHeight": "1.5", "letterSpacing": "0", "fontWeight": "400"}],
+                        "label-caps": ["11px", {"lineHeight": "1", "letterSpacing": "0.06em", "fontWeight": "700"}],
+                        "h1": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-sm": ["12px", {"lineHeight": "1.4", "letterSpacing": "0.01em", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        body {
+            background-color: #acb0b1;
+            font-family: 'Nunito', sans-serif;
+        }
+        .custom-card {
+            background: #ffffff;
+            border: 1px solid #d1d5d6;
+        }
+        .status-chip-danger {
+            background-color: rgba(248, 63, 55, 0.15);
+            color: #f83f37;
+        }
+        .status-chip-success {
+            background-color: rgba(136, 194, 65, 0.15);
+            color: #3f6900;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="flex min-h-screen">
+<!-- Navigation Drawer -->
+<aside class="flex flex-col h-screen fixed left-0 top-0 z-50 w-[240px] bg-secondary dark:bg-on-secondary-fixed-variant shadow-sm border-r border-outline-variant dark:border-on-surface-variant">
+<!-- Header Profile -->
+<div class="p-lg flex items-center space-x-md">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container overflow-hidden">
+<img alt="User Profile Avatar" data-alt="A professional headshot of a dispatcher in a high-tech emergency operations center. The individual is wearing a dark navy uniform with a subtle badge. The background is softly blurred, showing multiple glowing computer monitors and data visualizations in shades of green and dark teal. The overall atmosphere is focused, calm, and highly professional." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDaNbZ8btTQNkst6gfKVDwHTTVx4cS8ertPWzhCUZfuRi-HKcLZA541Haz3L14mu8FmmlGYwqPa3datT6wnjGr20Mtnjjo0ZHbeTLdOdkWMIK8ehjSofzTpJIqCtAck6r4tXSEycah9E7WO-qIM82GY4iAUfzh_nRO33ui1mn3LeK6GSMVSBlnHWf1huzzfeht2itxqvvFzE79AlgFgBM6nvRaYI5Veunl3aKw296h9Y-2jBzwTlaPVjbSTNG4Hgo8rhD2x6ThsruA"/>
+</div>
+<div>
+<p class="font-label-caps text-label-caps uppercase tracking-widest text-secondary-fixed">NMS Dispatcher</p>
+<p class="font-body-sm text-body-sm text-on-primary/70">EOC Unit 4</p>
+</div>
+</div>
+<nav class="flex-1 mt-md">
+<!-- Dashboard (Active) -->
+<a class="bg-primary text-on-primary font-bold rounded-lg mx-2 my-1 flex items-center px-4 py-3 scale-95 active:scale-100 transition-transform" href="#">
+<span class="material-symbols-outlined mr-md">dashboard</span>
+<span class="font-body-md text-body-md">Dashboard</span>
+</a>
+<a class="text-secondary-fixed hover:text-white flex items-center px-4 py-3 mx-2 my-1 transition-all scale-95 active:scale-100" href="#">
+<span class="material-symbols-outlined mr-md">emergency</span>
+<span class="font-body-md text-body-md">Incident Feed</span>
+</a>
+<a class="text-secondary-fixed hover:text-white flex items-center px-4 py-3 mx-2 my-1 transition-all scale-95 active:scale-100" href="#">
+<span class="material-symbols-outlined mr-md">map</span>
+<span class="font-body-md text-body-md">Resource Map</span>
+</a>
+<a class="text-secondary-fixed hover:text-white flex items-center px-4 py-3 mx-2 my-1 transition-all scale-95 active:scale-100" href="#">
+<span class="material-symbols-outlined mr-md">hub</span>
+<span class="font-body-md text-body-md">Dispatch Queue</span>
+</a>
+<a class="text-secondary-fixed hover:text-white flex items-center px-4 py-3 mx-2 my-1 transition-all scale-95 active:scale-100" href="#">
+<span class="material-symbols-outlined mr-md">group</span>
+<span class="font-body-md text-body-md">Personnel</span>
+</a>
+<a class="text-secondary-fixed hover:text-white flex items-center px-4 py-3 mx-2 my-1 transition-all scale-95 active:scale-100" href="#">
+<span class="material-symbols-outlined mr-md">settings</span>
+<span class="font-body-md text-body-md">System Settings</span>
+</a>
+</nav>
+<div class="p-md border-t border-outline-variant/20">
+<div class="flex items-center justify-between text-secondary-fixed px-sm">
+<span class="text-label-caps uppercase">System Status</span>
+<div class="w-2 h-2 rounded-full bg-primary-container animate-pulse"></div>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 ml-[240px] flex flex-col min-h-screen">
+<!-- Top App Bar -->
+<header class="flex justify-between items-center w-full px-lg h-16 sticky top-0 z-40 bg-surface dark:bg-surface-dim border-b border-outline-variant dark:border-outline">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-primary text-h3">shield</span>
+<h1 class="font-h3 text-h3 font-bold text-primary dark:text-primary-fixed-dim">Emergency Operations Centre</h1>
+</div>
+<div class="flex items-center gap-lg">
+<div class="flex items-center gap-sm bg-surface-container rounded-full px-md py-1">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span class="font-body-sm text-on-surface">Live Sync: Active</span>
+</div>
+<button class="material-symbols-outlined text-secondary hover:bg-surface-container-high p-sm rounded-full transition-colors cursor-pointer">notifications</button>
+</div>
+</header>
+<!-- Dashboard Body -->
+<div class="p-margin-page flex flex-col gap-gutter">
+<!-- Bento Stats Grid -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter">
+<!-- Queue Count -->
+<div class="custom-card p-md flex flex-col justify-between h-32 rounded-lg">
+<div class="flex justify-between items-start">
+<span class="font-label-caps text-label-caps text-outline uppercase">Queue Count</span>
+<span class="material-symbols-outlined text-error">priority_high</span>
+</div>
+<div class="flex items-end justify-between">
+<span class="font-h1 text-h1 text-on-background">14</span>
+<span class="status-chip-danger px-sm py-xs rounded text-label-caps font-bold">SUBMITTED</span>
+</div>
+</div>
+<!-- Active Incidents -->
+<div class="custom-card p-md flex flex-col justify-between h-32 rounded-lg">
+<div class="flex justify-between items-start">
+<span class="font-label-caps text-label-caps text-outline uppercase">Active Incidents</span>
+<span class="material-symbols-outlined text-primary">sensors</span>
+</div>
+<div class="flex items-end justify-between">
+<span class="font-h1 text-h1 text-on-background">08</span>
+<span class="text-primary font-bold font-body-sm">+2 from last hr</span>
+</div>
+</div>
+<!-- Available Vehicles -->
+<div class="custom-card p-md flex flex-col justify-between h-32 rounded-lg">
+<div class="flex justify-between items-start">
+<span class="font-label-caps text-label-caps text-outline uppercase">Available Units</span>
+<span class="material-symbols-outlined text-secondary">local_shipping</span>
+</div>
+<div class="flex items-end justify-between">
+<span class="font-h1 text-h1 text-on-background">22</span>
+<span class="status-chip-success px-sm py-xs rounded text-label-caps font-bold">READY</span>
+</div>
+</div>
+<!-- Response Time -->
+<div class="custom-card p-md flex flex-col justify-between h-32 rounded-lg">
+<div class="flex justify-between items-start">
+<span class="font-label-caps text-label-caps text-outline uppercase">Avg Response</span>
+<span class="material-symbols-outlined text-secondary">timer</span>
+</div>
+<div class="flex items-end justify-between">
+<span class="font-h1 text-h1 text-on-background">6:42</span>
+<span class="text-outline font-body-sm">Target: 7:00</span>
+</div>
+</div>
+</div>
+<!-- Main Layout: Map & Queue List -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Mini Map Section (8 Cols) -->
+<div class="lg:col-span-8 custom-card rounded-lg overflow-hidden flex flex-col">
+<div class="px-md py-sm border-b border-outline-variant flex justify-between items-center bg-surface-container-low">
+<h2 class="font-h3 text-h3 text-on-surface">Live Operational Map</h2>
+<div class="flex gap-sm">
+<button class="bg-white border border-outline-variant px-sm py-xs text-body-sm font-bold flex items-center gap-xs rounded hover:bg-surface-container">
+<span class="material-symbols-outlined text-[18px]">layers</span> Layers
+                            </button>
+<button class="bg-white border border-outline-variant px-sm py-xs text-body-sm font-bold flex items-center gap-xs rounded hover:bg-surface-container">
+<span class="material-symbols-outlined text-[18px]">fullscreen</span>
+</button>
+</div>
+</div>
+<div class="relative flex-1 min-h-[500px] bg-surface-dim">
+<img class="w-full h-full object-cover grayscale opacity-80" data-alt="A detailed digital map of a metropolitan city area displayed on a tactical command screen. The map is presented in a dark, professional aesthetic with grayscale city blocks and subtle neon green highlights for major routes. Animated pulse markers in bright red indicate active emergency incidents, while small green vehicle icons move along the grid. The visual style is crisp, high-contrast, and reminiscent of advanced urban navigation software used in emergency operations centers." data-location="London"/>
+<!-- Simulated Map Overlays -->
+<div class="absolute top-md left-md flex flex-col gap-sm">
+<div class="bg-white/90 backdrop-blur shadow-sm p-sm rounded border border-outline-variant flex items-center gap-sm">
+<span class="material-symbols-outlined text-error" style="font-variation-settings: 'FILL' 1;">emergency</span>
+<span class="font-body-sm font-bold">Incident #492 - Structure Fire</span>
+</div>
+<div class="bg-white/90 backdrop-blur shadow-sm p-sm rounded border border-outline-variant flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">local_police</span>
+<span class="font-body-sm font-bold">Unit V-102 - Patrolling</span>
+</div>
+</div>
+<div class="absolute bottom-md right-md bg-white p-xs rounded shadow border border-outline-variant flex flex-col gap-xs">
+<button class="p-xs hover:bg-surface-container"><span class="material-symbols-outlined">add</span></button>
+<hr class="border-outline-variant"/>
+<button class="p-xs hover:bg-surface-container"><span class="material-symbols-outlined">remove</span></button>
+</div>
+</div>
+</div>
+<!-- Queue Preview (4 Cols) -->
+<div class="lg:col-span-4 custom-card rounded-lg flex flex-col h-[565px]">
+<div class="px-md py-sm border-b border-outline-variant flex justify-between items-center bg-surface-container-low">
+<h2 class="font-h3 text-h3 text-on-surface">Queue Preview</h2>
+<span class="bg-error text-white text-[10px] font-extrabold px-sm py-xs rounded-full">TOP 5</span>
+</div>
+<div class="flex-1 overflow-y-auto">
+<table class="w-full border-collapse">
+<thead>
+<tr class="text-left bg-surface-container-highest/50 border-b border-outline-variant">
+<th class="p-md font-label-caps text-label-caps text-outline uppercase">ID / Pri</th>
+<th class="p-md font-label-caps text-label-caps text-outline uppercase">Description</th>
+<th class="p-md font-label-caps text-label-caps text-outline uppercase">Wait</th>
+</tr>
+</thead>
+<tbody>
+<!-- Item 1 -->
+<tr class="border-b border-outline-variant hover:bg-surface-container transition-colors cursor-pointer group">
+<td class="p-md">
+<div class="flex flex-col">
+<span class="font-body-md font-bold text-on-background">#9021</span>
+<span class="text-[10px] font-bold text-error uppercase">Critical</span>
+</div>
+</td>
+<td class="p-md">
+<div class="flex flex-col">
+<span class="font-body-md text-on-background line-clamp-1">Multi-Vehicle Collision</span>
+<span class="text-body-sm text-outline">Highway A12 - Exit 4</span>
+</div>
+</td>
+<td class="p-md">
+<span class="font-body-sm text-error font-bold">02:14</span>
+</td>
+</tr>
+<!-- Item 2 -->
+<tr class="border-b border-outline-variant hover:bg-surface-container transition-colors cursor-pointer group">
+<td class="p-md">
+<div class="flex flex-col">
+<span class="font-body-md font-bold text-on-background">#9022</span>
+<span class="text-[10px] font-bold text-error uppercase">Critical</span>
+</div>
+</td>
+<td class="p-md">
+<div class="flex flex-col">
+<span class="font-body-md text-on-background line-clamp-1">Medical: Cardiac Arrest</span>
+<span class="text-body-sm text-outline">St. Johns Plaza</span>
+</div>
+</td>
+<td class="p-md">
+<span class="font-body-sm text-error font-bold">03:45</span>
+</td>
+</tr>
+<!-- Item 3 -->
+<tr class="border-b border-outline-variant hover:bg-surface-container transition-colors cursor-pointer group">
+<td class="p-md">
+<div class="flex flex-col">
+<span class="font-body-md font-bold text-on-background">#9025</span>
+<span class="text-[10px] font-bold text-primary uppercase">High</span>
+</div>
+</td>
+<td class="p-md">
+<div class="flex flex-col">
+<span class="font-body-md text-on-background line-clamp-1">Gas Leak Reported</span>
+<span class="text-body-sm text-outline">Industrial Park East</span>
+</div>
+</td>
+<td class="p-md">
+<span class="font-body-sm text-on-background">05:10</span>
+</td>
+</tr>
+<!-- Item 4 -->
+<tr class="border-b border-outline-variant hover:bg-surface-container transition-colors cursor-pointer group">
+<td class="p-md">
+<div class="flex flex-col">
+<span class="font-body-md font-bold text-on-background">#9028</span>
+<span class="text-[10px] font-bold text-secondary uppercase">Medium</span>
+</div>
+</td>
+<td class="p-md">
+<div class="flex flex-col">
+<span class="font-body-md text-on-background line-clamp-1">Residential Burglary</span>
+<span class="text-body-sm text-outline">42 Oak Ridge Rd</span>
+</div>
+</td>
+<td class="p-md">
+<span class="font-body-sm text-on-background">08:22</span>
+</td>
+</tr>
+<!-- Item 5 -->
+<tr class="hover:bg-surface-container transition-colors cursor-pointer group">
+<td class="p-md">
+<div class="flex flex-col">
+<span class="font-body-md font-bold text-on-background">#9030</span>
+<span class="text-[10px] font-bold text-secondary uppercase">Medium</span>
+</div>
+</td>
+<td class="p-md">
+<div class="flex flex-col">
+<span class="font-body-md text-on-background line-clamp-1">Street Light Outage</span>
+<span class="text-body-sm text-outline">Downtown Sector 3</span>
+</div>
+</td>
+<td class="p-md">
+<span class="font-body-sm text-on-background">12:05</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-md bg-surface-container-low border-t border-outline-variant">
+<button class="w-full bg-primary text-on-primary py-sm rounded font-button hover:opacity-90 transition-opacity">
+                            View Full Queue
+                        </button>
+</div>
+</div>
+</div>
+<!-- Footer Stats / Details -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<div class="custom-card p-md rounded-lg flex items-center gap-md">
+<div class="w-12 h-12 bg-surface-container flex items-center justify-center rounded-lg">
+<span class="material-symbols-outlined text-primary">hub</span>
+</div>
+<div>
+<p class="font-label-caps text-label-caps text-outline uppercase">Active Channels</p>
+<p class="font-body-lg text-body-lg font-bold">12 Operational</p>
+</div>
+</div>
+<div class="custom-card p-md rounded-lg flex items-center gap-md">
+<div class="w-12 h-12 bg-surface-container flex items-center justify-center rounded-lg">
+<span class="material-symbols-outlined text-primary">person_check</span>
+</div>
+<div>
+<p class="font-label-caps text-label-caps text-outline uppercase">Staff On-Duty</p>
+<p class="font-body-lg text-body-lg font-bold">45 Personnel</p>
+</div>
+</div>
+<div class="custom-card p-md rounded-lg flex items-center gap-md">
+<div class="w-12 h-12 bg-surface-container flex items-center justify-center rounded-lg">
+<span class="material-symbols-outlined text-primary">cloud_done</span>
+</div>
+<div>
+<p class="font-label-caps text-label-caps text-outline uppercase">Comms Integrity</p>
+<p class="font-body-lg text-body-lg font-bold">99.98% Nominal</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Contextual FAB - suppressed on dashboard as per rules but I will add it as an "Add Incident" action if aligned -->
+<button class="fixed bottom-lg right-lg w-14 h-14 bg-primary text-on-primary rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition-transform z-50">
+<span class="material-symbols-outlined text-[32px]">add</span>
+</button>
+</body></html>

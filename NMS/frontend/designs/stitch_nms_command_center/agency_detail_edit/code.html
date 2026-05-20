@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-fixed": "#92f1ff",
+                    "primary": "#3f6900",
+                    "outline-variant": "#c2c9b3",
+                    "primary-fixed-dim": "#9cd854",
+                    "surface-tint": "#3f6900",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary": "#006973",
+                    "surface-variant": "#d9e4ea",
+                    "surface-container": "#e4f0f5",
+                    "inverse-on-surface": "#e7f2f8",
+                    "secondary-fixed-dim": "#b0cbd7",
+                    "primary-fixed": "#b7f56d",
+                    "secondary-container": "#c9e4f1",
+                    "on-error-container": "#93000a",
+                    "background": "#f2fbff",
+                    "on-tertiary-fixed": "#001f23",
+                    "on-primary-fixed": "#102000",
+                    "surface-container-high": "#dfeaf0",
+                    "tertiary-fixed-dim": "#4dd8ea",
+                    "on-surface-variant": "#424938",
+                    "error-container": "#ffdad6",
+                    "on-primary": "#ffffff",
+                    "surface-container-highest": "#d9e4ea",
+                    "on-surface": "#131d21",
+                    "on-secondary-fixed": "#031f28",
+                    "surface-bright": "#f2fbff",
+                    "on-primary-fixed-variant": "#2f4f00",
+                    "inverse-primary": "#9cd854",
+                    "secondary": "#49626d",
+                    "inverse-surface": "#273236",
+                    "on-secondary-container": "#4d6671",
+                    "primary-container": "#88c241",
+                    "on-error": "#ffffff",
+                    "on-tertiary-container": "#004c54",
+                    "error": "#ba1a1a",
+                    "tertiary-container": "#2dc3d4",
+                    "secondary-fixed": "#cce7f3",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "outline": "#737a67",
+                    "surface-container-low": "#eaf5fb",
+                    "on-tertiary-fixed-variant": "#004f57",
+                    "surface": "#f2fbff",
+                    "on-primary-container": "#2d4c00",
+                    "surface-dim": "#d1dce1",
+                    "on-background": "#131d21",
+                    "on-secondary-fixed-variant": "#314a55"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "xs": "4px",
+                    "margin-page": "24px",
+                    "lg": "24px",
+                    "sm": "8px",
+                    "gutter": "20px",
+                    "base": "4px",
+                    "md": "16px",
+                    "xl": "32px"
+            },
+            "fontFamily": {
+                    "body-lg": ["Nunito"],
+                    "h3": ["Nunito"],
+                    "h2": ["Nunito"],
+                    "h1": ["Nunito"],
+                    "body-sm": ["Nunito"],
+                    "label-caps": ["Nunito"],
+                    "body-md": ["Nunito"],
+                    "button": ["Nunito"]
+            },
+            "fontSize": {
+                    "body-lg": ["16px", {"lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400"}],
+                    "h3": ["20px", {"lineHeight": "1.4", "letterSpacing": "0", "fontWeight": "600"}],
+                    "h2": ["24px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "h1": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-sm": ["12px", {"lineHeight": "1.4", "letterSpacing": "0.01em", "fontWeight": "400"}],
+                    "label-caps": ["11px", {"lineHeight": "1", "letterSpacing": "0.06em", "fontWeight": "700"}],
+                    "body-md": ["14px", {"lineHeight": "1.5", "letterSpacing": "0", "fontWeight": "400"}],
+                    "button": ["14px", {"lineHeight": "1", "letterSpacing": "0.02em", "fontWeight": "600"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #f2fbff;
+            font-family: 'Nunito', sans-serif;
+        }
+        .sidebar-active {
+            background-color: #3f6900;
+            color: #ffffff;
+            font-weight: 700;
+            border-radius: 0.25rem;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background">
+<!-- Navigation Drawer -->
+<aside class="flex flex-col h-screen fixed left-0 top-0 z-50 w-[240px] bg-secondary dark:bg-on-secondary-fixed-variant shadow-sm border-r border-outline-variant">
+<div class="p-lg flex flex-col items-start">
+<div class="font-label-caps text-label-caps uppercase tracking-widest text-secondary-fixed mb-xl">EOC CONTROL</div>
+<div class="flex items-center gap-md mb-xl">
+<div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined">account_circle</span>
+</div>
+<div>
+<div class="font-body-md text-on-primary font-bold">NMS Dispatcher</div>
+<div class="font-body-sm text-secondary-fixed opacity-80">EOC Unit 4</div>
+</div>
+</div>
+</div>
+<nav class="flex-1 px-sm">
+<a class="text-secondary-fixed hover:text-white flex items-center px-4 py-3 mx-2 my-1 transition-all" href="#">
+<span class="material-symbols-outlined mr-md">dashboard</span>
+<span class="font-body-md">Dashboard</span>
+</a>
+<a class="text-secondary-fixed hover:text-white flex items-center px-4 py-3 mx-2 my-1 transition-all" href="#">
+<span class="material-symbols-outlined mr-md">emergency</span>
+<span class="font-body-md">Incident Feed</span>
+</a>
+<a class="text-secondary-fixed hover:text-white flex items-center px-4 py-3 mx-2 my-1 transition-all" href="#">
+<span class="material-symbols-outlined mr-md">map</span>
+<span class="font-body-md">Resource Map</span>
+</a>
+<a class="text-secondary-fixed hover:text-white flex items-center px-4 py-3 mx-2 my-1 transition-all" href="#">
+<span class="material-symbols-outlined mr-md">hub</span>
+<span class="font-body-md">Dispatch Queue</span>
+</a>
+<a class="bg-primary text-on-primary font-bold rounded-lg mx-2 my-1 flex items-center px-4 py-3 scale-95 active:scale-100 transition-transform" href="#">
+<span class="material-symbols-outlined mr-md">group</span>
+<span class="font-body-md">Personnel</span>
+</a>
+<a class="text-secondary-fixed hover:text-white flex items-center px-4 py-3 mx-2 my-1 transition-all" href="#">
+<span class="material-symbols-outlined mr-md">settings</span>
+<span class="font-body-md">System Settings</span>
+</a>
+</nav>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-[240px] flex flex-col min-h-screen">
+<!-- Top App Bar -->
+<header class="flex justify-between items-center w-full px-lg h-16 sticky top-0 z-40 bg-surface border-b border-outline-variant">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-primary" data-icon="shield">shield</span>
+<h1 class="font-h3 text-h3 font-bold text-primary">Emergency Operations Centre</h1>
+</div>
+<div class="flex items-center gap-lg">
+<div class="flex gap-md">
+<span class="material-symbols-outlined cursor-pointer hover:bg-surface-container-high p-xs rounded-full transition-colors" data-icon="notifications">notifications</span>
+<span class="material-symbols-outlined cursor-pointer hover:bg-surface-container-high p-xs rounded-full transition-colors" data-icon="search">search</span>
+</div>
+</div>
+</header>
+<!-- Content Canvas -->
+<div class="p-lg space-y-lg max-w-7xl mx-auto w-full">
+<!-- Breadcrumbs / Header Action -->
+<div class="flex justify-between items-end">
+<div class="space-y-xs">
+<div class="flex items-center gap-xs font-label-caps text-label-caps text-secondary uppercase tracking-widest">
+<span>Agency Management</span>
+<span class="material-symbols-outlined text-[12px]">chevron_right</span>
+<span class="text-primary">Metropolitan Fire Dept</span>
+</div>
+<h2 class="font-h2 text-h2 text-[#273238]">Metropolitan Fire Dept</h2>
+</div>
+<div class="flex gap-md">
+<button class="px-md py-sm border border-[#233c46] text-[#233c46] font-button rounded-lg flex items-center gap-sm hover:bg-secondary-container transition-colors">
+<span class="material-symbols-outlined text-[18px]">history</span>
+                        View Audit Log
+                    </button>
+<button class="px-md py-sm bg-primary text-white font-button rounded-lg flex items-center gap-sm shadow-sm hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-[18px]">save</span>
+                        Save Changes
+                    </button>
+</div>
+</div>
+<!-- Bento Layout for Detail Fields -->
+<div class="grid grid-cols-12 gap-gutter">
+<!-- Agency Profile Section -->
+<div class="col-span-12 md:col-span-8 bg-white border border-[#d1d5d6] rounded-xl overflow-hidden">
+<div class="px-lg py-md border-b border-[#d1d5d6] bg-surface-container-low">
+<h3 class="font-h3 text-h3 text-[#273238] flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary">corporate_fare</span>
+                            Agency Information
+                        </h3>
+</div>
+<div class="p-lg grid grid-cols-2 gap-lg">
+<div class="space-y-xs">
+<label class="font-label-caps text-label-caps text-secondary uppercase">Agency Name</label>
+<input class="w-full bg-white border border-outline rounded-lg px-md py-sm font-body-md focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" type="text" value="Metropolitan Fire Dept"/>
+</div>
+<div class="space-y-xs">
+<label class="font-label-caps text-label-caps text-secondary uppercase">Agency Type</label>
+<select class="w-full bg-white border border-outline rounded-lg px-md py-sm font-body-md focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all">
+<option selected="">Internal</option>
+<option>Partner</option>
+<option>Contractor</option>
+</select>
+</div>
+<div class="space-y-xs col-span-2">
+<label class="font-label-caps text-label-caps text-secondary uppercase">Operational Address</label>
+<div class="relative">
+<input class="w-full bg-white border border-outline rounded-lg pl-10 pr-md py-sm font-body-md focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" type="text" value="452 Command Plaza, Central District, Metro City"/>
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-secondary text-[20px]">location_on</span>
+</div>
+</div>
+<div class="space-y-xs">
+<label class="font-label-caps text-label-caps text-secondary uppercase">Primary Contact Phone</label>
+<input class="w-full bg-white border border-outline rounded-lg px-md py-sm font-body-md focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" type="tel" value="+1 (555) 911-0422"/>
+</div>
+<div class="space-y-xs">
+<label class="font-label-caps text-label-caps text-secondary uppercase">Emergency Dispatch Email</label>
+<input class="w-full bg-white border border-outline rounded-lg px-md py-sm font-body-md focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" type="email" value="dispatch@metro-fire.gov"/>
+</div>
+</div>
+</div>
+<!-- HQ Visualization/Map Card -->
+<div class="col-span-12 md:col-span-4 bg-white border border-[#d1d5d6] rounded-xl overflow-hidden relative group">
+<div class="absolute top-0 left-0 w-full h-full bg-cover bg-center transition-transform duration-700 group-hover:scale-110" data-alt="A detailed aerial view of a professional urban fire department headquarters featuring emergency response vehicles parked in bays and a rooftop helipad. The architectural style is modern and institutional, captured in bright daylight with high-contrast shadows emphasizing the command center's operational readiness. The aesthetic is clean and organized, aligning with a corporate mission-critical design system." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDirJTLQsm21mgFzsSHdmfC6VagOF7aQeXCazHw6ZU1IpXTsCW58c65FSYhCU7dSwJSmVrgRCQoAl9SG0XbElGG7ZGOUTr1l5gmGW40M6j_rSO9om4bRbPIzZZ2kxcdJopOENnBhWDghouaHvfutj_iVV6JQYvYFVD-FgJvFck2mdYbPimL3hLy7eW8NPRM52ADvhbS1133b0NN_KGUT9al0w6FXa5lLmrM3SoY3jVXKMI4JeA3zOhsbxiKCbRdSz4B91Y7g9wezLM')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-[#273238] via-transparent to-transparent opacity-60"></div>
+<div class="absolute bottom-0 left-0 p-lg text-white">
+<div class="font-label-caps text-label-caps uppercase opacity-80 mb-xs">Command Hub</div>
+<div class="font-h3 text-h3 font-bold">Station 01 Main HQ</div>
+<div class="flex items-center gap-xs text-body-sm opacity-90 mt-xs">
+<span class="material-symbols-outlined text-[16px]">navigation</span>
+                            Active Deployment Zone
+                        </div>
+</div>
+</div>
+<!-- Tabs Navigation -->
+<div class="col-span-12 border-b border-[#d1d5d6] flex gap-xl px-xs">
+<button class="pb-md font-button text-primary border-b-2 border-primary flex items-center gap-sm">
+<span class="material-symbols-outlined">badge</span>
+                        Users (24)
+                    </button>
+<button class="pb-md font-button text-secondary hover:text-primary transition-colors flex items-center gap-sm">
+<span class="material-symbols-outlined">fire_truck</span>
+                        Vehicles (12)
+                    </button>
+<button class="pb-md font-button text-secondary hover:text-primary transition-colors flex items-center gap-sm">
+<span class="material-symbols-outlined">inventory_2</span>
+                        Assigned Resources
+                    </button>
+</div>
+<!-- Data Table Section -->
+<div class="col-span-12 bg-white border border-[#d1d5d6] rounded-xl shadow-sm">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b border-[#d1d5d6]">
+<th class="px-lg py-md font-label-caps text-label-caps text-[#273238] uppercase">Full Name</th>
+<th class="px-lg py-md font-label-caps text-label-caps text-[#273238] uppercase">ID Number</th>
+<th class="px-lg py-md font-label-caps text-label-caps text-[#273238] uppercase">Role / Rank</th>
+<th class="px-lg py-md font-label-caps text-label-caps text-[#273238] uppercase">Status</th>
+<th class="px-lg py-md font-label-caps text-label-caps text-[#273238] uppercase">Last Active</th>
+<th class="px-lg py-md text-right"></th>
+</tr>
+</thead>
+<tbody class="divide-y divide-[#d1d5d6]">
+<tr class="hover:bg-surface-container-high transition-colors">
+<td class="px-lg py-md">
+<div class="flex items-center gap-md">
+<div class="w-8 h-8 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center font-bold text-xs">RM</div>
+<div class="font-body-md font-bold">Robert Miller</div>
+</div>
+</td>
+<td class="px-lg py-md font-body-sm text-secondary">#MFD-8821</td>
+<td class="px-lg py-md font-body-sm">Battalion Chief</td>
+<td class="px-lg py-md">
+<span class="inline-flex items-center gap-xs px-sm py-1 rounded-full bg-[#88c241]/20 text-[#2d4c00] font-bold text-[10px] uppercase">
+<span class="w-1.5 h-1.5 rounded-full bg-[#3f6900]"></span>
+                                            Active
+                                        </span>
+</td>
+<td class="px-lg py-md font-body-sm text-secondary">2 mins ago</td>
+<td class="px-lg py-md text-right">
+<button class="material-symbols-outlined text-secondary hover:text-primary transition-colors">more_vert</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-high transition-colors">
+<td class="px-lg py-md">
+<div class="flex items-center gap-md">
+<div class="w-8 h-8 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center font-bold text-xs">SL</div>
+<div class="font-body-md font-bold">Sarah Lansing</div>
+</div>
+</td>
+<td class="px-lg py-md font-body-sm text-secondary">#MFD-9044</td>
+<td class="px-lg py-md font-body-sm">Lead Dispatcher</td>
+<td class="px-lg py-md">
+<span class="inline-flex items-center gap-xs px-sm py-1 rounded-full bg-[#88c241]/20 text-[#2d4c00] font-bold text-[10px] uppercase">
+<span class="w-1.5 h-1.5 rounded-full bg-[#3f6900]"></span>
+                                            Active
+                                        </span>
+</td>
+<td class="px-lg py-md font-body-sm text-secondary">Online Now</td>
+<td class="px-lg py-md text-right">
+<button class="material-symbols-outlined text-secondary hover:text-primary transition-colors">more_vert</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-high transition-colors">
+<td class="px-lg py-md">
+<div class="flex items-center gap-md">
+<div class="w-8 h-8 rounded-full bg-outline-variant text-on-surface-variant flex items-center justify-center font-bold text-xs">JD</div>
+<div class="font-body-md font-bold">James Doe</div>
+</div>
+</td>
+<td class="px-lg py-md font-body-sm text-secondary">#MFD-1123</td>
+<td class="px-lg py-md font-body-sm">Field Paramedic</td>
+<td class="px-lg py-md">
+<span class="inline-flex items-center gap-xs px-sm py-1 rounded-full bg-secondary-container/30 text-secondary font-bold text-[10px] uppercase">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                                            Offline
+                                        </span>
+</td>
+<td class="px-lg py-md font-body-sm text-secondary">4 hours ago</td>
+<td class="px-lg py-md text-right">
+<button class="material-symbols-outlined text-secondary hover:text-primary transition-colors">more_vert</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="px-lg py-md bg-surface-container-low border-t border-[#d1d5d6] flex justify-between items-center">
+<span class="font-body-sm text-secondary">Showing 3 of 24 Users</span>
+<div class="flex gap-sm">
+<button class="w-8 h-8 border border-[#d1d5d6] flex items-center justify-center rounded-lg text-secondary hover:bg-white transition-colors">
+<span class="material-symbols-outlined text-[18px]">chevron_left</span>
+</button>
+<button class="w-8 h-8 border border-[#d1d5d6] flex items-center justify-center rounded-lg text-secondary hover:bg-white transition-colors">
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Critical Actions Bar -->
+<div class="col-span-12 bg-[#ffdad6] border border-error-container p-lg rounded-xl flex items-center justify-between">
+<div class="flex items-center gap-lg">
+<div class="w-12 h-12 rounded-full bg-on-error-container flex items-center justify-center text-white">
+<span class="material-symbols-outlined">warning</span>
+</div>
+<div>
+<div class="font-body-lg font-bold text-[#93000a]">Agency Deactivation Zone</div>
+<div class="font-body-sm text-[#93000a] opacity-80">Deactivating this agency will revoke all personnel access and remove vehicles from the live dispatch queue.</div>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<span class="font-label-caps text-label-caps text-[#93000a] uppercase font-bold">Active Status</span>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-on-error-container/30 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-error"></div>
+</label>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Footer -->
+<footer class="mt-auto border-t border-outline-variant p-lg flex justify-between items-center bg-surface-container-low">
+<div class="font-body-sm text-secondary">
+                © 2024 Emergency Operations Centre Infrastructure. All rights reserved.
+            </div>
+<div class="flex gap-lg font-label-caps text-label-caps text-secondary uppercase tracking-widest">
+<a class="hover:text-primary" href="#">Operational Protocols</a>
+<a class="hover:text-primary" href="#">System Integrity</a>
+</div>
+</footer>
+</main>
+</body></html>

@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Incident Intake - Review &amp; Submit</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-fixed": "#b7f56d",
+                    "outline-variant": "#c2c9b3",
+                    "on-surface-variant": "#424938",
+                    "surface-container": "#e4f0f5",
+                    "primary-fixed-dim": "#9cd854",
+                    "on-secondary-fixed": "#031f28",
+                    "on-secondary-container": "#4d6671",
+                    "error-container": "#ffdad6",
+                    "surface-container-high": "#dfeaf0",
+                    "on-tertiary-fixed": "#001f23",
+                    "on-primary-fixed-variant": "#2f4f00",
+                    "surface-dim": "#d1dce1",
+                    "surface-container-highest": "#d9e4ea",
+                    "inverse-on-surface": "#e7f2f8",
+                    "on-primary-container": "#2d4c00",
+                    "error": "#ba1a1a",
+                    "surface": "#f2fbff",
+                    "primary-container": "#88c241",
+                    "secondary-container": "#c9e4f1",
+                    "secondary-fixed": "#cce7f3",
+                    "on-secondary": "#ffffff",
+                    "on-primary-fixed": "#102000",
+                    "on-tertiary-fixed-variant": "#004f57",
+                    "surface-tint": "#3f6900",
+                    "primary": "#3f6900",
+                    "on-tertiary": "#ffffff",
+                    "tertiary": "#006973",
+                    "surface-container-low": "#eaf5fb",
+                    "on-background": "#131d21",
+                    "surface-container-lowest": "#ffffff",
+                    "outline": "#737a67",
+                    "on-error-container": "#93000a",
+                    "on-surface": "#131d21",
+                    "tertiary-container": "#2dc3d4",
+                    "on-error": "#ffffff",
+                    "inverse-primary": "#9cd854",
+                    "surface-variant": "#d9e4ea",
+                    "on-secondary-fixed-variant": "#314a55",
+                    "secondary-fixed-dim": "#b0cbd7",
+                    "on-primary": "#ffffff",
+                    "tertiary-fixed": "#92f1ff",
+                    "inverse-surface": "#273236",
+                    "background": "#f2fbff",
+                    "secondary": "#49626d",
+                    "surface-bright": "#f2fbff",
+                    "on-tertiary-container": "#004c54",
+                    "tertiary-fixed-dim": "#4dd8ea"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "xl": "32px",
+                    "margin-page": "24px",
+                    "gutter": "20px",
+                    "lg": "24px",
+                    "xs": "4px",
+                    "base": "4px",
+                    "sm": "8px",
+                    "md": "16px"
+            },
+            "fontFamily": {
+                    "h3": ["Nunito"],
+                    "button": ["Nunito"],
+                    "h2": ["Nunito"],
+                    "body-sm": ["Nunito"],
+                    "body-md": ["Nunito"],
+                    "h1": ["Nunito"],
+                    "body-lg": ["Nunito"],
+                    "label-caps": ["Nunito"]
+            },
+            "fontSize": {
+                    "h3": ["20px", {"lineHeight": "1.4", "letterSpacing": "0", "fontWeight": "600"}],
+                    "button": ["14px", {"lineHeight": "1", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                    "h2": ["24px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "body-sm": ["12px", {"lineHeight": "1.4", "letterSpacing": "0.01em", "fontWeight": "400"}],
+                    "body-md": ["14px", {"lineHeight": "1.5", "letterSpacing": "0", "fontWeight": "400"}],
+                    "h1": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["16px", {"lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400"}],
+                    "label-caps": ["11px", {"lineHeight": "1", "letterSpacing": "0.06em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #acb0b1;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md text-on-surface">
+<!-- Top Navigation Shell -->
+<header class="flex justify-between items-center w-full px-lg h-16 sticky top-0 z-40 bg-surface dark:bg-surface-dim border-b border-outline-variant dark:border-outline">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-primary text-h2">shield</span>
+<h1 class="font-h3 text-h3 font-bold text-primary dark:text-primary-fixed-dim">Emergency Operations Centre</h1>
+</div>
+<div class="flex items-center gap-lg">
+<nav class="hidden md:flex items-center gap-lg h-full">
+<span class="font-body-md text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container-high transition-colors cursor-pointer px-sm py-xs">Dashboard</span>
+<span class="font-body-md text-primary font-bold border-b-2 border-primary transition-colors cursor-pointer px-sm py-xs">Incident Feed</span>
+<span class="font-body-md text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container-high transition-colors cursor-pointer px-sm py-xs">Resource Map</span>
+</nav>
+<span class="material-symbols-outlined text-primary cursor-pointer">notifications</span>
+</div>
+</header>
+<div class="flex">
+<!-- Sidebar Navigation -->
+<aside class="flex flex-col h-screen sticky left-0 top-16 z-30 w-[240px] bg-secondary dark:bg-on-secondary-fixed-variant border-r border-outline-variant dark:border-on-surface-variant shadow-sm">
+<div class="flex flex-col p-md gap-sm">
+<div class="flex items-center gap-md p-sm text-on-primary">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center overflow-hidden">
+<img alt="NMS Dispatcher" class="w-full h-full object-cover" data-alt="A professional headshot of a male emergency dispatcher in a command center. He wears a dark headset and a professional uniform. The background is softly blurred showing glowing computer monitors with emergency maps and data feeds in a high-tech facility. The lighting is focused and clean, emphasizing a serious and authoritative atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDMDD9C6YUFuF5tVwVEUzktH7umHfw8IQu4gdZRaFDUWwkeDHmCNWSfdypOozcGpK7onZZb9oYKZ9lXPm9bbbPRS70tuj3oSy-vD5Gpu6HIsZ464HjkcdJEFZ430yRqBDJntu7Ze5nvQpQRJ3pGtmCfcB1rhaskdZ8YcS78z9q0yRJFXyINl6O7naN5GSJZi8BpoxKfkQS378NDMVWYTL0QkoZOAReaHCRyf72nqmSTwBTw6HZI-TInyofdjs5_Z25HIWsLpuxUFKQ"/>
+</div>
+<div>
+<p class="font-body-md font-bold text-on-primary">NMS Dispatcher</p>
+<p class="font-body-sm text-secondary-fixed">EOC Unit 4</p>
+</div>
+</div>
+<div class="h-[1px] bg-outline-variant/30 my-sm"></div>
+<div class="flex items-center px-4 py-3 mx-2 my-1 bg-primary text-on-primary font-bold rounded-lg scale-95 transition-transform cursor-pointer">
+<span class="material-symbols-outlined mr-md">emergency</span>
+<span class="font-body-md">Incident Feed</span>
+</div>
+<div class="flex items-center px-4 py-3 mx-2 my-1 text-secondary-fixed hover:text-white hover:bg-secondary-container/20 transition-all cursor-pointer">
+<span class="material-symbols-outlined mr-md">dashboard</span>
+<span class="font-body-md">Dashboard</span>
+</div>
+<div class="flex items-center px-4 py-3 mx-2 my-1 text-secondary-fixed hover:text-white hover:bg-secondary-container/20 transition-all cursor-pointer">
+<span class="material-symbols-outlined mr-md">map</span>
+<span class="font-body-md">Resource Map</span>
+</div>
+<div class="flex items-center px-4 py-3 mx-2 my-1 text-secondary-fixed hover:text-white hover:bg-secondary-container/20 transition-all cursor-pointer">
+<span class="material-symbols-outlined mr-md">hub</span>
+<span class="font-body-md">Dispatch Queue</span>
+</div>
+<div class="flex items-center px-4 py-3 mx-2 my-1 text-secondary-fixed hover:text-white hover:bg-secondary-container/20 transition-all cursor-pointer">
+<span class="material-symbols-outlined mr-md">group</span>
+<span class="font-body-md">Personnel</span>
+</div>
+<div class="flex items-center px-4 py-3 mx-2 my-1 text-secondary-fixed hover:text-white hover:bg-secondary-container/20 transition-all cursor-pointer">
+<span class="material-symbols-outlined mr-md">settings</span>
+<span class="font-body-md">System Settings</span>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 p-margin-page overflow-y-auto bg-surface-container-lowest">
+<div class="max-w-6xl mx-auto">
+<!-- Progress Stepper -->
+<div class="flex items-center justify-between mb-xl px-xl">
+<div class="flex flex-col items-center gap-xs">
+<div class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold">1</div>
+<span class="font-label-caps text-label-caps text-primary">Alert</span>
+</div>
+<div class="h-1 flex-1 bg-primary mx-sm rounded-full"></div>
+<div class="flex flex-col items-center gap-xs">
+<div class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold">2</div>
+<span class="font-label-caps text-label-caps text-primary">Location</span>
+</div>
+<div class="h-1 flex-1 bg-primary mx-sm rounded-full"></div>
+<div class="flex flex-col items-center gap-xs">
+<div class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold">3</div>
+<span class="font-label-caps text-label-caps text-primary">Patient</span>
+</div>
+<div class="h-1 flex-1 bg-primary mx-sm rounded-full"></div>
+<div class="flex flex-col items-center gap-xs">
+<div class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold">4</div>
+<span class="font-label-caps text-label-caps text-primary">Complaint</span>
+</div>
+<div class="h-1 flex-1 bg-primary mx-sm rounded-full"></div>
+<div class="flex flex-col items-center gap-xs">
+<div class="w-10 h-10 rounded-full border-4 border-primary-container bg-primary text-on-primary flex items-center justify-center font-bold">5</div>
+<span class="font-label-caps text-label-caps text-primary">Review</span>
+</div>
+</div>
+<!-- Header -->
+<div class="mb-lg">
+<h2 class="font-h1 text-h1 text-inverse-surface mb-xs">Review &amp; Finalize Intake</h2>
+<p class="font-body-lg text-secondary">Review all captured data before committing to active dispatch.</p>
+</div>
+<!-- Bento Review Grid -->
+<div class="grid grid-cols-12 gap-gutter">
+<!-- Alert & Priority (Step 1 Summary) -->
+<div class="col-span-12 md:col-span-4 bg-white border border-outline-variant p-md rounded-lg shadow-sm">
+<div class="flex justify-between items-start mb-md">
+<span class="font-label-caps text-label-caps text-secondary uppercase">Step 1: Alert Info</span>
+<button class="text-primary hover:underline font-button">Edit</button>
+</div>
+<div class="space-y-md">
+<div>
+<label class="font-label-caps text-label-caps text-on-surface-variant block mb-xs">PRIORITY STATUS</label>
+<span class="bg-error/15 text-error px-sm py-1 rounded font-bold font-body-md inline-flex items-center gap-xs">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">warning</span>
+                                    URGENT - CODE 3
+                                </span>
+</div>
+<div class="grid grid-cols-2 gap-sm">
+<div>
+<label class="font-label-caps text-label-caps text-on-surface-variant block mb-xs">CALL TIME</label>
+<p class="font-body-md font-bold text-inverse-surface">14:42:08</p>
+</div>
+<div>
+<label class="font-label-caps text-label-caps text-on-surface-variant block mb-xs">DISPATCHER</label>
+<p class="font-body-md font-bold text-inverse-surface">Unit 4 (D-882)</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Location Summary (Step 2 Summary) -->
+<div class="col-span-12 md:col-span-8 bg-white border border-outline-variant p-md rounded-lg shadow-sm flex gap-md">
+<div class="flex-1">
+<div class="flex justify-between items-start mb-md">
+<span class="font-label-caps text-label-caps text-secondary uppercase">Step 2: Location</span>
+<button class="text-primary hover:underline font-button">Edit</button>
+</div>
+<div class="space-y-md">
+<div>
+<label class="font-label-caps text-label-caps text-on-surface-variant block mb-xs">INCIDENT ADDRESS</label>
+<p class="font-body-lg font-bold text-inverse-surface">842 Industrial Way, Suite 400</p>
+<p class="font-body-md text-secondary">North Metropolitan Sector, Sector 4-B</p>
+</div>
+<div>
+<label class="font-label-caps text-label-caps text-on-surface-variant block mb-xs">ACCESS NOTES</label>
+<p class="font-body-md text-inverse-surface">Entry via North Gate. Badge access required for level 4. Use freight elevator if stretcher is deployed.</p>
+</div>
+</div>
+</div>
+<div class="w-1/3 h-full min-h-[160px] rounded overflow-hidden relative border border-outline-variant">
+<img alt="Location Map" class="w-full h-full object-cover" data-alt="A highly detailed aerial satellite map view of an industrial urban complex. The image shows structured roads, building rooftops, and green patches in a clean, high-contrast digital interface style. A glowing green pin marks a specific industrial building. The overall aesthetic is professional, data-centric, and focused on tactical location clarity." data-location="Metropolitan Area" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1qGKgEBILL1M11MP2BbZUDvSnCNOvHmU1F0ZfAcMNKKnosReytd2fXYH1czhVf-25BqQ3ZN7IvRhpEzMlCvaKToWJw8Sj7OxtuXNvn4LKY81r2h_Lt0ixKKpPvuv4CoBdjDxxY4C0C_cGXY2DfK-hgO1XyEsEghToMs1GK8RDLVhlooycuIHR6V33NKkiIuiPhV3Eor9-TSdMo5ULHEWlmHtPAokaRfPl6qYDP_9twHNcSsRfwl0gcSl3osF8183FJr6JfAGkMfs"/>
+<div class="absolute inset-0 bg-primary/5"></div>
+</div>
+</div>
+<!-- Patient Details (Step 3 Summary) -->
+<div class="col-span-12 md:col-span-5 bg-white border border-outline-variant p-md rounded-lg shadow-sm">
+<div class="flex justify-between items-start mb-md">
+<span class="font-label-caps text-label-caps text-secondary uppercase">Step 3: Patient Details</span>
+<button class="text-primary hover:underline font-button">Edit</button>
+</div>
+<div class="grid grid-cols-2 gap-y-md gap-x-sm">
+<div class="col-span-2">
+<label class="font-label-caps text-label-caps text-on-surface-variant block mb-xs">PATIENT NAME</label>
+<p class="font-body-md font-bold text-inverse-surface">Robert J. Henderson</p>
+</div>
+<div>
+<label class="font-label-caps text-label-caps text-on-surface-variant block mb-xs">AGE / SEX</label>
+<p class="font-body-md text-inverse-surface">54 / Male</p>
+</div>
+<div>
+<label class="font-label-caps text-label-caps text-on-surface-variant block mb-xs">WEIGHT (EST)</label>
+<p class="font-body-md text-inverse-surface">92 kg</p>
+</div>
+<div class="col-span-2">
+<label class="font-label-caps text-label-caps text-on-surface-variant block mb-xs">KNOWN ALLERGIES</label>
+<span class="bg-error-container text-on-error-container px-sm py-xs rounded font-bold font-body-sm inline-block">PENICILLIN</span>
+</div>
+</div>
+</div>
+<!-- Chief Complaint & Medical Data (Step 4 Summary) -->
+<div class="col-span-12 md:col-span-7 bg-white border border-outline-variant p-md rounded-lg shadow-sm">
+<div class="flex justify-between items-start mb-md">
+<span class="font-label-caps text-label-caps text-secondary uppercase">Step 4: Chief Complaint</span>
+<button class="text-primary hover:underline font-button">Edit</button>
+</div>
+<div class="space-y-md">
+<div class="bg-surface-container-low p-sm rounded-lg border-l-4 border-primary">
+<label class="font-label-caps text-label-caps text-on-primary-fixed-variant block mb-xs">CHIEF COMPLAINT</label>
+<p class="font-body-lg font-bold text-inverse-surface">Acute chest pain radiating to left arm. Shortness of breath reported. Onset 15 mins ago.</p>
+</div>
+<div class="flex flex-wrap gap-sm">
+<div class="bg-secondary-container/30 border border-outline-variant rounded px-md py-sm">
+<label class="font-label-caps text-[9px] text-secondary uppercase block">Consciousness</label>
+<span class="font-bold text-secondary">Alert</span>
+</div>
+<div class="bg-secondary-container/30 border border-outline-variant rounded px-md py-sm">
+<label class="font-label-caps text-[9px] text-secondary uppercase block">Breathing</label>
+<span class="font-bold text-secondary">Labored</span>
+</div>
+<div class="bg-secondary-container/30 border border-outline-variant rounded px-md py-sm">
+<label class="font-label-caps text-[9px] text-secondary uppercase block">Pulse</label>
+<span class="font-bold text-secondary">Weak / Rapid</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Submission Actions -->
+<div class="mt-xl border-t border-outline-variant pt-lg flex flex-col md:flex-row justify-between items-center gap-lg">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-outline">info</span>
+<p class="font-body-sm text-on-surface-variant max-w-sm">
+                            By clicking 'Submit to Dispatch', you confirm all critical details are accurate. This action will trigger immediate resource routing.
+                        </p>
+</div>
+<div class="flex gap-md w-full md:w-auto">
+<button class="flex-1 md:flex-none px-xl py-md rounded border-2 border-secondary text-secondary font-button uppercase tracking-wider hover:bg-surface-container-high transition-colors">
+                            Save as Draft
+                        </button>
+<button class="flex-1 md:flex-none px-xl py-md rounded bg-primary text-on-primary font-h3 uppercase tracking-widest hover:brightness-110 active:scale-95 transition-all shadow-lg flex items-center justify-center gap-md">
+                            Submit to Dispatch
+                            <span class="material-symbols-outlined">send</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Alert Toast (Contextual FAB Hidden per Rule) -->
+<div class="fixed bottom-lg right-lg max-w-xs bg-inverse-surface text-inverse-on-surface p-md rounded-lg shadow-xl border border-outline-variant/20 flex items-start gap-md z-50">
+<span class="material-symbols-outlined text-primary-container">verified</span>
+<div>
+<p class="font-body-md font-bold">Ready for submission</p>
+<p class="font-body-sm opacity-80">All 4 mandatory sections are complete and validated.</p>
+</div>
+</div>
+</body></html>

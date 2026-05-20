@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed-dim": "#4dd8ea",
+                        "on-tertiary-container": "#004c54",
+                        "surface-bright": "#f2fbff",
+                        "secondary": "#49626d",
+                        "background": "#f2fbff",
+                        "tertiary-fixed": "#92f1ff",
+                        "inverse-surface": "#273236",
+                        "secondary-fixed-dim": "#b0cbd7",
+                        "on-primary": "#ffffff",
+                        "surface-variant": "#d9e4ea",
+                        "on-secondary-fixed-variant": "#314a55",
+                        "on-error": "#ffffff",
+                        "inverse-primary": "#9cd854",
+                        "tertiary-container": "#2dc3d4",
+                        "on-surface": "#131d21",
+                        "on-error-container": "#93000a",
+                        "outline": "#737a67",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary": "#006973",
+                        "surface-container-low": "#eaf5fb",
+                        "on-background": "#131d21",
+                        "on-tertiary": "#ffffff",
+                        "primary": "#3f6900",
+                        "surface-tint": "#3f6900",
+                        "on-tertiary-fixed-variant": "#004f57",
+                        "on-primary-fixed": "#102000",
+                        "secondary-fixed": "#cce7f3",
+                        "on-secondary": "#ffffff",
+                        "secondary-container": "#c9e4f1",
+                        "primary-container": "#88c241",
+                        "surface": "#f2fbff",
+                        "error": "#ba1a1a",
+                        "on-primary-container": "#2d4c00",
+                        "inverse-on-surface": "#e7f2f8",
+                        "surface-container-highest": "#d9e4ea",
+                        "surface-dim": "#d1dce1",
+                        "surface-container-high": "#dfeaf0",
+                        "on-tertiary-fixed": "#001f23",
+                        "on-primary-fixed-variant": "#2f4f00",
+                        "error-container": "#ffdad6",
+                        "on-secondary-container": "#4d6671",
+                        "on-secondary-fixed": "#031f28",
+                        "surface-container": "#e4f0f5",
+                        "primary-fixed-dim": "#9cd854",
+                        "on-surface-variant": "#424938",
+                        "primary-fixed": "#b7f56d",
+                        "outline-variant": "#c2c9b3"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "margin-page": "24px",
+                        "xl": "32px",
+                        "gutter": "20px",
+                        "xs": "4px",
+                        "base": "4px",
+                        "lg": "24px",
+                        "sm": "8px",
+                        "md": "16px"
+                    },
+                    "fontFamily": {
+                        "h1": ["Nunito"],
+                        "h2": ["Nunito"],
+                        "body-sm": ["Nunito"],
+                        "body-md": ["Nunito"],
+                        "label-caps": ["Nunito"],
+                        "body-lg": ["Nunito"],
+                        "h3": ["Nunito"],
+                        "button": ["Nunito"]
+                    },
+                    "fontSize": {
+                        "h1": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "h2": ["24px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "body-sm": ["12px", {"lineHeight": "1.4", "letterSpacing": "0.01em", "fontWeight": "400"}],
+                        "body-md": ["14px", {"lineHeight": "1.5", "letterSpacing": "0", "fontWeight": "400"}],
+                        "label-caps": ["11px", {"lineHeight": "1", "letterSpacing": "0.06em", "fontWeight": "700"}],
+                        "body-lg": ["16px", {"lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400"}],
+                        "h3": ["20px", {"lineHeight": "1.4", "letterSpacing": "0", "fontWeight": "600"}],
+                        "button": ["14px", {"lineHeight": "1", "letterSpacing": "0.02em", "fontWeight": "600"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .map-gradient-overlay {
+            background: linear-gradient(to bottom, rgba(242, 251, 255, 0.8) 0%, rgba(242, 251, 255, 0) 20%);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="flex justify-between items-center w-full px-lg h-16 sticky top-0 z-40 bg-surface dark:bg-surface-dim border-b border-outline-variant dark:border-outline">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed-dim" data-icon="shield">shield</span>
+<h1 class="font-h3 text-h3 font-bold text-primary dark:text-primary-fixed-dim">Emergency Operations Centre</h1>
+</div>
+<div class="flex items-center gap-md">
+<div class="flex items-center gap-sm px-md py-xs rounded-full bg-surface-container-high dark:bg-surface-container-highest transition-colors duration-200 cursor-pointer">
+<span class="material-symbols-outlined text-secondary" data-icon="notifications">notifications</span>
+</div>
+</div>
+</header>
+<div class="flex flex-1 overflow-hidden">
+<!-- NavigationDrawer -->
+<nav class="flex flex-col h-screen fixed left-0 top-0 z-50 w-[240px] bg-secondary dark:bg-on-secondary-fixed-variant border-r border-outline-variant dark:border-on-surface-variant shadow-sm hidden md:flex">
+<div class="p-lg mb-md">
+<div class="font-label-caps text-label-caps uppercase tracking-widest text-secondary-fixed mb-xl">EOC COMMAND</div>
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container font-bold">ND</div>
+<div class="overflow-hidden">
+<div class="font-body-md font-bold text-on-primary truncate">NMS Dispatcher</div>
+<div class="text-body-sm text-secondary-fixed truncate">EOC Unit 4</div>
+</div>
+</div>
+</div>
+<div class="flex-1 space-y-1">
+<a class="flex items-center px-4 py-3 mx-2 my-1 transition-all text-secondary-fixed hover:text-white hover:bg-secondary-container/20" href="#">
+<span class="material-symbols-outlined mr-md" data-icon="dashboard">dashboard</span>
+<span class="font-body-md">Dashboard</span>
+</a>
+<a class="bg-primary text-on-primary font-bold rounded-lg mx-2 my-1 flex items-center px-4 py-3 transition-all scale-95 active:scale-100" href="#">
+<span class="material-symbols-outlined mr-md" data-icon="emergency">emergency</span>
+<span class="font-body-md">Incident Feed</span>
+</a>
+<a class="flex items-center px-4 py-3 mx-2 my-1 transition-all text-secondary-fixed hover:text-white hover:bg-secondary-container/20" href="#">
+<span class="material-symbols-outlined mr-md" data-icon="map">map</span>
+<span class="font-body-md">Resource Map</span>
+</a>
+<a class="flex items-center px-4 py-3 mx-2 my-1 transition-all text-secondary-fixed hover:text-white hover:bg-secondary-container/20" href="#">
+<span class="material-symbols-outlined mr-md" data-icon="hub">hub</span>
+<span class="font-body-md">Dispatch Queue</span>
+</a>
+<a class="flex items-center px-4 py-3 mx-2 my-1 transition-all text-secondary-fixed hover:text-white hover:bg-secondary-container/20" href="#">
+<span class="material-symbols-outlined mr-md" data-icon="group">group</span>
+<span class="font-body-md">Personnel</span>
+</a>
+</div>
+<div class="p-md border-t border-secondary-container/10">
+<a class="flex items-center px-4 py-3 mx-2 my-1 transition-all text-secondary-fixed hover:text-white hover:bg-secondary-container/20" href="#">
+<span class="material-symbols-outlined mr-md" data-icon="settings">settings</span>
+<span class="font-body-md">System Settings</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 md:ml-[240px] p-margin-page flex flex-col gap-lg">
+<!-- Progress Wizard Header -->
+<div class="w-full max-w-5xl mx-auto">
+<div class="flex items-center justify-between mb-lg">
+<div>
+<h2 class="font-h2 text-h2 text-inverse-surface mb-xs">New Incident Report</h2>
+<p class="text-secondary font-body-md">Step 2 of 5: Incident Location &amp; Geodata</p>
+</div>
+<button class="flex items-center gap-sm px-md py-sm rounded-lg border border-outline-variant text-secondary font-button hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="close">close</span>
+                        Cancel
+                    </button>
+</div>
+<!-- Wizard Steps -->
+<div class="flex items-center w-full gap-xs mb-xl">
+<div class="h-2 flex-1 rounded-full bg-primary-container"></div>
+<div class="h-2 flex-1 rounded-full bg-primary"></div>
+<div class="h-2 flex-1 rounded-full bg-surface-container-highest"></div>
+<div class="h-2 flex-1 rounded-full bg-surface-container-highest"></div>
+<div class="h-2 flex-1 rounded-full bg-surface-container-highest"></div>
+</div>
+<!-- Form Layout: Bento Grid Style -->
+<div class="grid grid-cols-12 gap-gutter">
+<!-- Left Column: Map Interaction -->
+<div class="col-span-12 lg:col-span-8 space-y-gutter">
+<div class="bg-white border border-outline-variant rounded-xl overflow-hidden shadow-sm flex flex-col h-[500px] relative">
+<div class="absolute top-md left-md z-10 flex flex-col gap-sm">
+<div class="bg-white/90 backdrop-blur-sm p-sm rounded-lg shadow-sm border border-outline-variant flex items-center gap-md">
+<span class="material-symbols-outlined text-primary" data-icon="location_on" style="font-variation-settings: 'FILL' 1;">location_on</span>
+<span class="text-body-sm font-bold text-inverse-surface">Click map to drop coordinate pin</span>
+</div>
+</div>
+<!-- Map Placeholder -->
+<div class="flex-1 bg-surface-container relative overflow-hidden">
+<img alt="Incident Map" class="w-full h-full object-cover grayscale-[0.2] opacity-80" data-alt="A highly detailed satellite view of a metropolitan city grid with sharp street alignments and green park spaces. The map features high-contrast rendering suitable for an emergency operations interface. The lighting is bright and clear, emphasizing urban density and structural pathways. The overall aesthetic is technical, precise, and professional, utilizing a neutral color palette with vibrant green highlights for vegetation." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8aGgRh4pYX_OMRQS9-W-avNwriL586VHyjyCK5F7wJ5H1_yQND6xoqD0i6xeq01dElQK1KhlJpqFpvbnsPyo7EOQdRH3oTyFbshy-hl-m89NzQCi4sjoTzRC6geb7MTr9T2WP6pscCD2yVxeJQG2vO6laFyFK-dFJQu1XpWGpfM6oCaAIyhTSAR1WDNGOjoqnrl9RSGjiRnqsjGjV3mpaLPCA5MLmNdM2qlqMpOdEHE7iDh97Vwtk9fd9p8uIe1H19AMW0ao1yyw"/>
+<!-- Simulated Pin -->
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-full">
+<div class="relative flex flex-col items-center">
+<div class="bg-primary text-white p-2 rounded-full shadow-lg animate-bounce">
+<span class="material-symbols-outlined" data-icon="push_pin" style="font-variation-settings: 'FILL' 1;">push_pin</span>
+</div>
+<div class="w-2 h-2 bg-primary rounded-full mt-[-4px]"></div>
+</div>
+</div>
+<!-- Map Controls -->
+<div class="absolute bottom-md right-md flex flex-col gap-xs">
+<button class="w-10 h-10 bg-white border border-outline-variant rounded-lg flex items-center justify-center text-inverse-surface shadow-sm hover:bg-surface-container-low">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+</button>
+<button class="w-10 h-10 bg-white border border-outline-variant rounded-lg flex items-center justify-center text-inverse-surface shadow-sm hover:bg-surface-container-low">
+<span class="material-symbols-outlined" data-icon="remove">remove</span>
+</button>
+<button class="w-10 h-10 bg-white border border-outline-variant rounded-lg flex items-center justify-center text-primary shadow-sm hover:bg-surface-container-low mt-sm">
+<span class="material-symbols-outlined" data-icon="my_location">my_location</span>
+</button>
+</div>
+</div>
+<div class="bg-white p-md border-t border-outline-variant flex items-center justify-between">
+<div class="flex gap-xl">
+<div>
+<label class="font-label-caps text-label-caps text-secondary mb-xs block">LATITUDE</label>
+<div class="font-body-md font-bold text-inverse-surface">34.0522° N</div>
+</div>
+<div>
+<label class="font-label-caps text-label-caps text-secondary mb-xs block">LONGITUDE</label>
+<div class="font-body-md font-bold text-inverse-surface">118.2437° W</div>
+</div>
+</div>
+<div class="text-right">
+<label class="font-label-caps text-label-caps text-secondary mb-xs block">ACCURACY</label>
+<div class="flex items-center gap-sm">
+<div class="w-2 h-2 rounded-full bg-primary"></div>
+<span class="font-body-md font-bold text-inverse-surface">High (Within 3m)</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Details & Forms -->
+<div class="col-span-12 lg:col-span-4 space-y-gutter">
+<!-- Location Inputs Card -->
+<div class="bg-white border border-outline-variant rounded-xl p-lg shadow-sm">
+<h3 class="font-h3 text-h3 text-inverse-surface mb-lg">Location Details</h3>
+<form class="space-y-lg">
+<div>
+<label class="font-label-caps text-label-caps text-secondary mb-sm block">LOCATION NAME</label>
+<input class="w-full bg-white border border-outline-variant rounded-lg px-md py-sm font-body-md text-inverse-surface focus:ring-2 focus:ring-primary focus:border-primary transition-all outline-none" placeholder="e.g. Sector 7 Industrial Zone" type="text"/>
+<p class="text-body-sm text-secondary mt-sm">Give this location a recognizable descriptive name.</p>
+</div>
+<div>
+<label class="font-label-caps text-label-caps text-secondary mb-sm block">PRIMARY ADDRESS (AUTO-GENERATED)</label>
+<textarea class="w-full bg-surface-container-low border border-outline-variant rounded-lg px-md py-sm font-body-md text-secondary cursor-not-allowed" readonly="" rows="3">1244 N Main St, Los Angeles, CA 90012, United States</textarea>
+</div>
+<div class="p-md rounded-lg bg-tertiary-container/10 border border-tertiary-container/20">
+<div class="flex gap-md">
+<span class="material-symbols-outlined text-tertiary" data-icon="info">info</span>
+<div>
+<div class="font-body-md font-bold text-tertiary">Proximity Warning</div>
+<p class="text-body-sm text-on-tertiary-container mt-xs">Incident is within 500m of a High-Risk Infrastructure zone (Power Station B-2).</p>
+</div>
+</div>
+</div>
+</form>
+</div>
+<!-- Quick Actions / Meta -->
+<div class="bg-white border border-outline-variant rounded-xl p-lg shadow-sm">
+<h4 class="font-label-caps text-label-caps text-secondary mb-md">QUICK LOCATORS</h4>
+<div class="grid grid-cols-2 gap-sm">
+<button class="flex flex-col items-center justify-center p-md rounded-lg border border-outline-variant hover:border-primary hover:bg-primary-container/5 transition-all gap-sm">
+<span class="material-symbols-outlined text-primary" data-icon="home">home</span>
+<span class="text-body-sm font-bold">Base EOC</span>
+</button>
+<button class="flex flex-col items-center justify-center p-md rounded-lg border border-outline-variant hover:border-primary hover:bg-primary-container/5 transition-all gap-sm">
+<span class="material-symbols-outlined text-primary" data-icon="medical_services">medical_services</span>
+<span class="text-body-sm font-bold">Nearest ER</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Navigation -->
+<div class="flex items-center justify-between mt-xl pt-lg border-t border-outline-variant">
+<button class="px-xl py-sm rounded-lg border border-secondary text-secondary font-button hover:bg-surface-container-high transition-all flex items-center gap-md">
+<span class="material-symbols-outlined text-[18px]" data-icon="arrow_back">arrow_back</span>
+                        Previous
+                    </button>
+<button class="px-xl py-sm rounded-lg bg-primary text-on-primary font-button hover:opacity-90 shadow-sm transition-all flex items-center gap-md">
+                        Continue to Step 3
+                        <span class="material-symbols-outlined text-[18px]" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+</main>
+</div>
+<!-- Alert Toast (Contextual) -->
+<div class="fixed bottom-lg right-lg z-50 animate-in slide-in-from-right duration-300">
+<div class="bg-inverse-surface text-on-primary px-lg py-md rounded-xl shadow-lg border border-outline flex items-center gap-md min-w-[320px]">
+<div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary-fixed">
+<span class="material-symbols-outlined" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div>
+<div class="font-body-md font-bold text-white">Coordinates Locked</div>
+<div class="text-body-sm text-secondary-fixed-dim">Map data synced with GPS Unit-09.</div>
+</div>
+<button class="ml-auto text-secondary-fixed-dim hover:text-white">
+<span class="material-symbols-outlined text-[20px]" data-icon="close">close</span>
+</button>
+</div>
+</div>
+</body></html>

@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Using Phosphor Icons via CDN -->
+<script src="https://unpkg.com/@phosphor-icons/web"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "primary": "#3f6900",
+            "outline": "#737a67",
+            "on-tertiary-fixed": "#001f23",
+            "on-tertiary": "#ffffff",
+            "on-background": "#131d21",
+            "tertiary-fixed": "#92f1ff",
+            "on-tertiary-container": "#004c54",
+            "primary-fixed-dim": "#9cd854",
+            "secondary": "#49626d",
+            "surface-container-high": "#dfeaf0",
+            "secondary-fixed": "#cce7f3",
+            "surface-tint": "#3f6900",
+            "secondary-fixed-dim": "#b0cbd7",
+            "surface-container-low": "#eaf5fb",
+            "surface-container-highest": "#d9e4ea",
+            "inverse-surface": "#273236",
+            "on-surface-variant": "#424938",
+            "surface-variant": "#d9e4ea",
+            "secondary-container": "#c9e4f1",
+            "on-secondary-fixed-variant": "#314a55",
+            "on-primary-fixed": "#102000",
+            "on-error-container": "#93000a",
+            "surface": "#f2fbff",
+            "surface-dim": "#d1dce1",
+            "on-primary-fixed-variant": "#2f4f00",
+            "primary-fixed": "#b7f56d",
+            "tertiary-fixed-dim": "#4dd8ea",
+            "error": "#ba1a1a",
+            "error-container": "#ffdad6",
+            "on-tertiary-fixed-variant": "#004f57",
+            "inverse-on-surface": "#e7f2f8",
+            "on-surface": "#131d21",
+            "on-primary": "#ffffff",
+            "tertiary-container": "#2dc3d4",
+            "on-primary-container": "#2d4c00",
+            "surface-container": "#e4f0f5",
+            "surface-bright": "#f2fbff",
+            "tertiary": "#006973",
+            "on-error": "#ffffff",
+            "on-secondary-fixed": "#031f28",
+            "outline-variant": "#c2c9b3",
+            "on-secondary-container": "#4d6671",
+            "surface-container-lowest": "#ffffff",
+            "inverse-primary": "#9cd854",
+            "background": "#f2fbff",
+            "on-secondary": "#ffffff",
+            "primary-container": "#88c241"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "xs": "4px",
+            "xl": "32px",
+            "base": "4px",
+            "sm": "8px",
+            "lg": "24px",
+            "gutter": "20px",
+            "md": "16px",
+            "margin-page": "24px"
+          },
+          "fontFamily": {
+            "h2": ["Nunito"],
+            "button": ["Nunito"],
+            "h3": ["Nunito"],
+            "body-lg": ["Nunito"],
+            "body-md": ["Nunito"],
+            "label-caps": ["Nunito"],
+            "h1": ["Nunito"],
+            "body-sm": ["Nunito"]
+          },
+          "fontSize": {
+            "h2": ["24px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+            "button": ["14px", {"lineHeight": "1", "letterSpacing": "0.02em", "fontWeight": "600"}],
+            "h3": ["20px", {"lineHeight": "1.4", "letterSpacing": "0", "fontWeight": "600"}],
+            "body-lg": ["16px", {"lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400"}],
+            "body-md": ["14px", {"lineHeight": "1.5", "letterSpacing": "0", "fontWeight": "400"}],
+            "label-caps": ["11px", {"lineHeight": "1", "letterSpacing": "0.06em", "fontWeight": "700"}],
+            "h1": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+            "body-sm": ["12px", {"lineHeight": "1.4", "letterSpacing": "0.01em", "fontWeight": "400"}]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    body {
+      background-color: #acb0b1;
+      min-height: max(884px, 100dvh);
+    }
+    .ph {
+      font-size: 24px;
+    }
+  </style>
+</head>
+<body class="font-body-md text-on-background selection:bg-primary-container selection:text-on-primary-container">
+<!-- NavigationDrawer (Shell Component) -->
+<aside class="flex flex-col h-screen fixed left-0 top-0 z-50 w-[240px] bg-secondary dark:bg-on-secondary-fixed-variant shadow-sm border-r border-outline-variant dark:border-on-surface-variant">
+<div class="p-lg flex items-center gap-sm">
+<i class="ph ph-shield-check text-secondary-fixed"></i>
+<span class="font-label-caps text-label-caps uppercase tracking-widest text-secondary-fixed">Watcher EOC</span>
+</div>
+<div class="px-4 py-6 border-b border-white/10 mx-2 mb-4">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center overflow-hidden">
+<img alt="User Profile Avatar" class="w-full h-full object-cover" data-alt="Close up professional portrait of a male emergency dispatcher wearing a headset, in a dark command center environment with blurred screens in the background. The lighting is soft and cinematic, emphasizing authority and focus." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVosAqwXxa9AGz9y-8GAd_HshCPTCTYijwxZnzzcALd0hK-kkhg6ysiKAJO5yqPyuSlhpsTuKIbuQyX-FfBwqDax-XYSb23k9T-U0RuoQEzn_oNCBIdstiopO5jEYsUDpVyAJMdN4-33NbZReNjhABSPufK9VsMXn68Ir3M0fj_feqy_niid-27B1SkTNZHciwY_A-8nKI6QXKiJgu0FIyRGaxgkocsWOtUD-fx26zUe1j15H9QhmCKwVS6q72YfFTuDmdGvUjUH4"/>
+</div>
+<div>
+<p class="font-body-md text-on-primary font-bold">NMS Dispatcher</p>
+<p class="font-body-sm text-secondary-fixed opacity-80">EOC Unit 4</p>
+</div>
+</div>
+</div>
+<nav class="flex-1">
+<a class="text-secondary-fixed hover:text-white flex items-center px-4 py-3 mx-2 my-1 transition-all hover:bg-secondary-container/20" href="#">
+<i class="ph ph-squares-four mr-md"></i>
+<span class="font-body-md">Dashboard</span>
+</a>
+<a class="bg-primary text-on-primary font-bold rounded-lg mx-2 my-1 flex items-center px-4 py-3 transition-all scale-95 active:scale-100" href="#">
+<i class="ph ph-warning-diamond mr-md"></i>
+<span class="font-body-md">Incident Feed</span>
+</a>
+<a class="text-secondary-fixed hover:text-white flex items-center px-4 py-3 mx-2 my-1 transition-all hover:bg-secondary-container/20" href="#">
+<i class="ph ph-map-trifold mr-md"></i>
+<span class="font-body-md">Resource Map</span>
+</a>
+<a class="text-secondary-fixed hover:text-white flex items-center px-4 py-3 mx-2 my-1 transition-all hover:bg-secondary-container/20" href="#">
+<i class="ph ph-activity mr-md"></i>
+<span class="font-body-md">Dispatch Queue</span>
+</a>
+<a class="text-secondary-fixed hover:text-white flex items-center px-4 py-3 mx-2 my-1 transition-all hover:bg-secondary-container/20" href="#">
+<i class="ph ph-users mr-md"></i>
+<span class="font-body-md">Personnel</span>
+</a>
+</nav>
+<div class="mt-auto pb-lg">
+<a class="text-secondary-fixed hover:text-white flex items-center px-4 py-3 mx-2 my-1 transition-all hover:bg-secondary-container/20" href="#">
+<i class="ph ph-gear mr-md"></i>
+<span class="font-body-md">System Settings</span>
+</a>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="ml-[240px] min-h-screen flex flex-col">
+<!-- TopAppBar (Shell Component) -->
+<header class="flex justify-between items-center w-full px-lg h-16 sticky top-0 z-40 bg-surface dark:bg-surface-dim border-b border-outline-variant dark:border-outline">
+<div class="flex items-center gap-md">
+<i class="ph ph-shield-check text-primary text-2xl"></i>
+<h1 class="font-h3 text-h3 font-bold text-primary">Emergency Operations Centre</h1>
+</div>
+<div class="flex items-center gap-lg">
+<div class="flex items-center gap-sm px-md py-xs bg-surface-container rounded-full text-secondary">
+<i class="ph ph-clock text-base"></i>
+<span class="font-body-sm font-bold">14:32 GMT+3</span>
+</div>
+<button class="text-primary hover:bg-surface-container-high p-sm rounded-full transition-colors flex items-center justify-center">
+<i class="ph ph-bell text-2xl"></i>
+</button>
+</div>
+</header>
+<!-- Page Content -->
+<div class="p-lg flex-1 flex flex-col items-center">
+<!-- Stepper / Progress Bar -->
+<div class="w-full max-w-4xl mb-xl">
+<div class="flex justify-between items-center mb-sm px-xs">
+<span class="font-label-caps text-primary">Step 1 of 5</span>
+<span class="font-body-sm font-bold text-secondary">INCIDENT INTAKE</span>
+</div>
+<div class="flex gap-xs w-full h-1.5">
+<div class="flex-1 bg-primary rounded-full"></div>
+<div class="flex-1 bg-outline-variant rounded-full"></div>
+<div class="flex-1 bg-outline-variant rounded-full"></div>
+<div class="flex-1 bg-outline-variant rounded-full"></div>
+<div class="flex-1 bg-outline-variant rounded-full"></div>
+</div>
+</div>
+<!-- Main Form Card -->
+<section class="w-full max-w-4xl bg-white border border-outline-variant rounded-lg overflow-hidden shadow-sm flex flex-col lg:flex-row">
+<!-- Left: Form Controls -->
+<div class="flex-1 p-lg border-b lg:border-b-0 lg:border-r border-outline-variant">
+<div class="mb-lg">
+<h2 class="font-h2 text-h2 text-[#273238] mb-xs">Alert Information</h2>
+<p class="font-body-md text-secondary">Record the initial contact details for the new incident.</p>
+</div>
+<form class="space-y-lg">
+<!-- Alert Mode Radio Group -->
+<div>
+<label class="font-label-caps text-secondary mb-sm block">ALERT MODE</label>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-sm">
+<label class="relative flex flex-col items-center justify-center p-md border-2 border-primary bg-primary-container/10 rounded-lg cursor-pointer group transition-all">
+<input checked="" class="sr-only" name="alert_mode" type="radio"/>
+<i class="ph-fill ph-radio text-primary mb-xs text-2xl"></i>
+<span class="font-body-sm font-bold text-primary">Radio</span>
+</label>
+<label class="relative flex flex-col items-center justify-center p-md border border-outline-variant rounded-lg cursor-pointer group hover:bg-surface-container-low transition-all">
+<input class="sr-only" name="alert_mode" type="radio"/>
+<i class="ph ph-phone text-secondary mb-xs group-hover:text-primary transition-colors text-2xl"></i>
+<span class="font-body-sm text-secondary group-hover:text-primary">Phone</span>
+</label>
+<label class="relative flex flex-col items-center justify-center p-md border border-outline-variant rounded-lg cursor-pointer group hover:bg-surface-container-low transition-all">
+<input class="sr-only" name="alert_mode" type="radio"/>
+<i class="ph ph-person-simple-walk text-secondary mb-xs group-hover:text-primary transition-colors text-2xl"></i>
+<span class="font-body-sm text-secondary group-hover:text-primary">Walk-in</span>
+</label>
+<label class="relative flex flex-col items-center justify-center p-md border border-outline-variant rounded-lg cursor-pointer group hover:bg-surface-container-low transition-all">
+<input class="sr-only" name="alert_mode" type="radio"/>
+<i class="ph ph-dots-three text-secondary mb-xs group-hover:text-primary transition-colors text-2xl"></i>
+<span class="font-body-sm text-secondary group-hover:text-primary">Other</span>
+</label>
+</div>
+</div>
+<!-- Time and Location -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-lg">
+<div>
+<label class="font-label-caps text-secondary mb-sm block">ALERT TIME</label>
+<div class="relative">
+<input class="w-full h-11 px-md bg-white border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all" type="datetime-local" value="2023-10-27T14:32"/>
+</div>
+</div>
+<div>
+<label class="font-label-caps text-secondary mb-sm block">SUB-COUNTY</label>
+<select class="w-full h-11 px-md bg-white border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all">
+<option>Select location...</option>
+<option selected="">Westlands</option>
+<option>Dagoretti</option>
+<option>Kasarani</option>
+<option>Embakasi</option>
+</select>
+</div>
+</div>
+<!-- Notifier Details -->
+<div>
+<div class="flex justify-between items-center mb-sm">
+<label class="font-label-caps text-secondary">NOTIFIER DETAILS</label>
+<button class="text-primary font-bold font-body-sm flex items-center gap-xs hover:underline" type="button">
+<i class="ph ph-plus-circle text-base"></i>
+                  Add Channel
+                </button>
+</div>
+<div class="space-y-sm">
+<!-- Dynamic Row 1 -->
+<div class="flex gap-sm">
+<div class="flex-1">
+<select class="w-full h-11 px-md bg-white border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all">
+<option selected="">Primary Contact</option>
+<option>Emergency Line</option>
+<option>WhatsApp</option>
+</select>
+</div>
+<div class="flex-[2]">
+<input class="w-full h-11 px-md bg-white border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all" placeholder="+254 700 000 000" type="tel"/>
+</div>
+<button class="h-11 w-11 flex items-center justify-center text-error hover:bg-error-container/20 rounded-lg transition-colors" type="button">
+<i class="ph ph-trash"></i>
+</button>
+</div>
+</div>
+</div>
+<div class="pt-lg flex justify-between items-center border-t border-outline-variant">
+<button class="px-lg h-11 rounded-lg font-button text-secondary hover:bg-surface-container-high transition-colors" type="button">
+                Cancel
+              </button>
+<button class="px-xl h-11 bg-primary text-white rounded-lg font-button hover:bg-primary/90 shadow-md flex items-center gap-md active:scale-95 transition-all" type="submit">
+                Next Step
+                <i class="ph ph-arrow-right"></i>
+</button>
+</div>
+</form>
+</div>
+<!-- Right: Contextual Info/Bento Style Map Snippet -->
+<div class="w-full lg:w-80 bg-surface-container-low p-lg flex flex-col gap-lg">
+<div class="bg-white p-md rounded-lg border border-outline-variant">
+<h4 class="font-label-caps text-secondary mb-md">INTAKE GUIDANCE</h4>
+<div class="space-y-md">
+<div class="flex gap-md">
+<i class="ph ph-check-circle text-primary text-xl"></i>
+<p class="font-body-sm">Verify the caller's location first using the map overlay.</p>
+</div>
+<div class="flex gap-md">
+<i class="ph ph-check-circle text-primary text-xl"></i>
+<p class="font-body-sm">Maintain clear communication for radio channels.</p>
+</div>
+</div>
+</div>
+<div class="flex-1 relative rounded-lg overflow-hidden border border-outline-variant bg-surface-dim min-h-[200px]">
+<img class="w-full h-full object-cover opacity-60 mix-blend-multiply" data-alt="A stylized overhead map view of a modern urban city district with clean lines, minimalist streets, and subtle highlighted zones in brand green. The map design is corporate and professional, featuring high-contrast roads and simplified topography to minimize visual clutter for emergency dispatchers." data-location="Nairobi" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDREbvM_YUKMB9RJgq5DqWUeWYgLeCuHqIAo-ffjfODm-a-e1rD36gqvP4U22fDC0GXam4G9RVThMDGzH-0-ufXjHjtyhPnoVkjDZ2te6ZJ1kWoZwPb1OvMh7Q88V3jEQFwP9ZnSMvKQEWbw_As_jEEYN02m3vZ21pSeG2iitF2Q3avZnpaR6A-m1gdXJd1_XAuwYMCtt9rBbwVv32KJpw8XrE6abHPDSjKe2zRu3wf0q_EQCrSSHQh2Y7eSNY8ohYLmdgNKl_rY7M"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent flex flex-col justify-end p-md">
+<p class="text-white font-bold font-body-sm">Westlands Region</p>
+<p class="text-white/80 font-body-sm">2 Active Incidents</p>
+</div>
+<div class="absolute top-md left-md bg-white p-xs rounded shadow-sm border border-outline-variant flex items-center gap-xs">
+<div class="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
+<span class="font-label-caps text-on-surface">GPS Live</span>
+</div>
+</div>
+<div class="bg-primary/10 p-md rounded-lg border border-primary/20">
+<div class="flex items-start gap-md">
+<i class="ph ph-info text-primary text-xl"></i>
+<div>
+<p class="font-body-sm font-bold text-primary mb-xs">Auto-Population</p>
+<p class="font-body-sm text-on-primary-container">Sub-county is estimated based on the connected radio channel and dispatch zone.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer Info -->
+<div class="mt-lg font-body-sm text-secondary flex items-center gap-sm">
+<i class="ph ph-lock text-sm"></i>
+<span>Secure EOC Session • User ID: 8992-ALPHA</span>
+</div>
+</div>
+</main>
+</body></html>

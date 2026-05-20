@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Fleet Management | Emergency Operations Centre</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed-dim": "#4dd8ea",
+                        "on-tertiary-container": "#004c54",
+                        "surface-bright": "#f2fbff",
+                        "secondary": "#49626d",
+                        "background": "#f2fbff",
+                        "tertiary-fixed": "#92f1ff",
+                        "inverse-surface": "#273236",
+                        "secondary-fixed-dim": "#b0cbd7",
+                        "on-primary": "#ffffff",
+                        "surface-variant": "#d9e4ea",
+                        "on-secondary-fixed-variant": "#314a55",
+                        "on-error": "#ffffff",
+                        "inverse-primary": "#9cd854",
+                        "tertiary-container": "#2dc3d4",
+                        "on-surface": "#131d21",
+                        "on-error-container": "#93000a",
+                        "outline": "#737a67",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary": "#006973",
+                        "surface-container-low": "#eaf5fb",
+                        "on-background": "#131d21",
+                        "on-tertiary": "#ffffff",
+                        "primary": "#3f6900",
+                        "surface-tint": "#3f6900",
+                        "on-tertiary-fixed-variant": "#004f57",
+                        "on-primary-fixed": "#102000",
+                        "secondary-fixed": "#cce7f3",
+                        "on-secondary": "#ffffff",
+                        "secondary-container": "#c9e4f1",
+                        "primary-container": "#88c241",
+                        "surface": "#f2fbff",
+                        "error": "#ba1a1a",
+                        "on-primary-container": "#2d4c00",
+                        "inverse-on-surface": "#e7f2f8",
+                        "surface-container-highest": "#d9e4ea",
+                        "surface-dim": "#d1dce1",
+                        "surface-container-high": "#dfeaf0",
+                        "on-tertiary-fixed": "#001f23",
+                        "on-primary-fixed-variant": "#2f4f00",
+                        "error-container": "#ffdad6",
+                        "on-secondary-container": "#4d6671",
+                        "on-secondary-fixed": "#031f28",
+                        "surface-container": "#e4f0f5",
+                        "primary-fixed-dim": "#9cd854",
+                        "on-surface-variant": "#424938",
+                        "primary-fixed": "#b7f56d",
+                        "outline-variant": "#c2c9b3"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "margin-page": "24px",
+                        "xl": "32px",
+                        "gutter": "20px",
+                        "xs": "4px",
+                        "base": "4px",
+                        "lg": "24px",
+                        "sm": "8px",
+                        "md": "16px"
+                    },
+                    "fontFamily": {
+                        "h1": ["Nunito"],
+                        "h2": ["Nunito"],
+                        "body-sm": ["Nunito"],
+                        "body-md": ["Nunito"],
+                        "label-caps": ["Nunito"],
+                        "body-lg": ["Nunito"],
+                        "h3": ["Nunito"],
+                        "button": ["Nunito"]
+                    },
+                    "fontSize": {
+                        "h1": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "h2": ["24px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "body-sm": ["12px", {"lineHeight": "1.4", "letterSpacing": "0.01em", "fontWeight": "400"}],
+                        "body-md": ["14px", {"lineHeight": "1.5", "letterSpacing": "0", "fontWeight": "400"}],
+                        "label-caps": ["11px", {"lineHeight": "1", "letterSpacing": "0.06em", "fontWeight": "700"}],
+                        "body-lg": ["16px", {"lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400"}],
+                        "h3": ["20px", {"lineHeight": "1.4", "letterSpacing": "0", "fontWeight": "600"}],
+                        "button": ["14px", {"lineHeight": "1", "letterSpacing": "0.02em", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { background-color: #acb0b1; font-family: 'Nunito', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .card-shadow { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
+        .sidebar-active { background-color: #3f6900; color: #ffffff; font-weight: 700; border-radius: 0.25rem; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="flex overflow-hidden">
+<!-- NavigationDrawer Shell -->
+<aside class="flex flex-col h-screen fixed left-0 top-0 z-50 w-[240px] bg-secondary dark:bg-on-secondary-fixed-variant shadow-sm border-r border-outline-variant dark:border-on-surface-variant">
+<div class="px-lg py-xl flex flex-col items-start gap-md">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary">shield</span>
+</div>
+<div>
+<p class="font-label-caps text-label-caps uppercase tracking-widest text-secondary-fixed">EOC Unit 4</p>
+<p class="font-h3 text-h3 font-bold text-on-primary">NMS Dispatcher</p>
+</div>
+</div>
+<div class="w-full h-px bg-on-secondary-fixed-variant/20 my-base"></div>
+</div>
+<nav class="flex-1 px-2">
+<a class="flex items-center px-4 py-3 mx-2 my-1 text-secondary-fixed hover:text-white hover:bg-secondary-container/20 transition-all group scale-95 active:scale-100 font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined mr-3">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="bg-primary text-on-primary font-bold rounded-lg mx-2 my-1 flex items-center px-4 py-3 group scale-95 active:scale-100 font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined mr-3">emergency</span>
+<span>Incident Feed</span>
+</a>
+<a class="flex items-center px-4 py-3 mx-2 my-1 text-secondary-fixed hover:text-white hover:bg-secondary-container/20 transition-all group scale-95 active:scale-100 font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined mr-3">map</span>
+<span>Resource Map</span>
+</a>
+<a class="flex items-center px-4 py-3 mx-2 my-1 text-secondary-fixed hover:text-white hover:bg-secondary-container/20 transition-all group scale-95 active:scale-100 font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined mr-3">hub</span>
+<span>Dispatch Queue</span>
+</a>
+<!-- Active State Logic: Personnel maps closest to Fleet/Admin Management context -->
+<a class="flex items-center px-4 py-3 mx-2 my-1 text-secondary-fixed hover:text-white hover:bg-secondary-container/20 transition-all group scale-95 active:scale-100 font-body-md text-body-md bg-primary text-on-primary font-bold rounded-lg" href="#">
+<span class="material-symbols-outlined mr-3">group</span>
+<span>Personnel</span>
+</a>
+<a class="flex items-center px-4 py-3 mx-2 my-1 text-secondary-fixed hover:text-white hover:bg-secondary-container/20 transition-all group scale-95 active:scale-100 font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined mr-3">settings</span>
+<span>System Settings</span>
+</a>
+</nav>
+<div class="p-lg mt-auto">
+<div class="flex items-center gap-sm bg-black/10 p-sm rounded-lg">
+<div class="w-2 h-2 rounded-full bg-primary-container"></div>
+<span class="font-label-caps text-label-caps text-white">System: Operational</span>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-[240px] flex-1 h-screen overflow-y-auto flex flex-col bg-[#acb0b1]">
+<!-- TopAppBar Shell -->
+<header class="flex justify-between items-center w-full px-lg h-16 sticky top-0 z-40 bg-surface dark:bg-surface-dim border-b border-outline-variant dark:border-outline flat no shadows">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-primary">shield</span>
+<h1 class="font-h3 text-h3 font-bold text-primary">Emergency Operations Centre</h1>
+</div>
+<div class="flex items-center gap-lg">
+<div class="flex bg-surface-container-high rounded-lg p-xs">
+<button class="px-md py-xs bg-white shadow-sm rounded-sm font-button text-button text-primary flex items-center gap-xs">
+<span class="material-symbols-outlined text-[18px]">list</span>
+                        List View
+                    </button>
+<button class="px-md py-xs font-button text-button text-secondary flex items-center gap-xs hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined text-[18px]">map</span>
+                        Map View
+                    </button>
+</div>
+<span class="material-symbols-outlined text-secondary cursor-pointer hover:text-primary transition-colors">notifications</span>
+<div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center font-bold text-on-secondary-container text-xs">AD</div>
+</div>
+</header>
+<!-- Fleet Dashboard Content -->
+<div class="p-lg space-y-lg">
+<!-- Page Header & Stats -->
+<div class="flex justify-between items-end">
+<div>
+<p class="font-label-caps text-label-caps text-on-surface-variant uppercase mb-xs">Fleet Management</p>
+<h2 class="font-h1 text-h1 text-inverse-surface">Ambulance Fleet Status</h2>
+</div>
+<button class="bg-primary hover:bg-primary-container text-on-primary font-button text-button px-lg py-md rounded-lg flex items-center gap-sm transition-colors shadow-sm">
+<span class="material-symbols-outlined">add_circle</span>
+                    Add Vehicle
+                </button>
+</div>
+<!-- Summary Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter">
+<div class="bg-white p-lg border border-outline-variant rounded-lg">
+<p class="font-label-caps text-label-caps text-secondary mb-sm">Total Fleet</p>
+<p class="font-h1 text-h1 text-inverse-surface">42</p>
+<div class="flex items-center gap-xs mt-sm text-primary font-bold text-xs">
+<span class="material-symbols-outlined text-xs">arrow_upward</span>
+<span>2 New units added</span>
+</div>
+</div>
+<div class="bg-white p-lg border border-outline-variant rounded-lg">
+<p class="font-label-caps text-label-caps text-primary mb-sm">Active &amp; En-route</p>
+<p class="font-h1 text-h1 text-primary">28</p>
+<div class="w-full bg-surface-container-highest h-1 rounded-full mt-sm">
+<div class="bg-primary h-1 rounded-full w-[66%]"></div>
+</div>
+</div>
+<div class="bg-white p-lg border border-outline-variant rounded-lg">
+<p class="font-label-caps text-label-caps text-on-tertiary-fixed-variant mb-sm">Idle / Standby</p>
+<p class="font-h1 text-h1 text-tertiary">11</p>
+<div class="w-full bg-surface-container-highest h-1 rounded-full mt-sm">
+<div class="bg-tertiary h-1 rounded-full w-[26%]"></div>
+</div>
+</div>
+<div class="bg-white p-lg border border-outline-variant rounded-lg border-l-4 border-l-error">
+<p class="font-label-caps text-label-caps text-error mb-sm">Offline / Maintenance</p>
+<p class="font-h1 text-h1 text-error">3</p>
+<div class="w-full bg-surface-container-highest h-1 rounded-full mt-sm">
+<div class="bg-error h-1 rounded-full w-[8%]"></div>
+</div>
+</div>
+</div>
+<!-- High Density Data Table Card -->
+<div class="bg-white border border-outline-variant rounded-lg overflow-hidden card-shadow">
+<div class="px-lg py-md bg-surface-container border-b border-outline-variant flex justify-between items-center">
+<div class="flex items-center gap-md">
+<h3 class="font-h3 text-h3 text-[#273238]">Active Vehicles</h3>
+<div class="flex items-center bg-white border border-outline-variant rounded-md px-sm py-1">
+<span class="material-symbols-outlined text-[18px] text-secondary">search</span>
+<input class="border-none focus:ring-0 text-body-sm font-body-sm w-64 bg-transparent" placeholder="Search registration or IMEI..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-sm">
+<button class="p-xs hover:bg-surface-container-high rounded text-secondary transition-colors">
+<span class="material-symbols-outlined">filter_list</span>
+</button>
+<button class="p-xs hover:bg-surface-container-high rounded text-secondary transition-colors">
+<span class="material-symbols-outlined">download</span>
+</button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container-low border-b border-outline-variant">
+<tr>
+<th class="px-lg py-md font-label-caps text-label-caps text-secondary">Ambulance Unit</th>
+<th class="px-lg py-md font-label-caps text-label-caps text-secondary">Status</th>
+<th class="px-lg py-md font-label-caps text-label-caps text-secondary">Registration</th>
+<th class="px-lg py-md font-label-caps text-label-caps text-secondary">Tracker IMEI</th>
+<th class="px-lg py-md font-label-caps text-label-caps text-secondary">Last Seen</th>
+<th class="px-lg py-md font-label-caps text-label-caps text-secondary">Location</th>
+<th class="px-lg py-md"></th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-lg py-md">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-lg bg-surface-container-highest flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">emergency</span>
+</div>
+<div>
+<p class="font-body-md text-body-md font-bold text-inverse-surface">Unit Alpha-01</p>
+<p class="font-body-sm text-body-sm text-secondary">Advanced Life Support</p>
+</div>
+</div>
+</td>
+<td class="px-lg py-md">
+<span class="px-sm py-1 rounded bg-primary/15 text-primary font-bold text-[10px] uppercase tracking-wider">Active</span>
+</td>
+<td class="px-lg py-md font-body-md text-body-md text-inverse-surface">AB-2024-001</td>
+<td class="px-lg py-md font-body-md text-body-md text-secondary">358249102834551</td>
+<td class="px-lg py-md font-body-md text-body-md text-inverse-surface">Just now</td>
+<td class="px-lg py-md font-body-sm text-body-sm text-secondary">Central District (0.4km)</td>
+<td class="px-lg py-md text-right">
+<button class="p-xs text-secondary hover:text-primary transition-colors"><span class="material-symbols-outlined">more_vert</span></button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-lg py-md">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-lg bg-surface-container-highest flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">emergency</span>
+</div>
+<div>
+<p class="font-body-md text-body-md font-bold text-inverse-surface">Unit Alpha-09</p>
+<p class="font-body-sm text-body-sm text-secondary">Basic Life Support</p>
+</div>
+</div>
+</td>
+<td class="px-lg py-md">
+<span class="px-sm py-1 rounded bg-tertiary/15 text-tertiary font-bold text-[10px] uppercase tracking-wider">Idle</span>
+</td>
+<td class="px-lg py-md font-body-md text-body-md text-inverse-surface">AB-2024-009</td>
+<td class="px-lg py-md font-body-md text-body-md text-secondary">358249102834002</td>
+<td class="px-lg py-md font-body-md text-body-md text-inverse-surface">4 mins ago</td>
+<td class="px-lg py-md font-body-sm text-body-sm text-secondary">East Station Depot</td>
+<td class="px-lg py-md text-right">
+<button class="p-xs text-secondary hover:text-primary transition-colors"><span class="material-symbols-outlined">more_vert</span></button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-lg py-md">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-lg bg-surface-container-highest flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">emergency</span>
+</div>
+<div>
+<p class="font-body-md text-body-md font-bold text-inverse-surface">Unit Beta-04</p>
+<p class="font-body-sm text-body-sm text-secondary">Critical Care Unit</p>
+</div>
+</div>
+</td>
+<td class="px-lg py-md">
+<span class="px-sm py-1 rounded bg-error/15 text-error font-bold text-[10px] uppercase tracking-wider">Offline</span>
+</td>
+<td class="px-lg py-md font-body-md text-body-md text-inverse-surface">AB-2024-112</td>
+<td class="px-lg py-md font-body-md text-body-md text-secondary">358249102834993</td>
+<td class="px-lg py-md font-body-md text-body-md text-error">2 days ago</td>
+<td class="px-lg py-md font-body-sm text-body-sm text-secondary">Workshop C</td>
+<td class="px-lg py-md text-right">
+<button class="p-xs text-secondary hover:text-primary transition-colors"><span class="material-symbols-outlined">more_vert</span></button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-lg py-md">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-lg bg-surface-container-highest flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">emergency</span>
+</div>
+<div>
+<p class="font-body-md text-body-md font-bold text-inverse-surface">Unit Alpha-22</p>
+<p class="font-body-sm text-body-sm text-secondary">Advanced Life Support</p>
+</div>
+</div>
+</td>
+<td class="px-lg py-md">
+<span class="px-sm py-1 rounded bg-primary/15 text-primary font-bold text-[10px] uppercase tracking-wider">Active</span>
+</td>
+<td class="px-lg py-md font-body-md text-body-md text-inverse-surface">AB-2024-022</td>
+<td class="px-lg py-md font-body-md text-body-md text-secondary">358249102834771</td>
+<td class="px-lg py-md font-body-md text-body-md text-inverse-surface">12 secs ago</td>
+<td class="px-lg py-md font-body-sm text-body-sm text-secondary">North Bridge Sector</td>
+<td class="px-lg py-md text-right">
+<button class="p-xs text-secondary hover:text-primary transition-colors"><span class="material-symbols-outlined">more_vert</span></button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="px-lg py-md bg-surface-container-lowest border-t border-outline-variant flex justify-between items-center">
+<p class="font-body-sm text-body-sm text-secondary">Showing 4 of 42 vehicles</p>
+<div class="flex items-center gap-sm">
+<button class="p-xs border border-outline-variant rounded disabled:opacity-50" disabled=""><span class="material-symbols-outlined">chevron_left</span></button>
+<button class="p-xs border border-outline-variant rounded hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined">chevron_right</span></button>
+</div>
+</div>
+</div>
+<!-- Asymmetric Bottom Detail Section -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
+<div class="lg:col-span-2 bg-white p-lg border border-outline-variant rounded-lg card-shadow">
+<div class="flex justify-between items-center mb-lg">
+<h3 class="font-h3 text-h3 text-[#273238]">Real-time Telemetry</h3>
+<span class="font-label-caps text-label-caps text-primary bg-primary/10 px-sm py-base rounded">Live Link</span>
+</div>
+<div class="h-48 flex items-end gap-2 px-4">
+<div class="flex-1 bg-primary/20 hover:bg-primary transition-colors h-[40%] rounded-t-sm" title="08:00"></div>
+<div class="flex-1 bg-primary/20 hover:bg-primary transition-colors h-[65%] rounded-t-sm" title="09:00"></div>
+<div class="flex-1 bg-primary/20 hover:bg-primary transition-colors h-[85%] rounded-t-sm" title="10:00"></div>
+<div class="flex-1 bg-primary/20 hover:bg-primary transition-colors h-[92%] rounded-t-sm" title="11:00"></div>
+<div class="flex-1 bg-primary/20 hover:bg-primary transition-colors h-[70%] rounded-t-sm" title="12:00"></div>
+<div class="flex-1 bg-primary/20 hover:bg-primary transition-colors h-[45%] rounded-t-sm" title="13:00"></div>
+<div class="flex-1 bg-primary/20 hover:bg-primary transition-colors h-[30%] rounded-t-sm" title="14:00"></div>
+<div class="flex-1 bg-primary h-[55%] rounded-t-sm" title="15:00 (Current)"></div>
+</div>
+<div class="flex justify-between mt-sm border-t border-outline-variant pt-sm">
+<p class="font-body-sm text-body-sm text-secondary">Fleet Utilization (Last 8 Hours)</p>
+<p class="font-body-sm text-body-sm font-bold text-inverse-surface">Peak: 92%</p>
+</div>
+</div>
+<div class="bg-inverse-surface p-lg rounded-lg shadow-xl flex flex-col justify-between">
+<div>
+<h3 class="font-h3 text-h3 text-white mb-md">Quick Map View</h3>
+<div class="w-full h-32 rounded bg-secondary-container relative overflow-hidden mb-md group">
+<img class="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-500" data-alt="A stylized digital map background with glowing data points representing emergency vehicle locations throughout a busy city grid. The map uses a dark mode palette with neon green accents to highlight active fleet units and incident zones, maintaining a professional command center aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCw9iXXNlh5IHvi7ywc9qSKUJlptKv3lavH0RtRf1nYeZ37ldfDRY-wOAgfAAef0rWqJi-ymiMkTxFDwQArygTDP8DohTy9Yc8ItNJf7dqwgouYSyv_TuK0vaggHFDdIiScbJCQysFW6Cy26OIum5JOfoi_zzCTQZjQSaGdyZhXC2iusGpTr4gOgMz2ZxMhORfjsp2P19wmjizs-2fht2yW44GkibugysykDPLkL5Jh_w6Cy-7fYWf4Lm8JBMuDWrFoGINIahnSmPI"/>
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="bg-primary p-2 rounded-full shadow-lg">
+<span class="material-symbols-outlined text-white">location_searching</span>
+</div>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-secondary-fixed">View all 42 units live on the tactical map to manage dispatch zones more efficiently.</p>
+</div>
+<button class="w-full py-md border border-primary text-primary font-button text-button rounded-lg mt-lg hover:bg-primary hover:text-white transition-all">
+                        Launch Full Screen Map
+                    </button>
+</div>
+</div>
+</div>
+<!-- Margin Footer -->
+<footer class="mt-auto p-lg text-center">
+<p class="font-label-caps text-label-caps text-secondary-fixed-dim">Emergency Operations Centre © 2024 | Secure Admin Environment</p>
+</footer>
+</main>
+</body></html>

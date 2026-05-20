@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Phosphor Icons -->
+<script src="https://unpkg.com/@phosphor-icons/web"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary": "#3f6900",
+                    "outline": "#737a67",
+                    "on-tertiary-fixed": "#001f23",
+                    "on-tertiary": "#ffffff",
+                    "on-background": "#131d21",
+                    "tertiary-fixed": "#92f1ff",
+                    "on-tertiary-container": "#004c54",
+                    "primary-fixed-dim": "#9cd854",
+                    "secondary": "#49626d",
+                    "surface-container-high": "#dfeaf0",
+                    "secondary-fixed": "#cce7f3",
+                    "surface-tint": "#3f6900",
+                    "secondary-fixed-dim": "#b0cbd7",
+                    "surface-container-low": "#eaf5fb",
+                    "surface-container-highest": "#d9e4ea",
+                    "inverse-surface": "#273236",
+                    "on-surface-variant": "#424938",
+                    "surface-variant": "#d9e4ea",
+                    "secondary-container": "#c9e4f1",
+                    "on-secondary-fixed-variant": "#314a55",
+                    "on-primary-fixed": "#102000",
+                    "on-error-container": "#93000a",
+                    "surface": "#f2fbff",
+                    "surface-dim": "#d1dce1",
+                    "on-primary-fixed-variant": "#2f4f00",
+                    "primary-fixed": "#b7f56d",
+                    "tertiary-fixed-dim": "#4dd8ea",
+                    "error": "#ba1a1a",
+                    "error-container": "#ffdad6",
+                    "on-tertiary-fixed-variant": "#004f57",
+                    "inverse-on-surface": "#e7f2f8",
+                    "on-surface": "#131d21",
+                    "on-primary": "#ffffff",
+                    "tertiary-container": "#2dc3d4",
+                    "on-primary-container": "#2d4c00",
+                    "surface-container": "#e4f0f5",
+                    "surface-bright": "#f2fbff",
+                    "tertiary": "#006973",
+                    "on-error": "#ffffff",
+                    "on-secondary-fixed": "#031f28",
+                    "outline-variant": "#c2c9b3",
+                    "on-secondary-container": "#4d6671",
+                    "surface-container-lowest": "#ffffff",
+                    "inverse-primary": "#9cd854",
+                    "background": "#f2fbff",
+                    "on-secondary": "#ffffff",
+                    "primary-container": "#88c241"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "xs": "4px",
+                    "xl": "32px",
+                    "base": "4px",
+                    "sm": "8px",
+                    "lg": "24px",
+                    "gutter": "20px",
+                    "md": "16px",
+                    "margin-page": "24px"
+            },
+            "fontFamily": {
+                    "h2": ["Nunito"],
+                    "button": ["Nunito"],
+                    "h3": ["Nunito"],
+                    "body-lg": ["Nunito"],
+                    "body-md": ["Nunito"],
+                    "label-caps": ["Nunito"],
+                    "h1": ["Nunito"],
+                    "body-sm": ["Nunito"]
+            },
+            "fontSize": {
+                    "h2": ["24px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "button": ["14px", {"lineHeight": "1", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                    "h3": ["20px", {"lineHeight": "1.4", "letterSpacing": "0", "fontWeight": "600"}],
+                    "body-lg": ["16px", {"lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400"}],
+                    "body-md": ["14px", {"lineHeight": "1.5", "letterSpacing": "0", "fontWeight": "400"}],
+                    "label-caps": ["11px", {"lineHeight": "1", "letterSpacing": "0.06em", "fontWeight": "700"}],
+                    "h1": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-sm": ["12px", {"lineHeight": "1.4", "letterSpacing": "0.01em", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #acb0b1;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #e4f0f5;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #737a67;
+            border-radius: 2px;
+        }
+        body {
+            min-height: max(884px, 100dvh);
+        }
+        i.ph {
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body class="font-body-md text-on-background selection:bg-primary-container selection:text-on-primary-container">
+<!-- Navigation Drawer -->
+<nav class="flex flex-col h-screen fixed left-0 top-0 z-50 w-[240px] bg-secondary dark:bg-on-secondary-fixed-variant shadow-sm border-r border-outline-variant dark:border-on-surface-variant">
+<div class="p-lg flex items-center gap-sm">
+<i class="ph ph-shield-check text-primary-fixed text-2xl"></i>
+<span class="font-label-caps text-label-caps uppercase tracking-widest text-secondary-fixed">EOC UNIT 4</span>
+</div>
+<div class="px-4 py-3 mx-2 my-1 flex items-center gap-md">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container">
+<i class="ph ph-user"></i>
+</div>
+<div>
+<p class="font-body-md text-on-primary font-bold">NMS Dispatcher</p>
+<p class="text-body-sm text-secondary-fixed/70">Active</p>
+</div>
+</div>
+<div class="mt-4 space-y-1">
+<a class="text-secondary-fixed hover:text-white flex items-center px-4 py-3 mx-2 my-1 transition-all hover:bg-secondary-container/20" href="#">
+<i class="ph ph-layout mr-3"></i>
+<span class="font-body-md">Dashboard</span>
+</a>
+<a class="bg-primary text-on-primary font-bold rounded-lg mx-2 my-1 flex items-center px-4 py-3 transition-all scale-95 active:scale-100" href="#">
+<i class="ph ph-siren mr-3"></i>
+<span class="font-body-md">Incident Feed</span>
+</a>
+<a class="text-secondary-fixed hover:text-white flex items-center px-4 py-3 mx-2 my-1 transition-all hover:bg-secondary-container/20" href="#">
+<i class="ph ph-map-trifold mr-3"></i>
+<span class="font-body-md">Resource Map</span>
+</a>
+<a class="text-secondary-fixed hover:text-white flex items-center px-4 py-3 mx-2 my-1 transition-all hover:bg-secondary-container/20" href="#">
+<i class="ph ph-list-numbers mr-3"></i>
+<span class="font-body-md">Dispatch Queue</span>
+</a>
+<a class="text-secondary-fixed hover:text-white flex items-center px-4 py-3 mx-2 my-1 transition-all hover:bg-secondary-container/20" href="#">
+<i class="ph ph-users mr-3"></i>
+<span class="font-body-md">Personnel</span>
+</a>
+<a class="text-secondary-fixed hover:text-white flex items-center px-4 py-3 mx-2 my-1 transition-all hover:bg-secondary-container/20" href="#">
+<i class="ph ph-gear mr-3"></i>
+<span class="font-body-md">System Settings</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Wrapper -->
+<main class="ml-[240px] flex flex-col min-h-screen">
+<!-- Top App Bar -->
+<header class="flex justify-between items-center w-full px-lg h-16 sticky top-0 z-40 bg-surface border-b border-outline-variant">
+<div class="flex items-center gap-md">
+<i class="ph ph-shield-chevron text-primary text-2xl"></i>
+<h1 class="font-h3 text-h3 font-bold text-primary">Emergency Operations Centre</h1>
+</div>
+<div class="flex items-center gap-lg">
+<nav class="hidden md:flex gap-md">
+<span class="text-primary font-bold border-b-2 border-primary cursor-pointer px-sm py-1 transition-colors duration-200">Active Incident</span>
+<span class="text-secondary cursor-pointer px-sm py-1 transition-colors duration-200 hover:bg-surface-container-high">Historical Archive</span>
+</nav>
+<div class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-high cursor-pointer transition-colors">
+<i class="ph ph-bell text-secondary"></i>
+</div>
+</div>
+</header>
+<!-- Incident View Canvas -->
+<div class="p-gutter flex flex-col gap-gutter">
+<!-- Breadcrumbs / Case Header -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-sm">
+<span class="font-label-caps text-label-caps text-outline uppercase">Incidents / Detail</span>
+<h2 class="font-h2 text-h2 text-inverse-surface">CASE #EOC-2024-9912</h2>
+<span class="px-3 py-1 bg-error-container text-on-error-container rounded-full font-bold text-body-sm flex items-center gap-xs">
+<span class="w-2 h-2 rounded-full bg-error animate-pulse"></span>
+                    CRITICAL PRIORITY
+                </span>
+</div>
+<div class="flex gap-sm">
+<button class="px-md py-sm border border-secondary text-secondary font-button text-button rounded hover:bg-surface-container-low transition-colors flex items-center gap-xs">
+<i class="ph ph-printer"></i>
+                    PRINT LOG
+                </button>
+<button class="px-md py-sm border border-secondary text-secondary font-button text-button rounded hover:bg-surface-container-low transition-colors flex items-center gap-xs">
+<i class="ph ph-warning-circle"></i>
+                    ESCALATE
+                </button>
+</div>
+</div>
+<!-- Status Timeline -->
+<div class="bg-white p-lg border border-outline-variant rounded shadow-sm">
+<div class="flex items-center w-full">
+<!-- Step 1 -->
+<div class="flex items-center flex-1">
+<div class="flex flex-col items-center">
+<div class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold">1</div>
+<span class="mt-2 font-label-caps text-label-caps text-primary">SUBMITTED</span>
+<span class="text-[10px] text-outline">14:22:10</span>
+</div>
+<div class="flex-1 h-[2px] bg-primary mx-4"></div>
+</div>
+<!-- Step 2 -->
+<div class="flex items-center flex-1">
+<div class="flex flex-col items-center">
+<div class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold">2</div>
+<span class="mt-2 font-label-caps text-label-caps text-primary">HANDLING</span>
+<span class="text-[10px] text-outline">14:24:05</span>
+</div>
+<div class="flex-1 h-[2px] bg-surface-container-highest mx-4"></div>
+</div>
+<!-- Step 3 -->
+<div class="flex items-center flex-1">
+<div class="flex flex-col items-center">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest text-secondary flex items-center justify-center font-bold">3</div>
+<span class="mt-2 font-label-caps text-label-caps text-secondary">DISPATCHED</span>
+<span class="text-[10px] text-outline">PENDING</span>
+</div>
+<div class="flex-1 h-[2px] bg-surface-container-highest mx-4"></div>
+</div>
+<!-- Step 4 -->
+<div class="flex flex-col items-center">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest text-secondary flex items-center justify-center font-bold">4</div>
+<span class="mt-2 font-label-caps text-label-caps text-secondary">RESOLVED</span>
+<span class="text-[10px] text-outline">--:--:--</span>
+</div>
+</div>
+</div>
+<!-- Main Layout Grid -->
+<div class="grid grid-cols-12 gap-gutter">
+<!-- Left Column: Details -->
+<div class="col-span-12 lg:col-span-7 flex flex-col gap-gutter">
+<!-- Incident Brief -->
+<div class="bg-white border border-outline-variant rounded shadow-sm overflow-hidden">
+<div class="px-lg py-md border-b border-outline-variant bg-surface-container-low flex justify-between items-center">
+<h3 class="font-h3 text-h3 text-inverse-surface">Incident Brief</h3>
+<i class="ph ph-pencil-simple text-outline cursor-pointer"></i>
+</div>
+<div class="p-lg grid grid-cols-2 gap-lg">
+<div>
+<label class="font-label-caps text-label-caps text-outline block mb-1">CHIEF COMPLAINT</label>
+<p class="font-body-lg text-body-lg text-inverse-surface font-bold">Severe Respiratory Distress / Possible Anaphylaxis</p>
+</div>
+<div>
+<label class="font-label-caps text-label-caps text-outline block mb-1">LOCATION DETAILS</label>
+<div class="flex items-start gap-xs">
+<i class="ph ph-map-pin text-primary mt-1"></i>
+<p class="font-body-md text-body-md">Grand Central Station, Platform 4B<br/>New York, NY 10017</p>
+</div>
+</div>
+<div class="col-span-2 bg-surface p-md rounded border border-outline-variant/30">
+<label class="font-label-caps text-label-caps text-outline block mb-1">CALLER NOTES</label>
+<p class="italic text-on-surface-variant">"Patient is a male, approximately 45 years old. Difficulty breathing, visible hives on neck and face. Epinephrine not available on site. Bystander performing basic first aid."</p>
+</div>
+</div>
+</div>
+<!-- Patient Info -->
+<div class="bg-white border border-outline-variant rounded shadow-sm overflow-hidden">
+<div class="px-lg py-md border-b border-outline-variant bg-surface-container-low flex justify-between items-center">
+<h3 class="font-h3 text-h3 text-inverse-surface">Patient Information</h3>
+<i class="ph ph-identification-card text-outline"></i>
+</div>
+<div class="p-lg grid grid-cols-3 gap-md">
+<div>
+<label class="font-label-caps text-label-caps text-outline block mb-xs">FULL NAME</label>
+<p class="font-body-md text-body-md font-bold">Johnathan R. Doe</p>
+</div>
+<div>
+<label class="font-label-caps text-label-caps text-outline block mb-xs">DOB / AGE</label>
+<p class="font-body-md text-body-md">11/12/1978 (45 yrs)</p>
+</div>
+<div>
+<label class="font-label-caps text-label-caps text-outline block mb-xs">BLOOD TYPE</label>
+<p class="font-body-md text-body-md">A-Positive</p>
+</div>
+<div class="col-span-3">
+<label class="font-label-caps text-label-caps text-outline block mb-xs">KNOWN ALLERGIES</label>
+<div class="flex gap-xs flex-wrap">
+<span class="px-2 py-1 bg-error/10 text-error rounded text-label-caps font-bold">PEANUTS</span>
+<span class="px-2 py-1 bg-error/10 text-error rounded text-label-caps font-bold">LATEX</span>
+<span class="px-2 py-1 bg-error/10 text-error rounded text-label-caps font-bold">PENICILLIN</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Visual Context / Map Placeholder -->
+<div class="bg-white border border-outline-variant rounded shadow-sm h-64 overflow-hidden relative">
+<div class="absolute top-md left-md z-10">
+<div class="bg-white/90 backdrop-blur p-2 rounded shadow-sm flex items-center gap-xs">
+<span class="w-3 h-3 bg-error rounded-full"></span>
+<span class="font-label-caps text-label-caps">INCIDENT RADIUS</span>
+</div>
+</div>
+<img class="w-full h-full object-cover grayscale brightness-75 contrast-125" data-alt="A highly detailed overhead map view of a metropolitan city grid at night, styled like a tactical command center interface. The map features high-contrast dark gray and teal lines with glowing red markers indicating an emergency location. The aesthetic is clean, professional, and technical, utilizing a limited color palette of dark slate and vibrant digital accents to convey a sense of urgent operational precision." data-location="New York" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJAKSM0UuyR5zBop_8LSmV3EgQ4_gCpGFhRA0RK5toqhKIHRacCTI1PZxceQSvHq1xM1J0G_qpT75wCUVrr5Pw6_q5CCwqEM4ROxYAQ0i-axqH5h9goX7p0VVZPZAa2D8wjcVgTo5Y-XNCyHAlInHxTbBzT5qG4X2pps8oNqhLXx_ZE1ySw31gMAfZQC5PSAHlYByyykHkOCKcxo4U2TSYZ-BHTFtxILfpxrqLl4-5QZQhCpPUWUPKBDxrQid_NkFvIF2oM5vzghw"/>
+</div>
+</div>
+<!-- Right Column: Dispatch Panel -->
+<div class="col-span-12 lg:col-span-5 flex flex-col gap-gutter">
+<!-- Nearest Vehicles -->
+<div class="bg-white border border-outline-variant rounded shadow-sm overflow-hidden flex flex-col max-h-[400px]">
+<div class="px-lg py-md border-b border-outline-variant bg-surface-container-low flex justify-between items-center">
+<div class="flex items-center gap-xs">
+<h3 class="font-h3 text-h3 text-inverse-surface">Nearest Vehicles</h3>
+</div>
+<span class="font-label-caps text-label-caps text-primary flex items-center gap-xs">
+<i class="ph ph-broadcast text-[14px]"></i> LIVE RADAR
+                        </span>
+</div>
+<div class="overflow-y-auto custom-scrollbar">
+<table class="w-full text-left border-collapse">
+<thead class="sticky top-0 bg-white z-10">
+<tr class="bg-surface-container">
+<th class="px-lg py-2 font-label-caps text-label-caps text-outline">UNIT / DISTANCE</th>
+<th class="px-lg py-2 font-label-caps text-label-caps text-outline">CREW</th>
+<th class="px-lg py-2"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="border-b border-outline-variant/30 hover:bg-surface-container-low transition-colors cursor-pointer group">
+<td class="px-lg py-md">
+<p class="font-bold text-inverse-surface flex items-center gap-xs">
+<i class="ph ph-ambulance text-primary"></i>
+                                            AMB-702 <span class="text-primary font-normal">(0.8km)</span>
+</p>
+<p class="text-body-sm text-outline">NY-EM-9922</p>
+</td>
+<td class="px-lg py-md">
+<p class="text-body-sm">3 Members</p>
+<p class="text-body-sm text-outline">ADV LIFE SUPPORT</p>
+</td>
+<td class="px-lg py-md text-right">
+<i class="ph ph-caret-right text-outline group-hover:text-primary"></i>
+</td>
+</tr>
+<tr class="border-b border-outline-variant/30 hover:bg-surface-container-low transition-colors cursor-pointer group">
+<td class="px-lg py-md">
+<p class="font-bold text-inverse-surface flex items-center gap-xs">
+<i class="ph ph-ambulance text-primary"></i>
+                                            AMB-411 <span class="text-primary font-normal">(1.4km)</span>
+</p>
+<p class="text-body-sm text-outline">NY-EM-1102</p>
+</td>
+<td class="px-lg py-md">
+<p class="text-body-sm">2 Members</p>
+<p class="text-body-sm text-outline">BASIC SUPPORT</p>
+</td>
+<td class="px-lg py-md text-right">
+<i class="ph ph-caret-right text-outline group-hover:text-primary"></i>
+</td>
+</tr>
+<tr class="border-b border-outline-variant/30 hover:bg-surface-container-low transition-colors cursor-pointer group">
+<td class="px-lg py-md">
+<p class="font-bold text-inverse-surface flex items-center gap-xs">
+<i class="ph ph-first-aid text-primary"></i>
+                                            RRU-105 <span class="text-primary font-normal">(2.1km)</span>
+</p>
+<p class="text-body-sm text-outline">NY-RR-5051</p>
+</td>
+<td class="px-lg py-md">
+<p class="text-body-sm">1 Member</p>
+<p class="text-body-sm text-outline">PARAMEDIC SOLO</p>
+</td>
+<td class="px-lg py-md text-right">
+<i class="ph ph-caret-right text-outline group-hover:text-primary"></i>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Assign Crew Form -->
+<div class="bg-white border border-outline-variant rounded shadow-sm overflow-hidden">
+<div class="px-lg py-md border-b border-outline-variant bg-surface-container-low flex justify-between items-center">
+<h3 class="font-h3 text-h3 text-inverse-surface">Dispatch Assignment</h3>
+<i class="ph ph-clipboard-text text-outline"></i>
+</div>
+<div class="p-lg flex flex-col gap-md">
+<div class="grid grid-cols-2 gap-md">
+<div class="col-span-2">
+<label class="font-label-caps text-label-caps text-outline block mb-xs">VEHICLE UNIT</label>
+<div class="relative">
+<select class="w-full bg-white border border-outline-variant rounded px-md py-sm focus:ring-2 focus:ring-primary focus:border-primary outline-none appearance-none">
+<option>Select available unit...</option>
+<option selected="">AMB-702 (0.8km)</option>
+<option>AMB-411 (1.4km)</option>
+</select>
+<i class="ph ph-caret-down absolute right-3 top-1/2 -translate-y-1/2 text-outline pointer-events-none"></i>
+</div>
+</div>
+<div>
+<label class="font-label-caps text-label-caps text-outline block mb-xs">DRIVER</label>
+<select class="w-full bg-white border border-outline-variant rounded px-md py-sm outline-none">
+<option>Miller, S.</option>
+</select>
+</div>
+<div>
+<label class="font-label-caps text-label-caps text-outline block mb-xs">EMT / LEAD</label>
+<select class="w-full bg-white border border-outline-variant rounded px-md py-sm outline-none">
+<option>Chen, K.</option>
+</select>
+</div>
+<div class="col-span-2">
+<label class="font-label-caps text-label-caps text-outline block mb-xs">NURSE / SPECIALIST</label>
+<select class="w-full bg-white border border-outline-variant rounded px-md py-sm outline-none">
+<option>Vance, L. (ALS Certified)</option>
+</select>
+</div>
+</div>
+<div>
+<label class="font-label-caps text-label-caps text-outline block mb-xs">DISPATCHER COMMENTS</label>
+<textarea class="w-full bg-white border border-outline-variant rounded px-md py-sm h-24 resize-none outline-none focus:ring-2 focus:ring-primary" placeholder="Enter critical notes for the crew..."></textarea>
+</div>
+<button class="w-full bg-primary text-on-primary font-h3 py-lg rounded font-bold shadow-md hover:brightness-110 active:scale-[0.98] transition-all flex items-center justify-center gap-md">
+<i class="ph ph-paper-plane-tilt"></i>
+                            DISPATCH CREW NOW
+                        </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer / System Meta -->
+<footer class="mt-auto px-lg py-sm border-t border-outline-variant bg-surface flex justify-between items-center">
+<p class="text-body-sm text-outline flex items-center gap-xs">
+<i class="ph ph-cpu text-[14px]"></i>
+            System Load: 14% | 
+            <i class="ph ph-lock-key text-[14px]"></i>
+            Encrypted Uplink: Stable
+        </p>
+<div class="flex gap-md">
+<span class="flex items-center gap-xs text-body-sm text-primary">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+                Operational
+            </span>
+<span class="text-body-sm text-outline">v4.8.2-stable</span>
+</div>
+</footer>
+</main>
+</body></html>

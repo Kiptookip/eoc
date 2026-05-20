@@ -1,0 +1,131 @@
+import { createBrowserRouter, Navigate } from 'react-router-dom';
+import RoleGuard from '../components/shared/RoleGuard';
+import AppShell from '../components/layout/AppShell';
+import LoginPage from '../pages/auth/LoginPage';
+import DashboardPage from '../pages/dispatcher/DashboardPage';
+import QueuePage from '../pages/dispatcher/QueuePage';
+import IncidentDetailPage from '../pages/dispatcher/IncidentDetailPage';
+import FleetPage from '../pages/dispatcher/FleetPage';
+import CallLogPage from '../pages/dispatcher/CallLogPage';
+import NewIncidentWizard from '../pages/watcher/NewIncidentWizard';
+import WatcherDashboardPage from '../pages/watcher/WatcherDashboardPage';
+import UserManagementPage from '../pages/admin/UserManagementPage';
+import SystemSettingsPage from '../pages/admin/SystemSettingsPage';
+import AnalyticsPage from '../pages/admin/AnalyticsPage';
+import PartnerDashboardPage from '../pages/partner/PartnerDashboardPage';
+
+// Placeholder components for unimplemented pages
+const Unauthorized = () => <div className="p-10 font-sans font-bold text-status-danger text-center">Unauthorized Access</div>;
+
+export const router = createBrowserRouter([
+  {
+    path: '/login',
+    element: <LoginPage />,
+  },
+  {
+    path: '/unauthorized',
+    element: <Unauthorized />,
+  },
+  {
+    path: '/',
+    element: <AppShell />,
+    children: [
+      {
+        index: true,
+        element: <Navigate to="/login" replace />,
+      },
+      {
+        path: 'admin/users',
+        element: (
+          <RoleGuard allowed={['SUPER_ADMIN', 'ADMIN']}>
+            <UserManagementPage />
+          </RoleGuard>
+        ),
+      },
+      {
+        path: 'admin/settings',
+        element: (
+          <RoleGuard allowed={['SUPER_ADMIN', 'ADMIN']}>
+            <SystemSettingsPage />
+          </RoleGuard>
+        ),
+      },
+      {
+        path: 'admin/analytics',
+        element: (
+          <RoleGuard allowed={['SUPER_ADMIN', 'ADMIN']}>
+            <AnalyticsPage />
+          </RoleGuard>
+        ),
+      },
+      {
+        path: 'dashboard',
+        element: (
+          <RoleGuard allowed={['SUPER_ADMIN', 'ADMIN', 'DISPATCHER']}>
+            <DashboardPage />
+          </RoleGuard>
+        ),
+      },
+      {
+        path: 'queue',
+        element: (
+          <RoleGuard allowed={['SUPER_ADMIN', 'ADMIN', 'DISPATCHER']}>
+            <QueuePage />
+          </RoleGuard>
+        ),
+      },
+      {
+        path: 'incidents/:id',
+        element: (
+          <RoleGuard allowed={['SUPER_ADMIN', 'ADMIN', 'DISPATCHER', 'PARTNER']}>
+            <IncidentDetailPage />
+          </RoleGuard>
+        ),
+      },
+      {
+        path: 'fleet',
+        element: (
+          <RoleGuard allowed={['SUPER_ADMIN', 'ADMIN', 'DISPATCHER']}>
+            <FleetPage />
+          </RoleGuard>
+        ),
+      },
+      {
+        path: 'call-logs',
+        element: (
+          <RoleGuard allowed={['SUPER_ADMIN', 'ADMIN', 'DISPATCHER']}>
+            <CallLogPage />
+          </RoleGuard>
+        ),
+      },
+      {
+        path: 'watcher',
+        element: (
+          <RoleGuard allowed={['SUPER_ADMIN', 'ADMIN', 'WATCHER', 'DISPATCHER']}>
+            <WatcherDashboardPage />
+          </RoleGuard>
+        ),
+      },
+      {
+        path: 'watcher/new-incident',
+        element: (
+          <RoleGuard allowed={['SUPER_ADMIN', 'ADMIN', 'WATCHER', 'DISPATCHER']}>
+            <NewIncidentWizard />
+          </RoleGuard>
+        ),
+      },
+      {
+        path: 'partner/dashboard',
+        element: (
+          <RoleGuard allowed={['SUPER_ADMIN', 'ADMIN', 'PARTNER']}>
+            <PartnerDashboardPage />
+          </RoleGuard>
+        ),
+      },
+      {
+        path: '*',
+        element: <div className="p-10 font-sans font-bold text-slate-text text-center">Page Not Found</div>,
+      },
+    ],
+  },
+]);

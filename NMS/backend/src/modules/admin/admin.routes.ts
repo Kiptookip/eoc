@@ -1,0 +1,187 @@
+import { FastifyInstance, FastifyPluginAsync } from 'fastify';
+import { z } from 'zod';
+import { AdminService } from './admin.service.js';
+import { requireRole } from '../../shared/guards/requireRole.js';
+import { AgencyType, Role } from '../../shared/types/index.js';
+import { BadRequestError } from '../../shared/errors/AppError.js';
+
+const adminRoles = [Role.ADMIN, Role.SUPER_ADMIN];
+
+// ── Schemas ──────────────────────────────────────────────────────────────────
+
+const createUserSchema = z.object({
+  email: z.string().email(),
+  passwordRaw: z.string().min(8, 'Password must be at least 8 characters'),
+  name: z.string().min(2),
+  role: z.nativeEnum(Role),
+  agencyId: z.string().uuid(),
+  phone: z.string().optional(),
+});
+
+const updateUserSchema = z.object({
+  name: z.string().min(2).optional(),
+  phone: z.string().optional(),
+  role: z.nativeEnum(Role).optional(),
+  isActive: z.boolean().optional(),
+});
+
+const createVehicleSchema = z.object({
+  registrationNumber: z.string().min(3, 'Registration number required'),
+  imei: z.string().min(3, 'IMEI required'),
+  agencyId: z.string().uuid(),
+});
+
+const updateVehicleSchema = z.object({
+  registrationNumber: z.string().min(3).optional(),
+  imei: z.string().min(3).optional(),
+  isActive: z.boolean().optional(),
+});
+
+const createAgencySchema = z.object({
+  name: z.string().min(2),
+  type: z.nativeEnum(AgencyType),
+  location: z.string().optional(),
+  contactInfo: z.record(z.string(), z.unknown()).optional(),
+});
+
+const updateAgencySchema = z.object({
+  name: z.string().min(2).optional(),
+  location: z.string().optional(),
+  contactInfo: z.record(z.string(), z.unknown()).optional(),
+  isActive: z.boolean().optional(),
+});
+
+const createFacilitySchema = z.object({
+  name: z.string().min(2),
+  type: z.string().min(2),
+  kephLevel: z.number().int().min(1).max(6),
+  subCounty: z.string().min(2),
+  lat: z.number(),
+  lng: z.number(),
+});
+
+const updateFacilitySchema = z.object({
+  name: z.string().min(2).optional(),
+  type: z.string().optional(),
+  kephLevel: z.number().int().min(1).max(6).optional(),
+  isActive: z.boolean().optional(),
+});
+
+// ── Helper ────────────────────────────────────────────────────────────────────
+
+function parse<T>(schema: z.ZodType<T>, body: unknown): T {
+  const result = schema.safeParse(body);
+  if (!result.success) throw new BadRequestError(result.error.issues[0].message);
+  return result.data;
+}
+
+// ── Routes ────────────────────────────────────────────────────────────────────
+
+export const adminRoutes: FastifyPluginAsync = async (app: FastifyInstance) => {
+  const adminService = new AdminService(app);
+
+  app.addHook('preValidation', app.authenticate);
+  app.addHook('preValidation', requireRole(adminRoles));
+
+  // ── Users ──────────────────────────────────────────────────────────────────
+
+  app.get<{ Querystring: { role?: Role; agencyId?: string; page?: string; limit?: string } }>(
+    '/users',
+    async (request, reply) => {
+      const result = await adminService.listUsers({
+        role: request.query.role,
+        agencyId: request.query.agencyId,
+        page: parseInt(request.query.page ?? '1', 10),
+        limit: parseInt(request.query.limit ?? '20', 10),
+      });
+      return reply.send({ ok: true, ...result });
+    }
+  );
+
+  app.get<{ Params: { id: string } }>('/users/:id', async (request, reply) => {
+    const user = await adminService.getUserById(request.params.id);
+    return reply.send({ ok: true, data: user });
+  });
+
+  app.post('/users', async (request, reply) => {
+    const data = parse(createUserSchema, request.body);
+    const user = await adminService.createUser(data);
+    return reply.status(201).send({ ok: true, data: user });
+  });
+
+  app.patch<{ Params: { id: string } }>('/users/:id', async (request, reply) => {
+    const data = parse(updateUserSchema, request.body);
+    const user = await adminService.updateUser(request.params.id, data);
+    return reply.send({ ok: true, data: user });
+  });
+
+  // ── Vehicles ───────────────────────────────────────────────────────────────
+
+  app.get<{ Querystring: { agencyId?: string; page?: string; limit?: string } }>(
+    '/vehicles',
+    async (request, reply) => {
+      const result = await adminService.listVehicles({
+        agencyId: request.query.agencyId,
+        page: parseInt(request.query.page ?? '1', 10),
+        limit: parseInt(request.query.limit ?? '20', 10),
+      });
+      return reply.send({ ok: true, ...result });
+    }
+  );
+
+  app.post('/vehicles', async (request, reply) => {
+    const data = parse(createVehicleSchema, request.body);
+    const vehicle = await adminService.createVehicle(data);
+    return reply.status(201).send({ ok: true, data: vehicle });
+  });
+
+  app.patch<{ Params: { id: string } }>('/vehicles/:id', async (request, reply) => {
+    const data = parse(updateVehicleSchema, request.body);
+    const vehicle = await adminService.updateVehicle(request.params.id, data);
+    return reply.send({ ok: true, data: vehicle });
+  });
+
+  // ── Agencies ───────────────────────────────────────────────────────────────
+
+  app.get<{ Querystring: { type?: AgencyType } }>('/agencies', async (request, reply) => {
+    const agencies = await adminService.listAgencies(request.query.type);
+    return reply.send({ ok: true, data: agencies });
+  });
+
+  app.post('/agencies', async (request, reply) => {
+    const data = parse(createAgencySchema, request.body);
+    const agency = await adminService.createAgency(data);
+    return reply.status(201).send({ ok: true, data: agency });
+  });
+
+  app.patch<{ Params: { id: string } }>('/agencies/:id', async (request, reply) => {
+    const data = parse(updateAgencySchema, request.body);
+    const agency = await adminService.updateAgency(request.params.id, data);
+    return reply.send({ ok: true, data: agency });
+  });
+
+  // ── Facilities ─────────────────────────────────────────────────────────────
+
+  app.get<{ Querystring: { subCounty?: string; kephLevel?: string } }>(
+    '/facilities',
+    async (request, reply) => {
+      const facilities = await adminService.listFacilities({
+        subCounty: request.query.subCounty,
+        kephLevel: request.query.kephLevel ? parseInt(request.query.kephLevel, 10) : undefined,
+      });
+      return reply.send({ ok: true, data: facilities });
+    }
+  );
+
+  app.post('/facilities', async (request, reply) => {
+    const data = parse(createFacilitySchema, request.body);
+    const facility = await adminService.createFacility(data);
+    return reply.status(201).send({ ok: true, data: facility });
+  });
+
+  app.patch<{ Params: { id: string } }>('/facilities/:id', async (request, reply) => {
+    const data = parse(updateFacilitySchema, request.body);
+    const facility = await adminService.updateFacility(request.params.id, data);
+    return reply.send({ ok: true, data: facility });
+  });
+};
