@@ -32,12 +32,12 @@ enum AgencyType {
 }
 
 enum IncidentStatus {
-  DRAFT             // Created by watcher, not yet submitted
-  SUBMITTED         // Submitted to dispatch queue
-  DISPATCH_HANDLING // Dispatcher has taken it up
-  DISPATCH_ON_HOLD  // Dispatcher paused it
-  DISPATCHED        // Crew assigned and en route
-  RESOLVED          // Case closed
+  DRAFT
+  SUBMITTED
+  DISPATCH_HANDLING
+  DISPATCH_ON_HOLD
+  DISPATCHED
+  RESOLVED
 }
 
 enum TaskStatus {
@@ -90,7 +90,14 @@ model User {
   passwordHash String   @map("password_hash")
   name         String
   phone        String?
-  role         Role
+
+  // Keep temporarily for old code/backward compatibility.
+  // Later, after backend/frontend are fully updated, this can be removed.
+  role         Role     @default(WATCHER)
+
+  // New multi-role relationship
+  roles        UserRole[]
+
   fcmToken     String?  @map("fcm_token")
   isActive     Boolean  @default(true) @map("is_active")
   createdAt    DateTime @default(now()) @map("created_at")
@@ -107,6 +114,18 @@ model User {
   auditLogs           AuditLog[]
 
   @@map("users")
+}
+
+model UserRole {
+  id        String   @id @default(uuid())
+  userId    String   @map("user_id")
+  role      Role
+  createdAt DateTime @default(now()) @map("created_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, role])
+  @@map("user_roles")
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -126,7 +145,6 @@ model Incident {
   alertAt        DateTime?      @map("alert_at")
   notifierDetails Json?         @map("notifier_details")
 
-  // Patient information
   patientName    String? @map("patient_name")
   patientAge     String? @map("patient_age")
   patientGender  String? @map("patient_gender")
@@ -134,28 +152,24 @@ model Incident {
   patientContact String? @map("patient_contact")
   nextOfKin      String? @map("next_of_kin")
 
-  // Mass casualty event
   massCasualty      Boolean @default(false) @map("mass_casualty")
   massCasualtyCount Int?    @map("mass_casualty_count")
 
-  // Notes and clinical info
   watcherComments       String? @map("watcher_comments") @db.Text
   dispatcherComments    String? @map("dispatcher_comments") @db.Text
   dispatcherChallenges  String? @map("dispatcher_challenges") @db.Text
   preHospitalManagement String? @map("pre_hospital_management") @db.Text
   hospitalLevelRequired Int?    @map("hospital_level_required")
 
-  // Extended alert/referral fields
-  alertNature      String? @map("alert_nature")
+  alertNature       String? @map("alert_nature")
   alertNatureDetail String? @map("alert_nature_detail")
-  originOfAlert    String? @map("origin_of_alert")
-  nextOfKinPhone   String? @map("next_of_kin_phone")
-  placeOfReferral  String? @map("place_of_referral")
+  originOfAlert     String? @map("origin_of_alert")
+  nextOfKinPhone    String? @map("next_of_kin_phone")
+  placeOfReferral   String? @map("place_of_referral")
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  // Relations
   watcherId String @map("watcher_id")
   watcher   User   @relation("IncidentWatcher", fields: [watcherId], references: [id])
 
@@ -183,7 +197,6 @@ model Task {
   id     String     @id @default(uuid())
   status TaskStatus @default(PENDING)
 
-  // Lifecycle timestamps — used for TAT (Turnaround Time) calculations
   receivedAt        DateTime  @default(now()) @map("received_at")
   acceptedAt        DateTime? @map("accepted_at")
   sceneArrivalAt    DateTime? @map("scene_arrival_at")
@@ -194,7 +207,6 @@ model Task {
   cancelledAt       DateTime? @map("cancelled_at")
   cancelReason      String?   @map("cancel_reason")
 
-  // Route coordinates
   startLat Float? @map("start_lat")
   startLng Float? @map("start_lng")
   endLat   Float? @map("end_lat")
@@ -203,13 +215,11 @@ model Task {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  // Relations
   incidentId String   @map("incident_id")
   incident   Incident @relation(fields: [incidentId], references: [id])
 
   vehicleId String  @map("vehicle_id")
   vehicle   Vehicle @relation(fields: [vehicleId], references: [id])
-
 
   driverId String @map("driver_id")
   driver   User   @relation("TaskDriver", fields: [driverId], references: [id])
@@ -233,11 +243,11 @@ model Vehicle {
   imei               String        @unique
   status             VehicleStatus @default(READY)
   isActive           Boolean       @default(true) @map("is_active")
-  lastLat            Float?    @map("last_lat")
-  lastLng            Float?    @map("last_lng")
-  lastLocationAt     DateTime? @map("last_location_at")
-  createdAt          DateTime  @default(now()) @map("created_at")
-  updatedAt          DateTime  @updatedAt @map("updated_at")
+  lastLat            Float?        @map("last_lat")
+  lastLng            Float?        @map("last_lng")
+  lastLocationAt     DateTime?     @map("last_location_at")
+  createdAt          DateTime      @default(now()) @map("created_at")
+  updatedAt          DateTime      @updatedAt @map("updated_at")
 
   agencyId String @map("agency_id")
   agency   Agency @relation(fields: [agencyId], references: [id])
@@ -254,8 +264,8 @@ model Vehicle {
 model Facility {
   id        String   @id @default(uuid())
   name      String
-  type      String   // e.g., "Hospital", "Health Centre", "Clinic"
-  kephLevel Int      @map("keph_level") // 1–6, Kenya KEPH classification
+  type      String
+  kephLevel Int      @map("keph_level")
   subCounty String   @map("sub_county")
   lat       Float
   lng       Float
@@ -269,7 +279,7 @@ model Facility {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// CallLog — Yeastar PBX call records
+// CallLog
 // ─────────────────────────────────────────────────────────────────────────────
 
 enum CallDirection {
@@ -336,8 +346,8 @@ model ForwardingLog {
 
 model AuditLog {
   id          String   @id @default(uuid())
-  action      String   // CREATE, UPDATE, DELETE, LOGIN, FORWARD
-  subjectType String   @map("subject_type") // INCIDENT, TASK, USER, VEHICLE
+  action      String
+  subjectType String   @map("subject_type")
   subjectId   String   @map("subject_id")
   oldValues   Json?    @map("old_values")
   newValues   Json?    @map("new_values")
