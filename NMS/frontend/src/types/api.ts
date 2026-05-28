@@ -1,4 +1,13 @@
-export type Role = 'SUPER_ADMIN' | 'ADMIN' | 'WATCHER' | 'DISPATCHER' | 'PARTNER';
+export type Role =
+  | 'SUPER_ADMIN'
+  | 'ADMIN'
+  | 'WATCHER'
+  | 'DISPATCHER'
+  | 'PARTNER'
+  | 'DRIVER'
+  | 'EMT'
+  | 'NURSE';
+
 export type AgencyType = 'INTERNAL' | 'PARTNER';
 
 export type IncidentStatus =
@@ -25,6 +34,8 @@ export interface User {
   name: string;
   phone?: string;
   role: Role;
+  roles?: Role[];
+  activeRole?: Role;
   agencyId: string;
   agency?: Agency;
   isActive: boolean;

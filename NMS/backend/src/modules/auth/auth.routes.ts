@@ -8,7 +8,8 @@ const registerSchema = z.object({
   email: z.string().email('Invalid email address'),
   passwordRaw: z.string().min(8, 'Password must be at least 8 characters'),
   name: z.string().min(2, 'Name must be at least 2 characters'),
-  role: z.nativeEnum(Role),
+  role: z.nativeEnum(Role).optional(),
+  roles: z.array(z.nativeEnum(Role)).min(1).optional(),
   agencyId: z.string().min(1, 'Agency ID is required'),
   phone: z.string().optional(),
 });
@@ -18,11 +19,16 @@ const loginSchema = z.object({
   passwordRaw: z.string().min(1, 'Password is required'),
 });
 
+const switchRoleSchema = z.object({
+  role: z.nativeEnum(Role),
+});
+
 export const authRoutes: FastifyPluginAsync = async (app: FastifyInstance) => {
   const authService = new AuthService(app);
 
   app.post('/register', async (request, reply) => {
     const parsed = registerSchema.safeParse(request.body);
+
     if (!parsed.success) {
       throw new BadRequestError(parsed.error.issues[0].message);
     }
@@ -33,11 +39,30 @@ export const authRoutes: FastifyPluginAsync = async (app: FastifyInstance) => {
 
   app.post('/login', async (request, reply) => {
     const parsed = loginSchema.safeParse(request.body);
+
     if (!parsed.success) {
       throw new BadRequestError(parsed.error.issues[0].message);
     }
 
     const result = await authService.login(parsed.data);
+    return reply.send({ ok: true, data: result });
+  });
+
+  app.post('/switch-role', { preValidation: [app.authenticate] }, async (request, reply) => {
+    const parsed = switchRoleSchema.safeParse(request.body);
+
+    if (!parsed.success) {
+      throw new BadRequestError(parsed.error.issues[0].message);
+    }
+
+    const authUser = request.user as { userId?: string; id?: string };
+    const userId = authUser.userId || authUser.id;
+
+    if (!userId) {
+      throw new BadRequestError('Authenticated user ID missing');
+    }
+
+    const result = await authService.switchRole(userId, parsed.data.role);
     return reply.send({ ok: true, data: result });
   });
 

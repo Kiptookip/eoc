@@ -14,8 +14,17 @@ import SystemSettingsPage from '../pages/admin/SystemSettingsPage';
 import AnalyticsPage from '../pages/admin/AnalyticsPage';
 import PartnerDashboardPage from '../pages/partner/PartnerDashboardPage';
 
-// Placeholder components for unimplemented pages
-const Unauthorized = () => <div className="p-10 font-sans font-bold text-status-danger text-center">Unauthorized Access</div>;
+const Unauthorized = () => (
+  <div className="p-10 font-sans font-bold text-status-danger text-center">
+    Unauthorized Access
+  </div>
+);
+
+const PlaceholderPage = ({ title }: { title: string }) => (
+  <div className="p-10 font-sans font-bold text-slate-text text-center">
+    {title}
+  </div>
+);
 
 export const router = createBrowserRouter([
   {
@@ -119,6 +128,30 @@ export const router = createBrowserRouter([
         element: (
           <RoleGuard allowed={['SUPER_ADMIN', 'ADMIN', 'PARTNER']}>
             <PartnerDashboardPage />
+          </RoleGuard>
+        ),
+      },
+      {
+        path: 'driver/dashboard',
+        element: (
+          <RoleGuard allowed={['SUPER_ADMIN', 'ADMIN', 'DRIVER']}>
+            <PlaceholderPage title="Driver Dashboard Coming Soon" />
+          </RoleGuard>
+        ),
+      },
+      {
+        path: 'emt/dashboard',
+        element: (
+          <RoleGuard allowed={['SUPER_ADMIN', 'ADMIN', 'EMT']}>
+            <PlaceholderPage title="EMT Dashboard Coming Soon" />
+          </RoleGuard>
+        ),
+      },
+      {
+        path: 'nurse/dashboard',
+        element: (
+          <RoleGuard allowed={['SUPER_ADMIN', 'ADMIN', 'NURSE']}>
+            <PlaceholderPage title="Nurse Dashboard Coming Soon" />
           </RoleGuard>
         ),
       },

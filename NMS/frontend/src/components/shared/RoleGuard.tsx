@@ -1,19 +1,24 @@
-import React from 'react';
 import { Navigate } from 'react-router-dom';
+import { Role } from '../../types/api';
 import { useAuthStore } from '../../stores/authStore';
 
-export default function RoleGuard({ allowed, children }: { allowed: string[]; children: React.ReactNode }) {
-  const token = useAuthStore((s) => s.token);
-  const role = useAuthStore((s) => s.user?.role);
+interface RoleGuardProps {
+  allowed: Role[];
+  children: React.ReactNode;
+}
 
-  // Not logged in at all → send to login
-  if (!token) return <Navigate to="/login" replace />;
+export default function RoleGuard({ allowed, children }: RoleGuardProps) {
+  const { token, user } = useAuthStore();
 
-  // Token exists but role not loaded yet → wait (don't redirect to login!)
-  if (!role) return null;
+  if (!token || !user) {
+    return <Navigate to="/login" replace />;
+  }
 
-  // Logged in but wrong role → show unauthorized
-  if (!allowed.includes(role)) return <Navigate to="/unauthorized" replace />;
+  const activeRole = user.activeRole || user.role;
+
+  if (!allowed.includes(activeRole)) {
+    return <Navigate to="/unauthorized" replace />;
+  }
 
   return <>{children}</>;
 }

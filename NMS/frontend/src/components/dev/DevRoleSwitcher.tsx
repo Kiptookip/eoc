@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import api from '../../api/client';
 import { useAuthStore } from '../../stores/authStore';
 import { Role } from '../../types/api';
 
@@ -27,30 +27,45 @@ const ROLE_COLORS: Record<Role, string> = {
 
 export default function DevRoleSwitcher() {
   const [open, setOpen] = useState(false);
-  const [pendingNav, setPendingNav] = useState<string | null>(null);
-  const { user, setRole } = useAuthStore();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (pendingNav) {
-      navigate(pendingNav);
-      setPendingNav(null);
-    }
-  }, [pendingNav, navigate]);
+  const [switching, setSwitching] = useState(false);
+  const { token, user, setAuth, setRole } = useAuthStore();
 
   if (!user) return null;
 
-  const userRoles: Role[] =
-    user.roles && user.roles.length > 0 ? user.roles : [user.role];
-
+  const userRoles: Role[] = user.roles && user.roles.length > 0 ? user.roles : [user.role];
   const activeRole: Role = user.activeRole || user.role || userRoles[0];
 
   if (userRoles.length <= 1) return null;
 
-  const switchTo = (role: Role) => {
-    setRole(role);
-    setOpen(false);
-    setPendingNav(ROLE_ROUTES[role] || '/dashboard');
+  const switchTo = async (role: Role) => {
+    if (role === activeRole || switching) {
+      setOpen(false);
+      return;
+    }
+
+    setSwitching(true);
+
+    try {
+      if (token) {
+        const response = await api.post('/auth/switch-role', { role });
+        const data = response.data.data;
+
+        if (data?.token && data?.user) {
+          setAuth(data.token, data.user);
+        } else {
+          setRole(role);
+        }
+      } else {
+        setRole(role);
+      }
+    } catch {
+      // If the backend route is not deployed yet, keep frontend role switching working.
+      setRole(role);
+    } finally {
+      setOpen(false);
+      setSwitching(false);
+      window.location.href = ROLE_ROUTES[role] || '/dashboard';
+    }
   };
 
   return (
@@ -65,11 +80,13 @@ export default function DevRoleSwitcher() {
             <button
               key={role}
               onClick={() => switchTo(role)}
-              className={`w-full text-left px-4 py-2.5 rounded-xl text-[11px] font-black uppercase tracking-widest transition-all flex items-center gap-3 ${
+              disabled={switching}
+              className={`w-full text-left px-4 py-2.5 rounded-xl text-[11px] font-black uppercase tracking-widest transition-all flex items-center gap-3 disabled:opacity-60 ${
                 activeRole === role
                   ? `${ROLE_COLORS[role]} text-white shadow-md`
                   : 'text-slate-400 hover:bg-white/5'
               }`}
+              type="button"
             >
               {activeRole === role && (
                 <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
@@ -89,6 +106,7 @@ export default function DevRoleSwitcher() {
       <button
         onClick={() => setOpen(!open)}
         className="bg-[#1a2327] border border-brand-teal/40 text-brand-green font-black text-[10px] uppercase tracking-widest px-4 py-3 rounded-2xl shadow-2xl hover:border-brand-green transition-all flex items-center gap-2"
+        type="button"
       >
         <span className={`w-2 h-2 rounded-full ${ROLE_COLORS[activeRole]} animate-pulse`} />
         {activeRole.replace('_', ' ')}
