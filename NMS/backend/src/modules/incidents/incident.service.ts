@@ -8,14 +8,28 @@ export class IncidentService {
   /**
    * Generates a unique case number: NMS-INC-YYYYMMDD-XXXX
    */
-  private generateCaseNumber(): string {
-    const date = new Date();
-    const yyyy = date.getFullYear();
-    const mm = String(date.getMonth() + 1).padStart(2, '0');
-    const dd = String(date.getDate()).padStart(2, '0');
-    const random = Math.floor(1000 + Math.random() * 9000); // 4-digit random number
-    return `NMS-INC-${yyyy}${mm}${dd}-${random}`;
+ private async generateCaseNumber(): Promise<string> {
+  const lastIncident = await this.app.prisma.incident.findFirst({
+    orderBy: {
+      createdAt: 'desc',
+    },
+    select: {
+      caseNumber: true,
+    },
+  });
+
+  if (!lastIncident?.caseNumber) {
+    return 'CASE-0001';
   }
+
+  const match = lastIncident.caseNumber.match(/\d+/);
+
+  const lastNumber = match ? parseInt(match[0], 10) : 0;
+
+  const nextNumber = lastNumber + 1;
+
+  return `CASE-${String(nextNumber).padStart(4, '0')}`;
+}
 
   /**
    * Creates a new incident.
@@ -48,7 +62,7 @@ export class IncidentService {
       placeOfReferral?: string;
     }
   ) {
-    const caseNumber = this.generateCaseNumber();
+    const caseNumber = await this.generateCaseNumber();
 
     const initialStatus = user.role === Role.WATCHER
       ? IncidentStatus.DRAFT
