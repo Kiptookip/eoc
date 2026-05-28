@@ -7,14 +7,20 @@ import { BadRequestError } from '../../shared/errors/AppError.js';
 
 const adminRoles = [Role.ADMIN, Role.SUPER_ADMIN];
 
-// ── Schemas ──────────────────────────────────────────────────────────────────
+// ── Schemas ──────────────────────────────────────────────────────────
 
 const createUserSchema = z.object({
   email: z.string().email(),
   passwordRaw: z.string().min(8, 'Password must be at least 8 characters'),
+
   name: z.string().min(2),
-  role: z.nativeEnum(Role),
-  agencyId: z.string().uuid(),
+
+  role: z.nativeEnum(Role).optional(),
+
+  roles: z.array(z.nativeEnum(Role)).min(1).optional(),
+
+  agencyId: z.string().min(1, 'Agency ID is required'),
+
   phone: z.string().optional(),
 });
 
