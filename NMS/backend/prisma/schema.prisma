@@ -360,3 +360,26 @@ model AuditLog {
 
   @@map("audit_logs")
 }
+
+model Facility {
+  id String @id @default(uuid())
+
+  name String
+  type String?
+  kephLevel Int @map("keph_level")
+  subCounty String? @map("sub_county")
+
+  lat Float
+  lng Float
+
+  emergencyContact String? @map("emergency_contact")
+  casualtyContact  String? @map("casualty_contact")
+  address          String?
+
+  isActive Boolean @default(true) @map("is_active")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("facilities")
+}
