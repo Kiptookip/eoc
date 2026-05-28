@@ -13,6 +13,8 @@ import UserManagementPage from '../pages/admin/UserManagementPage';
 import SystemSettingsPage from '../pages/admin/SystemSettingsPage';
 import AnalyticsPage from '../pages/admin/AnalyticsPage';
 import PartnerDashboardPage from '../pages/partner/PartnerDashboardPage';
+import FacilitiesPage from "../pages/admin/FacilitiesPage";
+import FacilityManagementPage from "../pages/admin/FacilityManagementPage";
 
 const Unauthorized = () => (
   <div className="p-10 font-sans font-bold text-status-danger text-center">
@@ -35,6 +37,19 @@ export const router = createBrowserRouter([
     path: '/unauthorized',
     element: <Unauthorized />,
   },
+  
+  {
+  path: "/admin/facilities",
+  element: <FacilitiesPage />,
+}
+  
+{
+  path: "/admin/facilities",
+  element: <FacilityManagementPage />,
+},
+  
+  
+  
   {
     path: '/',
     element: <AppShell />,
