@@ -10,7 +10,22 @@ import {
   Phone,
   X,
   ClipboardText,
+  Hospital,
 } from '@phosphor-icons/react';
+import {
+  SquaresFour,
+  WarningCircle,
+  MapTrifold,
+  ListBullets,
+  Users,
+  Gear,
+  ChartLineUp,
+  Phone,
+  X,
+  ClipboardText,
+  Hospital,
+} from '@phosphor-icons/react';
+
 import { useActiveCalls } from '../../hooks/useActiveCalls';
 import { Link, useLocation } from 'react-router-dom';
 
@@ -30,6 +45,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
     { label: 'Fleet Management', path: '/fleet', icon: MapTrifold, roles: ['SUPER_ADMIN', 'ADMIN', 'DISPATCHER'] },
     { label: 'Call Logs', path: '/call-logs', icon: Phone, roles: ['SUPER_ADMIN', 'ADMIN', 'DISPATCHER'] },
     { label: 'Personnel', path: '/admin/users', icon: Users, roles: ['SUPER_ADMIN', 'ADMIN'] },
+    { label: 'Facilities',path: '/admin/facilities', icon: Hospital, roles: ['SUPER_ADMIN', 'ADMIN'],},
     { label: 'Analytics', path: '/admin/analytics', icon: ChartLineUp, roles: ['SUPER_ADMIN', 'ADMIN'] },
     { label: 'System Settings', path: '/admin/settings', icon: Gear, roles: ['SUPER_ADMIN', 'ADMIN'] },
     { label: 'My Alerts', path: '/watcher', icon: ClipboardText, roles: ['WATCHER'] },
