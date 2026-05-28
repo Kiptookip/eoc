@@ -39,14 +39,13 @@ export const router = createBrowserRouter([
   },
   
   {
-  path: "/admin/facilities",
-  element: <FacilitiesPage />,
-}
-  
-{
-  path: "/admin/facilities",
-  element: <FacilityManagementPage />,
-},
+    path: "/admin/facilities",
+    element: <FacilitiesPage />,
+  },
+  {
+    path: "/admin/facility-management",
+    element: <FacilityManagementPage />,
+  },
   
   
   
