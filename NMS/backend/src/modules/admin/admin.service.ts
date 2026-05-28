@@ -46,23 +46,79 @@ export class AdminService {
     return user;
   }
 
-  async createUser(data: {
-    email: string; passwordRaw: string; name: string; role: Role;
-    agencyId: string; phone?: string;
-  }) {
-    const existing = await this.app.prisma.user.findUnique({ where: { email: data.email } });
-    if (existing) throw new ConflictError('A user with this email already exists');
+ async createUser(data: {
+  email: string;
+  passwordRaw: string;
+  name: string;
+  role?: Role;
+  roles?: Role[];
+  agencyId: string;
+  phone?: string;
+}) {
+  const existing = await this.app.prisma.user.findUnique({
+    where: { email: data.email },
+  });
 
-    const agency = await this.app.prisma.agency.findUnique({ where: { id: data.agencyId } });
-    if (!agency) throw new BadRequestError('Invalid agency ID');
-
-    const passwordHash = await hashPassword(data.passwordRaw);
-    return this.app.prisma.user.create({
-      data: { email: data.email, passwordHash, name: data.name, role: data.role, agencyId: data.agencyId, phone: data.phone },
-      select: { id: true, name: true, email: true, role: true, agencyId: true, createdAt: true },
-    });
+  if (existing) {
+    throw new ConflictError('A user with this email already exists');
   }
 
+  const agency = await this.app.prisma.agency.findUnique({
+    where: { id: data.agencyId },
+  });
+
+  if (!agency) {
+    throw new BadRequestError('Invalid agency ID');
+  }
+
+  const selectedRoles =
+    data.roles && data.roles.length > 0
+      ? [...new Set(data.roles)]
+      : [data.role || Role.WATCHER];
+
+  const passwordHash = await hashPassword(data.passwordRaw);
+
+  const user = await this.app.prisma.user.create({
+    data: {
+      email: data.email,
+      passwordHash,
+      name: data.name,
+      role: selectedRoles[0], // legacy compatibility
+      agencyId: data.agencyId,
+      phone: data.phone,
+
+      roles: {
+        create: selectedRoles.map((role) => ({
+          role,
+        })),
+      },
+    },
+
+    include: {
+      roles: true,
+      agency: true,
+    },
+  });
+
+  return {
+    id: user.id,
+    name: user.name,
+    email: user.email,
+    phone: user.phone,
+
+    role: user.role,
+
+    roles: user.roles.map((r) => r.role),
+
+    activeRole: user.role,
+
+    agencyId: user.agencyId,
+
+    agency: user.agency,
+
+    createdAt: user.createdAt,
+  };
+}
   async updateUser(id: string, data: { name?: string; phone?: string; role?: Role; isActive?: boolean }) {
     const user = await this.app.prisma.user.findUnique({ where: { id } });
     if (!user) throw new NotFoundError('User');
