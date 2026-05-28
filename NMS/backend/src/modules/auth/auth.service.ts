@@ -103,14 +103,14 @@ export class AuthService {
     }
 
     const roles = user.roles.length ? user.roles.map((r) => r.role) : [user.role];
-    const activeRole = roles[0];
+    const activeRole = roles.includes(user.role) ? user.role : roles[0];
 
-    const token = this.app.jwt.sign({
-      userId: user.id,
-      role: activeRole,
-      roles,
-      agencyId: user.agencyId,
-    });
+   const token = this.app.jwt.sign({
+  userId: user.id,
+  role: activeRole,
+  roles,
+  agencyId: user.agencyId,
+});
 
     return {
       token,
