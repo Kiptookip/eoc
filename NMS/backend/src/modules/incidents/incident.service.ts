@@ -18,13 +18,13 @@ export class IncidentService {
     },
   });
 
-  if (!lastIncident?.caseNumber) {
+  if (!lastIncident?.caseNumber?.startsWith('CASE-')) {
     return 'CASE-0001';
   }
 
-  const match = lastIncident.caseNumber.match(/\d+/);
+  const parts = lastIncident.caseNumber.split('-');
 
-  const lastNumber = match ? parseInt(match[0], 10) : 0;
+  const lastNumber = parseInt(parts[1], 10) || 0;
 
   const nextNumber = lastNumber + 1;
 
