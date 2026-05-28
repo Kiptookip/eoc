@@ -38,16 +38,8 @@ export const router = createBrowserRouter([
     element: <Unauthorized />,
   },
   
-  {
-    path: "/admin/facilities",
-    element: <FacilitiesPage />,
-  },
-  {
-    path: "/admin/facility-management",
-    element: <FacilityManagementPage />,
-  },
   
-  
+
   
   {
     path: '/',
@@ -113,6 +105,14 @@ export const router = createBrowserRouter([
           </RoleGuard>
         ),
       },
+       {
+        path: 'facilities',
+        element: (
+          <RoleGuard allowed={['SUPER_ADMIN', 'ADMIN', 'DISPATCHER']}>
+            <FacilityManagementPage />
+          </RoleGuard>
+        ),
+      },
       {
         path: 'call-logs',
         element: (
@@ -121,6 +121,7 @@ export const router = createBrowserRouter([
           </RoleGuard>
         ),
       },
+     
       {
         path: 'watcher',
         element: (
