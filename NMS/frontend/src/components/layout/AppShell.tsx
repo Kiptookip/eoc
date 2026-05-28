@@ -8,6 +8,7 @@ import { socket } from '../../lib/socket';
 import { useNotificationStore } from '../../stores/notificationStore';
 import { useAuthStore } from '../../stores/authStore';
 
+
 export default function AppShell() {
   const { addNotification } = useNotificationStore();
   const token = useAuthStore((s) => s.token);
@@ -22,17 +23,17 @@ export default function AppShell() {
     // Join role and user rooms so backend can target this client
     socket.on('connect', () => {
       socket.emit('join:room', {
-        userId: user.id,
-        roles: [user.role],
-      });
+  userId: user.id,
+  roles: user.roles?.length ? user.roles : [user.role],
+});
     });
 
     // If already connected when this effect runs (e.g. role switch), join immediately
     if (socket.connected) {
       socket.emit('join:room', {
-        userId: user.id,
-        roles: [user.role],
-      });
+  userId: user.id,
+  roles: user.roles?.length ? user.roles : [user.role],
+});
     }
 
     socket.on('incident:new', (data) => {

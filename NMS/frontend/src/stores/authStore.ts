@@ -28,15 +28,15 @@ export const useAuthStore = create<AuthStore>()(
         }),
 
       setRole: (role) =>
-        set((state) => ({
-          user: state.user
-            ? {
-                ...state.user,
-                role,
-                activeRole: role,
-              }
-            : null,
-        })),
+  set((state) => ({
+    user: state.user
+      ? {
+          ...state.user,
+          role,
+          activeRole: role,
+        }
+      : null,
+  })),
 
       setToken: (token) => set({ token }),
 
