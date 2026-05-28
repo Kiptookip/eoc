@@ -9,7 +9,12 @@ export class IncidentService {
    * Generates a unique case number: NMS-INC-YYYYMMDD-XXXX
    */
  private async generateCaseNumber(): Promise<string> {
-  const lastIncident = await this.app.prisma.incident.findFirst({
+  const lastCase = await this.app.prisma.incident.findFirst({
+    where: {
+      caseNumber: {
+        startsWith: 'CASE-',
+      },
+    },
     orderBy: {
       createdAt: 'desc',
     },
@@ -18,13 +23,10 @@ export class IncidentService {
     },
   });
 
-  if (!lastIncident?.caseNumber?.startsWith('CASE-')) {
-    return 'CASE-0001';
-  }
-
-  const parts = lastIncident.caseNumber.split('-');
-
-  const lastNumber = parseInt(parts[1], 10) || 0;
+  const lastNumber =
+    lastCase?.caseNumber?.match(/^CASE-(\d{4})$/)
+      ? parseInt(lastCase.caseNumber.replace('CASE-', ''), 10)
+      : 0;
 
   const nextNumber = lastNumber + 1;
 
